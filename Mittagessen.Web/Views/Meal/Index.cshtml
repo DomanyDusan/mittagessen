@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Mittagessen.Data.Entities.Meal>
+
+<style type="text/css">
+    .meal {
+        height:100px;
+        width:100px;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("Create", "Create")
+
+@foreach (var meal in Model)
+{
+    <div class="meal">
+        <img />
+        <span>@meal.Name</span>
+        <span></span>
+    </div>
+}
