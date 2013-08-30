@@ -12,13 +12,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.ActionLink("Create", "Create")
+@Html.ActionLink("Create", "Create", null, new { @class = "btn btn-primary" })
 
 @foreach (var meal in Model)
 {
     <div class="meal">
-        <img />
         <span>@meal.Name</span>
-        <span></span>
+        <span>@meal.Description</span>
     </div>
+    <br />
 }

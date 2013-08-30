@@ -4,17 +4,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Mittagessen.Data.Entities;
+using Mittagessen.Data.Interfaces;
+using StructureMap.Attributes;
 
 namespace Mittagessen.Web.Controllers
 {
     public class MealController : Controller
     {
-        //
-        // GET: /Meal/
+        [SetterProperty]
+        public ISimpleRepository<Meal> MealRepository { get; set; }
 
         public ActionResult Index()
         {
-            return View();
+            var meals = MealRepository.GetAll();
+            return View(meals);
         }
 
         [HttpGet]
@@ -26,6 +29,7 @@ namespace Mittagessen.Web.Controllers
         [HttpPost]
         public ActionResult Create(Meal meal)
         {
+            MealRepository.Insert(meal);
             return RedirectToAction("Index");
         }
     }
