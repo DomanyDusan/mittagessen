@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
-    <Compile Include="Entities\Enroller.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Enrollment.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\Lunch.cs" />

@@ -1,0 +1,15 @@
+﻿@model Mittagessen.Web.Models.UserModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+           
+@using(Html.BeginForm())
+{
+    @Html.EditorForModel()
+   
+    <input type="submit" value="Login" class="btn btn-primary" />    
+}
+           
+

@@ -19,18 +19,5 @@ namespace Mittagessen.Web.Controllers
             var meals = MealRepository.GetAll();
             return View(meals);
         }
-
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View(new Meal());
-        }
-
-        [HttpPost]
-        public ActionResult Create(Meal meal)
-        {
-            MealRepository.Insert(meal);
-            return RedirectToAction("Index");
-        }
     }
 }

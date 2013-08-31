@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Mittagessen.Data.Entities
 {
-    public class Enroller : EntityBase
+    public class User : EntityBase
     {
         public string Name { get; set; }
         public DateTime RegistrationDate { get; set; }

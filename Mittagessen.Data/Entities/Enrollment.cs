@@ -8,7 +8,7 @@ namespace Mittagessen.Data.Entities
     public class Enrollment : EntityBase
     {
         public DateTime EnrollmentDate { get; set; }
-        public Enroller EnrolledBy { get; set; }
+        public User EnrolledBy { get; set; }
         public Lunch EnrolledForLunch { get; set; }
     }
 }

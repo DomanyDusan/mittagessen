@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Mittagessen.Web.Infrastructure;
 using Mittagessen.Web.Bootstrap;
+using System.Web.Security;
+using System.Configuration;
 
 namespace Mittagessen.Web
 {
@@ -40,6 +42,29 @@ namespace Mittagessen.Web
 
             IocConfig.RegisterComponents();
             AppConfig.Initialize();
+        }
+
+        protected void FormsAuthentication_OnAuthenticate(Object sender, FormsAuthenticationEventArgs e)
+        {
+            if (FormsAuthentication.CookiesSupported == true)
+            {
+                if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+                {
+                    try
+                    {
+                        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+                        string roles = username == ConfigurationManager.AppSettings["AdminName"] ? "admin" : string.Empty;
+
+                        //Let us set the Pricipal with our user specific details
+                        e.User = new System.Security.Principal.GenericPrincipal(
+                          new System.Security.Principal.GenericIdentity(username, "Forms"), roles.Split(';'));
+                    }
+                    catch (Exception)
+                    {
+                        //somehting went wrong
+                    }
+                }
+            }
         }
     }
 }
