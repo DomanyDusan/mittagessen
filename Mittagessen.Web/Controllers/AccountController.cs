@@ -11,8 +11,6 @@ namespace Mittagessen.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private const string USER_PASSWORD = "willessen";
-
         public ActionResult LogOn()
         {
             var user = new UserModel()

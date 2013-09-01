@@ -1,0 +1,12 @@
+﻿@model Mittagessen.Data.Entities.Meal
+           
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @Html.ActionLink("Upravit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+</div>
+
+@Html.DisplayForModel();

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Mittagessen.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         //

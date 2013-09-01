@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .meal {
+        height:200px;
+        width:200px;
+        padding:10px;
+        position:relative;
+        float:left;
+    }
+    
+    .meal img {
+        width:180px;
+    }
+</style>
+
+<div>
+    @Html.ActionLink("Novy recept", "Create", null, new { @class = "btn btn-primary" })
+</div>
+
+@foreach (var meal in Model)
+{
+    <div class="meal">
+        <a href='@Url.Action("Details", new { id = meal.Id })'>
+            <img alt="@meal.Name" src="@meal.ImageName" />
+            <span>@meal.Name</span>
+        </a>
+    </div>
+}

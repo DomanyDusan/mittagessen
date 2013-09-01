@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Mittagessen.Data.Interfaces;
 using Mittagessen.Data.Entities;
+using System.Data;
 
 namespace Mittagessen.Data.Repositories
 {
@@ -18,6 +19,13 @@ namespace Mittagessen.Data.Repositories
         {
             entity.Id = Guid.NewGuid();
             Session.Set<T>().Add(entity);
+            Session.SaveChanges();
+        }
+
+        public void Update(T entity)
+        {
+            Session.Set<T>().Attach(entity);
+            Session.Entry(entity).State = EntityState.Modified;
             Session.SaveChanges();
         }
     }

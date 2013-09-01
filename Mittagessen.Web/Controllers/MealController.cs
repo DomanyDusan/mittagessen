@@ -9,6 +9,7 @@ using StructureMap.Attributes;
 
 namespace Mittagessen.Web.Controllers
 {
+    [Authorize]
     public class MealController : Controller
     {
         [SetterProperty]

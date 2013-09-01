@@ -17,7 +17,7 @@ namespace Mittagessen.Web.Areas.Sprava
             context.MapRoute(
                 "Sprava_default",
                 "Sprava/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", controller = "Lunch", id = UrlParameter.Optional }
             );
         }
     }

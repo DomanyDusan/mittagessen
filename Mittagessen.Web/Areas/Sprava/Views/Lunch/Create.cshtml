@@ -1,0 +1,8 @@
+﻿@model Mittagessen.Data.Entities.Lunch
+
+@using(Html.BeginForm("Create", "Lunch", FormMethod.Post))
+{
+    @Html.EditorForModel()
+
+    <input type="submit" class="btn btn-primary" value="Ulozit" />
+}

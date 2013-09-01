@@ -1,0 +1,13 @@
+﻿@model Mittagessen.Data.Entities.Meal
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using(Html.BeginForm("Edit", "Meal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.EditorForModel()
+
+    <input type="submit" class="btn btn-primary" value="Ulozit" />
+}

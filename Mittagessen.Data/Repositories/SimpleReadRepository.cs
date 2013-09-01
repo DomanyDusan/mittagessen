@@ -16,12 +16,12 @@ namespace Mittagessen.Data.Repositories
 
         public T Get(Guid id)
         {
-            return Session.Set<T>().Single(x => x.Id == id);
+            return Session.Set<T>().Find(id);
         }
 
         public IEnumerable<T> GetAll()
         {
-            return Session.Set<T>().ToList();
+            return Session.Set<T>().AsNoTracking().ToList();
         }
     }
 }

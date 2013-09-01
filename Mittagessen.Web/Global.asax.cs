@@ -16,6 +16,8 @@ namespace Mittagessen.Web
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        private NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -46,25 +48,34 @@ namespace Mittagessen.Web
 
         protected void FormsAuthentication_OnAuthenticate(Object sender, FormsAuthenticationEventArgs e)
         {
-            if (FormsAuthentication.CookiesSupported == true)
-            {
-                if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
-                {
-                    try
-                    {
-                        string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
-                        string roles = username == ConfigurationManager.AppSettings["AdminName"] ? "admin" : string.Empty;
+            string username;
+            if (e.Context.Request.IsLocal)
+                username = ConfigurationManager.AppSettings["AdminName"];
+            else if (FormsAuthentication.CookiesSupported == false || Request.Cookies[FormsAuthentication.FormsCookieName] == null)
+                return;
+            else
+                username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
 
-                        //Let us set the Pricipal with our user specific details
-                        e.User = new System.Security.Principal.GenericPrincipal(
-                          new System.Security.Principal.GenericIdentity(username, "Forms"), roles.Split(';'));
-                    }
-                    catch (Exception)
-                    {
-                        //somehting went wrong
-                    }
-                }
+            try
+            {
+                string roles = username == ConfigurationManager.AppSettings["AdminName"] ? "admin" : string.Empty;
+
+                //Let us set the Pricipal with our user specific details
+                e.User = new System.Security.Principal.GenericPrincipal(
+                    new System.Security.Principal.GenericIdentity(username, "Forms"), roles.Split(';'));
             }
+            catch (Exception exception)
+            {
+                Logger.ErrorException("Unhandled exception occured", exception);
+            }
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+            Logger.FatalException("Unhandled exception occured", exception);
+
+            Server.ClearError();
         }
     }
 }

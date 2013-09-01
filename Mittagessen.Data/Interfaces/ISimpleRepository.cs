@@ -8,5 +8,6 @@ namespace Mittagessen.Data.Interfaces
     public interface ISimpleRepository<T> : ISimpleReadRepository<T>
     {
         void Insert(T entity);
+        void Update(T entity);
     }
 }

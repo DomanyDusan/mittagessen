@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using StructureMap.Attributes;
 using Mittagessen.Data.Interfaces;
 using Mittagessen.Data.Entities;
+using System.IO;
+using System.Configuration;
 
 namespace Mittagessen.Web.Areas.Sprava.Controllers
 {
@@ -18,6 +20,11 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         public ActionResult Index()
         {
             var meals = MealRepository.GetAll();
+            foreach (var meal in meals)
+            {
+                if(!string.IsNullOrEmpty(meal.ImageName))
+                    meal.ImageName = Url.Content("~" + ConfigurationManager.AppSettings["UploadsPath"] + "/" + meal.ImageName);
+            }
             return View(meals);
         }
 
@@ -28,11 +35,54 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Meal meal)
+        public ActionResult Create(Meal meal, HttpPostedFileBase file)
         {
+            SaveMealImage(meal, file);
+
             MealRepository.Insert(meal);
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Details(Guid id)
+        {
+            var meal = MealRepository.Get(id);
+            meal.ImageName = Url.Content("~" + ConfigurationManager.AppSettings["UploadsPath"] + "/" + meal.ImageName);
+            return View(meal);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            var meal = MealRepository.Get(id);
+            return View(meal);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Meal meal, HttpPostedFileBase file)
+        {
+            SaveMealImage(meal, file);
+            MealRepository.Update(meal);
+            return RedirectToAction("Index");
+        }
+
+        private void SaveMealImage(Meal meal, HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                if (!string.IsNullOrEmpty(meal.ImageName))
+                {
+                    var oldImgPath = Path.Combine(Server.MapPath("~" + ConfigurationManager.AppSettings["UploadsPath"]), meal.ImageName);
+                    if (System.IO.File.Exists(oldImgPath))
+                        System.IO.File.Delete(oldImgPath);
+                }
+
+                var fileName = Guid.NewGuid().ToString().Replace('-', '_') + ".jpg";
+                var path = Path.Combine(Server.MapPath("~" + ConfigurationManager.AppSettings["UploadsPath"]), fileName);
+                file.SaveAs(path);
+
+                meal.ImageName = fileName;
+            }
+        }
     }
 }
