@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Mittagessen.Data.Entities.Meal>
+           
+@{
+    Layout = null;
+}
+
+@foreach (var meal in Model)
+{
+    <div class="meal" meal-id="@meal.Id" meal-name="@meal.Name" data-dismiss="modal">
+        <img alt="@meal.Name" src="@meal.ImageName" />
+        <span>@meal.Name</span>
+    </div>
+}

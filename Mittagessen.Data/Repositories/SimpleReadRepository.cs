@@ -21,7 +21,7 @@ namespace Mittagessen.Data.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return Session.Set<T>().AsNoTracking().ToList();
+            return Session.Set<T>().ToList();
         }
     }
 }

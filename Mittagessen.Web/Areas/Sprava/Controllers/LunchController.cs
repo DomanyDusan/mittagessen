@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Mittagessen.Data.Entities;
+using Mittagessen.Web.Helpers;
 using StructureMap.Attributes;
 using Mittagessen.Data.Interfaces;
 
@@ -20,25 +21,45 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var lunches = LunchRepository.GetAll();
+
+            return View(lunches);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.CookedMeal = MealRepository.GetAll().Select(x => new SelectListItem() 
-                { 
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                });
-
-            return View();
+            var lunch = new Lunch()
+                            {
+                                LunchDate = DateTime.Today,
+                                NumberOfPortions = 10
+                            };
+            return View(lunch);
         }
 
         [HttpPost]
         public ActionResult Create(Lunch lunch)
         {
-            return View(lunch);
+            if (ModelState.IsValid)
+            {
+                lunch.CookedMeal = MealRepository.Get(lunch.CookedMeal.Id);
+                LunchRepository.Insert(lunch);
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(lunch);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult MealList()
+        {
+            var meals = MealRepository.GetAll();
+            foreach (var meal in meals)
+                meal.ImageName = this.AdaptImageUrl(meal.ImageName);
+            return View(meals);
         }
     }
 }

@@ -1,6 +1,21 @@
-﻿@{
+﻿@model IEnumerable<Mittagessen.Data.Entities.Lunch>
+
+@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Sprava/Views/Shared/_Layout.cshtml";
 }
 
+ 
 @Html.Action("Create")
+
+<table class="table">
+@foreach(var lunch in Model)
+{
+    <tr>
+        <td>@lunch.LunchDate</td>
+        <td>@lunch.CookedMeal.Name</td>
+        <td>@lunch.NumberOfPortions</td>
+    </tr>
+}
+</table>
+

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -9,12 +10,16 @@ namespace Mittagessen.Data.Entities
 {
     public class Meal : EntityBase
     {
+        [DisplayName("Nazov")]
         public string Name { get; set; }
         [DataType(DataType.MultilineText)]
+        [DisplayName("Popis")]
         public string Description { get; set; }
         [DataType(DataType.MultilineText)]
+        [DisplayName("Suroviny")]
         public string Ingredients { get; set; }
         [UIHint("Image")]
+        [DisplayName("Obrazok")]
         public string ImageName { get; set; }
     }
 }

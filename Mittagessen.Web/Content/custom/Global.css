@@ -1,0 +1,11 @@
+﻿.meal {
+    height:200px;
+    width:200px;
+    padding:10px;
+    position:relative;
+    float:left;
+}
+    
+.meal img {
+    width:180px;
+}

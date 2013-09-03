@@ -8,6 +8,7 @@ using Mittagessen.Data.Interfaces;
 using Mittagessen.Data.Entities;
 using System.IO;
 using System.Configuration;
+using Mittagessen.Web.Helpers;
 
 namespace Mittagessen.Web.Areas.Sprava.Controllers
 {
@@ -21,10 +22,7 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         {
             var meals = MealRepository.GetAll();
             foreach (var meal in meals)
-            {
-                if(!string.IsNullOrEmpty(meal.ImageName))
-                    meal.ImageName = Url.Content("~" + ConfigurationManager.AppSettings["UploadsPath"] + "/" + meal.ImageName);
-            }
+                meal.ImageName = this.AdaptImageUrl(meal.ImageName);
             return View(meals);
         }
 
@@ -47,7 +45,7 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         public ActionResult Details(Guid id)
         {
             var meal = MealRepository.Get(id);
-            meal.ImageName = Url.Content("~" + ConfigurationManager.AppSettings["UploadsPath"] + "/" + meal.ImageName);
+            meal.ImageName = this.AdaptImageUrl(meal.ImageName);
             return View(meal);
         }
 

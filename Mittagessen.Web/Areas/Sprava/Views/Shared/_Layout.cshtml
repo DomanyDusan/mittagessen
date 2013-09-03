@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    
+    <div class="navbar">
+  
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav">
+                    <li>@Html.ActionLink("Obedy", "Index", "Lunch")</li>
+                    <li>@Html.ActionLink("Jedla", "Index", "Meal")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div >
+        @RenderBody()
+    </div>
+
+</div>

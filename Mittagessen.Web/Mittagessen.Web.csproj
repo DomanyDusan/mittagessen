@@ -72,12 +72,12 @@
   <ItemGroup>
     <Compile Include="Areas\Sprava\Controllers\LunchController.cs" />
     <Compile Include="Areas\Sprava\Controllers\MealController.cs" />
+    <Compile Include="Helpers\ControllerExtensions.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Areas\Sprava\SpravaAreaRegistration.cs" />
     <Compile Include="Bootstrap\AppConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -89,10 +89,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap\bootstrap.css" />
-    <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom\Global.css" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -159,15 +162,17 @@
     <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-2.0.3-vsdoc.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -207,24 +212,23 @@
     <Content Include="Areas\Sprava\Views\Meal\Edit.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Index.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Create.cshtml" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Areas\Sprava\Views\Shared\_Layout.cshtml" />
     <None Include="db.config" />
     <None Include="personal.config" />
     <None Include="Properties\PublishProfiles\Somee.pubxml" />
-    <None Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Meal\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Image.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Image.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
+    <Content Include="Areas\Sprava\Views\Lunch\MealList.cshtml" />
+    <None Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Home\Meals.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Sprava\Models\" />
-    <Folder Include="Areas\Sprava\Views\Shared\" />
     <Folder Include="Content\uploads\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,1 +1,11 @@
-﻿@Html.DropDownListFor(x => x, null)
+﻿@*@Html.DropDownListFor(x => x, null)*@
+@{
+    var propertyName = ViewData.ModelMetadata.PropertyName+"Items";
+    var items = (IEnumerable<SelectListItem>) ViewData[propertyName];
+    var prefix = ViewData.TemplateInfo.HtmlFieldPrefix;
+    ViewData.TemplateInfo.HtmlFieldPrefix = String.Empty;  // Have to set this through strange mvc behavior
+        
+    @Html.DropDownList(ViewData.ModelMetadata.PropertyName, items);
+
+    ViewData.TemplateInfo.HtmlFieldPrefix = prefix;                                                 
+}
