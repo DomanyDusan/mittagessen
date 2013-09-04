@@ -36,7 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
@@ -72,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Areas\Sprava\Controllers\LunchController.cs" />
     <Compile Include="Areas\Sprava\Controllers\MealController.cs" />
+    <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Areas\Sprava\SpravaAreaRegistration.cs" />
@@ -213,6 +215,7 @@
     <Content Include="Areas\Sprava\Views\Lunch\Index.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Create.cshtml" />
     <Content Include="Areas\Sprava\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Sprava\Views\Lunch\Edit.cshtml" />
     <None Include="db.config" />
     <None Include="personal.config" />
     <None Include="Properties\PublishProfiles\Somee.pubxml" />
@@ -224,7 +227,7 @@
     <Content Include="Areas\Sprava\Views\Lunch\MealList.cshtml" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Views\Home\Meals.cshtml" />
+    <Content Include="Views\Overview\Meals.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
   </ItemGroup>
   <ItemGroup>

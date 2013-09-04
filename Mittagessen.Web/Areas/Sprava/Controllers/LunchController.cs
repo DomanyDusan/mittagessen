@@ -17,7 +17,7 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         public ISimpleRepository<Meal> MealRepository { get; set; }
 
         [SetterProperty]
-        public ISimpleRepository<Lunch> LunchRepository { get; set; }
+        public ILunchRepository LunchRepository { get; set; }
 
         public ActionResult Index()
         {
@@ -42,7 +42,6 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         {
             if (ModelState.IsValid)
             {
-                lunch.CookedMeal = MealRepository.Get(lunch.CookedMeal.Id);
                 LunchRepository.Insert(lunch);
 
                 return RedirectToAction("Index");
@@ -51,6 +50,20 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
             {
                 return View(lunch);
             }
+        }
+
+        [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            var lunch = LunchRepository.Get(id);
+
+            return View(lunch);
+        }
+
+        public ActionResult Edit(Lunch lunch)
+        {
+            LunchRepository.Update(lunch);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

@@ -27,6 +27,13 @@ namespace Mittagessen.Web.Bootstrap
 
             exp.For(typeof(ISimpleRepository<>))
                 .Use(typeof(SimpleRepository<>));
+
+            exp.Scan(cfg =>
+                {
+                    cfg.AssemblyContainingType<RepositoryBase>();
+                    cfg.IncludeNamespaceContainingType<RepositoryBase>();
+                    cfg.SingleImplementationsOfInterface();
+                });
         }       
     }
 }

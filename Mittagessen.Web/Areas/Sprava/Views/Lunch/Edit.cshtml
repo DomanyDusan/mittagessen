@@ -1,7 +1,7 @@
 ﻿@model Mittagessen.Data.Entities.Lunch
 
 @{
-    Layout = null;
+    Layout = "~/Areas/Sprava/Views/Shared/_Layout.cshtml";
 }
 
 <script type="text/javascript">
@@ -13,7 +13,7 @@
     });
 </script>
 
-@using(Html.BeginForm("Create", "Lunch", FormMethod.Post))
+@using(Html.BeginForm("Edit", "Lunch", FormMethod.Post))
 {
     @Html.EditorForModel()
 
@@ -21,7 +21,7 @@
 
     <div>
         <a href="#myModal" role="button" class="btn" data-toggle="modal">Vybrat jedlo</a>
-        <span id="cooked-meal-name"></span>
+        <span id="cooked-meal-name">@Model.CookedMeal.Name</span>
     </div>
     <br />
     <div>

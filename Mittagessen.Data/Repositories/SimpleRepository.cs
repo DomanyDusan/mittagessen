@@ -15,14 +15,14 @@ namespace Mittagessen.Data.Repositories
             : base(dbContextManager)
         { }
 
-        public void Insert(T entity)
+        public virtual void Insert(T entity)
         {
             entity.Id = Guid.NewGuid();
             Session.Set<T>().Add(entity);
             Session.SaveChanges();
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             Session.Set<T>().Attach(entity);
             Session.Entry(entity).State = EntityState.Modified;

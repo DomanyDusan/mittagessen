@@ -21,12 +21,6 @@ namespace Mittagessen.Web.Controllers
             return View();
         }
 
-        public ActionResult Meals()
-        {
-            var meals = MealRepository.GetAll();
-            foreach (var meal in meals)
-                meal.ImageName = this.AdaptImageUrl(meal.ImageName);
-            return View(meals);
-        }
+
     }
 }

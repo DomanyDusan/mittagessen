@@ -8,6 +8,7 @@ using Mittagessen.Web.Infrastructure;
 using Mittagessen.Web.Bootstrap;
 using System.Web.Security;
 using System.Configuration;
+using Mittagessen.Data;
 
 namespace Mittagessen.Web
 {
@@ -44,6 +45,13 @@ namespace Mittagessen.Web
 
             IocConfig.RegisterComponents();
             AppConfig.Initialize();
+        }
+
+        protected void Application_EndRequest()
+        {
+            var dataContext = (DataContext)HttpContext.Current.Items[DbContextManager.DATA_CONTEXT_KEY];
+            if (dataContext != null && !dataContext.IsDisposed)
+                dataContext.Dispose();
         }
 
         protected void FormsAuthentication_OnAuthenticate(Object sender, FormsAuthenticationEventArgs e)

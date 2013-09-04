@@ -33,7 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
@@ -58,9 +59,11 @@
     <Compile Include="Entities\Lunch.cs" />
     <Compile Include="Entities\Meal.cs" />
     <Compile Include="Interfaces\IDbContextManager.cs" />
+    <Compile Include="Interfaces\ILunchRepository.cs" />
     <Compile Include="Interfaces\ISimpleReadRepository.cs" />
     <Compile Include="Interfaces\ISimpleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\LunchRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\SimpleReadRepository.cs" />
     <Compile Include="Repositories\SimpleRepository.cs" />

@@ -14,12 +14,13 @@ namespace Mittagessen.Data.Repositories
             : base(dbContextManager)
         { }
 
-        public T Get(Guid id)
+        public virtual T Get(Guid id)
         {
-            return Session.Set<T>().Find(id);
+            var result = Session.Set<T>().Find(id);
+            return result;
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return Session.Set<T>().ToList();
         }
