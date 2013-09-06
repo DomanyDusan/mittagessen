@@ -20,6 +20,7 @@ namespace Mittagessen.Web.Models
         [Compare("CommonRegistrationPassword")]
         public string RegistrationPassword { get; set; }
         [Required]
+        [Remote("UserNameExists", "Account", "", ErrorMessage = "Der Benutzername wird schon benutzt")]
         public string RegistrationName { get; set; }
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

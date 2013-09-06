@@ -1,13 +1,13 @@
 ﻿.meal {
-    height:200px;
-    width:200px;
+    height:300px;
+    width:300px;
     padding:10px;
     position:relative;
     float:left;
 }
     
 .meal img {
-    width:180px;
+    width:280px;
 }
 
 .input-validation-error {
@@ -23,4 +23,12 @@
     
 .requiredIndicator {
     display: block;
+}
+
+.enrolled-msg {
+    margin:5px;
+    color:Green;
+    font-weight:bold;
+    font-style:oblique;
+    font-size:120%;
 }

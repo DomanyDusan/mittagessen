@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Mittagessen.Data.Interfaces;
 using Mittagessen.Data.Entities;
+using System.Transactions;
 
 namespace Mittagessen.Data.Repositories
 {
@@ -16,6 +17,18 @@ namespace Mittagessen.Data.Repositories
         public User GetUserByName(string name)
         {
             return Session.Users.SingleOrDefault(u => u.Name == name);
+        }
+
+        public override void Insert(User entity)
+        {
+            using (var tr = new TransactionScope())
+            {
+                if (GetUserByName(entity.Name) == null)
+                {
+                    base.Insert(entity);
+                    tr.Complete();
+                }
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using Mittagessen.Data.Entities;
 using Mittagessen.Data.Interfaces;
 using System.Data;
+using System.Data.Entity;
 
 namespace Mittagessen.Data.Repositories
 {
@@ -16,19 +17,19 @@ namespace Mittagessen.Data.Repositories
 
         public override Lunch Get(Guid id)
         {
-            return Session.Lunches.Include("CookedMeal").Include("Enrollments").SingleOrDefault(x => x.Id == id);
+            return Session.Lunches.Include(x => x.CookedMeal).Include(x => x.Enrollments).SingleOrDefault(x => x.Id == id);
         }
 
         public override IEnumerable<Lunch> GetAll()
         {
-            return Session.Lunches.Include("CookedMeal").Include("Enrollments").ToList();
+            return Session.Lunches.Include(x => x.CookedMeal).Include(x => x.Enrollments).ToList();
         }
 
         public IEnumerable<Lunch> GetLunchesForThisWeek()
         {
             var weekStart = DateTime.Today.Subtract(TimeSpan.FromDays((double)DateTime.Today.DayOfWeek));
             var weekEnd = weekStart.AddDays(7);
-            return Session.Lunches.Include("CookedMeal").Where(l => l.LunchDate > weekStart && l.LunchDate < weekEnd);
+            return Session.Lunches.Include(x => x.CookedMeal).Where(l => l.LunchDate > weekStart && l.LunchDate < weekEnd);
         }
     }
 }

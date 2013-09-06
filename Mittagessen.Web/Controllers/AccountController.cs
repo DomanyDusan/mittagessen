@@ -40,6 +40,9 @@ namespace Mittagessen.Web.Controllers
         [HttpPost]
         public ActionResult Registration(RegistrationModel registration)
         {
+            if (UserRepository.GetUserByName(registration.RegistrationName) != null)
+                ModelState.AddModelError("RegistrationName", "Der Benutzername wird schon benutzt");
+
             if (ModelState.IsValid)
             {
                 var user = new User()
@@ -107,5 +110,12 @@ namespace Mittagessen.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        public JsonResult UserNameExists(string RegistrationName)
+        {
+            var userNameAvailable = UserRepository.GetUserByName(RegistrationName) == null;
+
+            return Json(userNameAvailable, JsonRequestBehavior.AllowGet);           
+        }
     }
 }

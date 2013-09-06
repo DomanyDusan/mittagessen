@@ -27,6 +27,11 @@ namespace Mittagessen.Web.Controllers
             return View(meals);
         }
 
-
+        [HttpPost]
+        public ActionResult MealDetails(Guid mealId)
+        {
+            var meal = MealRepository.Get(mealId);
+            return View(meal);
+        }
     }
 }
