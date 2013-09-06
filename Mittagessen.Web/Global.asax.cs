@@ -57,9 +57,9 @@ namespace Mittagessen.Web
         protected void FormsAuthentication_OnAuthenticate(Object sender, FormsAuthenticationEventArgs e)
         {
             string username;
-            if (e.Context.Request.IsLocal)
-                username = ConfigurationManager.AppSettings["AdminName"];
-            else if (FormsAuthentication.CookiesSupported == false || Request.Cookies[FormsAuthentication.FormsCookieName] == null)
+            //if (e.Context.Request.IsLocal)
+            //    username = ConfigurationManager.AppSettings["AdminName"];
+            if (FormsAuthentication.CookiesSupported == false || Request.Cookies[FormsAuthentication.FormsCookieName] == null)
                 return;
             else
                 username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;

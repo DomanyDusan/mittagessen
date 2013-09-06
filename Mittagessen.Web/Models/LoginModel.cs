@@ -6,11 +6,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mittagessen.Web.Models
 {
-    public class UserModel
+    public class LoginModel
     {
-        public string UserName { get; set; }
+        [Required]
+        public string LoginName { get; set; }
+        [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string LoginPassword { get; set; }
         public bool RememberLogin { get; set; }
     }
 }

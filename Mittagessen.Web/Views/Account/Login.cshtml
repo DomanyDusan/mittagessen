@@ -1,0 +1,13 @@
+﻿@model Mittagessen.Web.Models.LoginModel
+
+@{
+    Layout = null;
+}
+
+@using(Html.BeginForm("Login"))
+{
+    @Html.EditorForModel()
+   
+    <input type="submit" value="Login" class="btn btn-primary" />    
+}
+  

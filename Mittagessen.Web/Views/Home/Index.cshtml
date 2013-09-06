@@ -1,6 +1,20 @@
-﻿@{
+﻿@model IEnumerable<Mittagessen.Data.Entities.Lunch>
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Anmeldung</h2>
+
+@foreach (var lunch in Model)
+{    
+    <div class="meal">
+        <span>@lunch.LunchDate</span>
+        <a href='@Url.Action("Details", new { id = lunch.CookedMealId })'>
+            <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
+            <span>@lunch.CookedMeal.Name</span>
+        </a>
+        <input type='button' value='Anmelden' class='btn btn-primary' />
+    </div>
+}

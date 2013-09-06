@@ -62,11 +62,13 @@
     <Compile Include="Interfaces\ILunchRepository.cs" />
     <Compile Include="Interfaces\ISimpleReadRepository.cs" />
     <Compile Include="Interfaces\ISimpleRepository.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\LunchRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\SimpleReadRepository.cs" />
     <Compile Include="Repositories\SimpleRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

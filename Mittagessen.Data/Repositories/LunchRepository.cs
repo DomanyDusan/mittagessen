@@ -23,5 +23,12 @@ namespace Mittagessen.Data.Repositories
         {
             return Session.Lunches.Include("CookedMeal").ToList();
         }
+
+        public IEnumerable<Lunch> GetLunchesForThisWeek()
+        {
+            var weekStart = DateTime.Today.Subtract(TimeSpan.FromDays((double)DateTime.Today.DayOfWeek));
+            var weekEnd = weekStart.AddDays(7);
+            return Session.Lunches.Include("CookedMeal").Where(l => l.LunchDate > weekStart && l.LunchDate < weekEnd);
+        }
     }
 }

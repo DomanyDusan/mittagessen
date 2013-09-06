@@ -6,8 +6,8 @@ using Mittagessen.Data.Entities;
 
 namespace Mittagessen.Data.Interfaces
 {
-    public interface ILunchRepository : ISimpleRepository<Lunch>
+    public interface IUserRepository : ISimpleRepository<User>
     {
-        IEnumerable<Lunch> GetLunchesForThisWeek();
+        User GetUserByName(string name);
     }
 }

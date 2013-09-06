@@ -14,13 +14,13 @@ namespace Mittagessen.Web.Controllers
     public class HomeController : Controller
     {
         [SetterProperty]
-        public ISimpleRepository<Meal> MealRepository { get; set; }
+        public ILunchRepository LunchRepository { get; set; }
 
         public ActionResult Index()
         {
-            return View();
+            var thisWeekLunches = LunchRepository.GetLunchesForThisWeek();
+
+            return View(thisWeekLunches);
         }
-
-
     }
 }

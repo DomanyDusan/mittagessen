@@ -75,7 +75,7 @@
     <Compile Include="Areas\Sprava\Controllers\MealController.cs" />
     <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Areas\Sprava\SpravaAreaRegistration.cs" />
     <Compile Include="Bootstrap\AppConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -88,6 +88,7 @@
     <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
     <Compile Include="Models\EnrollmentEntry.cs" />
     <Compile Include="Models\EnrollmentsModel.cs" />
+    <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +203,10 @@
       <Project>{D1ABCC0E-AB0D-4F48-83C3-B213CBAD339A}</Project>
       <Name>Mittagessen.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mittagessen.Helpers\Mittagessen.Helpers.csproj">
+      <Project>{D192979E-CD32-48B1-A159-F1C4827B2B0E}</Project>
+      <Name>Mittagessen.Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -229,6 +234,8 @@
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Overview\Meals.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Sprava\Models\" />
