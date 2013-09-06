@@ -21,8 +21,6 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         public ActionResult Index()
         {
             var meals = MealRepository.GetAll();
-            foreach (var meal in meals)
-                meal.ImageName = this.AdaptImageUrl(meal.ImageName);
             return View(meals);
         }
 
@@ -45,7 +43,6 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         public ActionResult Details(Guid id)
         {
             var meal = MealRepository.Get(id);
-            meal.ImageName = this.AdaptImageUrl(meal.ImageName);
             return View(meal);
         }
 
@@ -79,7 +76,7 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
                 var path = Path.Combine(Server.MapPath("~" + ConfigurationManager.AppSettings["UploadsPath"]), fileName);
                 file.SaveAs(path);
 
-                meal.ImageName = fileName;
+                meal.ImageName = this.Url.Content("~" + ConfigurationManager.AppSettings["UploadsPath"] + "/" + fileName);
             }
         }
     }

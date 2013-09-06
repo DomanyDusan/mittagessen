@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Mittagessen.Data.Entities;
 using Mittagessen.Web.Helpers;
+using Mittagessen.Web.Infrastructure;
 using StructureMap.Attributes;
 using Mittagessen.Data.Interfaces;
 
@@ -31,7 +32,7 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         {
             var lunch = new Lunch()
                             {
-                                LunchDate = DateTime.Today,
+                                LunchDate = DateTime.Today.AddHours(12).AddMinutes(30),
                                 NumberOfPortions = 10
                             };
             return View(lunch);
@@ -70,8 +71,6 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         public ActionResult MealList()
         {
             var meals = MealRepository.GetAll();
-            foreach (var meal in meals)
-                meal.ImageName = this.AdaptImageUrl(meal.ImageName);
             return View(meals);
         }
     }

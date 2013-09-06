@@ -75,6 +75,7 @@
     <Compile Include="Areas\Sprava\Controllers\MealController.cs" />
     <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
+    <Compile Include="Infrastructure\DateAndTimeModelBinder.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Areas\Sprava\SpravaAreaRegistration.cs" />
     <Compile Include="Bootstrap\AppConfig.cs" />
@@ -86,8 +87,7 @@
     <Compile Include="Infrastructure\DbContextManager.cs" />
     <Compile Include="Bootstrap\IocConfig.cs" />
     <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
-    <Compile Include="Models\EnrollmentEntry.cs" />
-    <Compile Include="Models\EnrollmentsModel.cs" />
+    <Compile Include="Models\EnrollmentModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -15,9 +15,17 @@
 
 @using(Html.BeginForm("Edit", "Lunch", FormMethod.Post))
 {
-    @Html.EditorForModel()
+    <div>
+        @Html.TextBox("LunchDate", Model.LunchDate.ToShortDateString(), new { @class = "date" })
+    </div>
+    <div>
+        @Html.TextBox("LunchDate.Time", Model.LunchDate.ToShortTimeString())
+    </div>
+    <div>
+        @Html.TextBoxFor(m => m.NumberOfPortions)
+    </div>
 
-    @Html.HiddenFor(x => x.CookedMealId, new { id = "cooked-meal-id"})
+    @Html.HiddenFor(x => x.CookedMealId, new { id = "cooked-meal-id" })
 
     <div>
         <a href="#myModal" role="button" class="btn" data-toggle="modal">Vybrat jedlo</a>

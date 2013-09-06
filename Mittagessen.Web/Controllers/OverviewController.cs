@@ -13,19 +13,20 @@ namespace Mittagessen.Web.Controllers
     public class OverviewController : Controller
     {
         [SetterProperty]
-
         public ISimpleRepository<Meal> MealRepository { get; set; }
+
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         public ActionResult Meals()
         {
             var meals = MealRepository.GetAll();
-            foreach (var meal in meals)
-                meal.ImageName = this.AdaptImageUrl(meal.ImageName);
             return View(meals);
         }
+
+
     }
 }

@@ -16,12 +16,12 @@ namespace Mittagessen.Data.Repositories
 
         public override Lunch Get(Guid id)
         {
-            return Session.Lunches.Include("CookedMeal").SingleOrDefault(x => x.Id == id);
+            return Session.Lunches.Include("CookedMeal").Include("Enrollments").SingleOrDefault(x => x.Id == id);
         }
 
         public override IEnumerable<Lunch> GetAll()
         {
-            return Session.Lunches.Include("CookedMeal").ToList();
+            return Session.Lunches.Include("CookedMeal").Include("Enrollments").ToList();
         }
 
         public IEnumerable<Lunch> GetLunchesForThisWeek()

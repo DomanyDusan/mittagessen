@@ -1,13 +1,26 @@
-﻿@model IEnumerable<Mittagessen.Data.Entities.Lunch>
-
+﻿@model Mittagessen.Web.Models.EnrollmentModel
+           
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    $(function () {
+        $(".enroll-button").click(function () {
+            var test = this;
+            var enrollButton = $(this);
+            enrollButton.attr("disabled", "disabled");
+            $.post('@Url.Action("EnrollUser")', { lunchId: enrollButton.attr("lunch-id") }, function () {
+                test.outerHTML = '<span>Angemeldet</span>';
+            });
+        });
+    });       
+</script>
+
 <h2>Anmeldung</h2>
 
-@foreach (var lunch in Model)
+@foreach (var lunch in Model.Lunches)
 {    
     <div class="meal">
         <span>@lunch.LunchDate</span>
@@ -15,6 +28,13 @@
             <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
             <span>@lunch.CookedMeal.Name</span>
         </a>
-        <input type='button' value='Anmelden' class='btn btn-primary' />
+        @if(Model.EnrolledByUser(lunch))
+        {
+            <span>Angemeldet</span>
+        }
+        else
+        {
+            <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' />
+        }
     </div>
 }
