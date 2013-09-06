@@ -30,6 +30,13 @@ namespace Mittagessen.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        [ChildActionOnly]
+        public ActionResult RegistrationPartial()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Registration(RegistrationModel registration)
         {
@@ -53,7 +60,15 @@ namespace Mittagessen.Web.Controllers
                 return View(registration);
         }
 
+        [HttpGet]
         public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [ChildActionOnly]
+        public ActionResult LoginPartial()
         {
             var user = new LoginModel()
             {

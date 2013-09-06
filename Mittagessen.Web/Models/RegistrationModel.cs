@@ -15,6 +15,7 @@ namespace Mittagessen.Web.Models
             CommonRegistrationPassword = ConfigurationManager.AppSettings["UserPassword"];
         }
 
+        [Required]
         [DataType(DataType.Password)]
         [Compare("CommonRegistrationPassword")]
         public string RegistrationPassword { get; set; }
@@ -23,8 +24,10 @@ namespace Mittagessen.Web.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
+        [DataType(DataType.Password)]
         public string NewPassword { get; set; }
         [Compare("NewPassword")]
+        [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
         [ScaffoldColumn(false)]

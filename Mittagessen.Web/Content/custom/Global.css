@@ -9,3 +9,18 @@
 .meal img {
     width:180px;
 }
+
+.input-validation-error {
+    border-color: #e9322d;
+    border-width: 2px;
+    border-style: solid;
+    clear: both;
+}
+    
+.field-validation-error {
+    color: #b94a48;
+}
+    
+.requiredIndicator {
+    display: block;
+}

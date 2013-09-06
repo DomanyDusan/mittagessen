@@ -236,6 +236,9 @@
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
+    <Content Include="Views\Account\_Layout.cshtml" />
+    <Content Include="Views\Account\RegistrationPartial.cshtml" />
+    <Content Include="Views\Account\LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Sprava\Models\" />

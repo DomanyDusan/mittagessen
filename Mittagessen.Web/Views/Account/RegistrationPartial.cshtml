@@ -1,0 +1,13 @@
+﻿@model Mittagessen.Web.Models.RegistrationModel
+
+@{
+    Layout = null;
+}
+
+@using(Html.BeginForm("Registration", "Account"))
+{
+    @Html.EditorForModel()
+   
+    <input type="submit" value="Register" class="btn btn-primary" />    
+}
+
