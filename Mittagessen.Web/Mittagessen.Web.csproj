@@ -98,6 +98,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom\Global.css" />
+    <Content Include="Content\delete.gif" />
     <Content Include="Content\images\arrow_down_blue.png" />
     <Content Include="Content\images\arrow_up_blue.png" />
     <Content Include="Content\images\delete.png" />
@@ -117,6 +118,8 @@
     <Content Include="Content\images\toogledown.png" />
     <Content Include="Content\images\Up.png" />
     <Content Include="Content\images\Up2.png" />
+    <Content Include="Content\rateit.css" />
+    <Content Include="Content\star.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -188,6 +191,8 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.min.js" />
+    <Content Include="Scripts\jquery.rateit.js" />
+    <Content Include="Scripts\jquery.rateit.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -233,11 +238,9 @@
     <Content Include="Areas\Sprava\Views\Web.config" />
     <Content Include="Areas\Sprava\Views\Meal\Create.cshtml" />
     <Content Include="Areas\Sprava\Views\Meal\Index.cshtml" />
-    <Content Include="Areas\Sprava\Views\Meal\Details.cshtml" />
     <Content Include="Areas\Sprava\Views\Meal\Edit.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Index.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Create.cshtml" />
-    <Content Include="Areas\Sprava\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Edit.cshtml" />
     <None Include="db.config" />
     <None Include="personal.config" />
@@ -258,6 +261,7 @@
     <Content Include="Views\Account\RegistrationPartial.cshtml" />
     <Content Include="Views\Account\LoginPartial.cshtml" />
     <Content Include="Views\Overview\MealDetails.cshtml" />
+    <None Include="Scripts\jquery.rateit.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Sprava\Models\" />

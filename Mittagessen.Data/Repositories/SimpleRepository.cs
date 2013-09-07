@@ -11,10 +11,6 @@ namespace Mittagessen.Data.Repositories
     public class SimpleRepository<T> : SimpleReadRepository<T>, ISimpleRepository<T>
         where T : EntityBase
     {
-        public SimpleRepository(IDbContextManager dbContextManager)
-            : base(dbContextManager)
-        { }
-
         public virtual void Insert(T entity)
         {
             entity.Id = Guid.NewGuid();
@@ -26,6 +22,13 @@ namespace Mittagessen.Data.Repositories
         {
             Session.Set<T>().Attach(entity);
             Session.Entry(entity).State = EntityState.Modified;
+            Session.SaveChanges();
+        }
+
+        public virtual void Delete(T entity)
+        {
+            Session.Set<T>().Attach(entity);
+            Session.Set<T>().Remove(entity);
             Session.SaveChanges();
         }
     }

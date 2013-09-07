@@ -61,9 +61,18 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
             return View(lunch);
         }
 
+        [HttpPost]
         public ActionResult Edit(Lunch lunch)
         {
             LunchRepository.Update(lunch);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(Guid id)
+        {
+            var lunch = LunchRepository.Get(id);
+            LunchRepository.Delete(lunch);
             return RedirectToAction("Index");
         }
 

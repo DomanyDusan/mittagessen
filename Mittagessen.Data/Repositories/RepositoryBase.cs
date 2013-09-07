@@ -8,16 +8,11 @@ namespace Mittagessen.Data.Repositories
 {
     public abstract class RepositoryBase
     {
-        private IDbContextManager _contextManager;
+        public IDbContextManager ContextManager { get; set; }
 
         public DataContext Session
         {
-            get { return _contextManager.GetCurrentContext(); }
-        }
-
-        public RepositoryBase(IDbContextManager contextManager)
-        {
-            _contextManager = contextManager;
+            get { return ContextManager.GetCurrentContext(); }
         }
     }
 }

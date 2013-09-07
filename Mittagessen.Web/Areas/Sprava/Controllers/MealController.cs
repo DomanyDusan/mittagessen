@@ -40,13 +40,6 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details(Guid id)
-        {
-            var meal = MealRepository.Get(id);
-            return View(meal);
-        }
-
-        [HttpGet]
         public ActionResult Edit(Guid id)
         {
             var meal = MealRepository.Get(id);
@@ -61,22 +54,37 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Delete(Guid id)
+        {
+            var meal = MealRepository.Get(id);
+            DeleteExistingImage(meal);
+            MealRepository.Delete(meal);
+            return RedirectToAction("Index");
+        }
+
         private void SaveMealImage(Meal meal, HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
             {
-                if (!string.IsNullOrEmpty(meal.ImageName))
-                {
-                    var oldImgPath = Path.Combine(Server.MapPath("~" + ConfigurationManager.AppSettings["UploadsPath"]), meal.ImageName);
-                    if (System.IO.File.Exists(oldImgPath))
-                        System.IO.File.Delete(oldImgPath);
-                }
+                DeleteExistingImage(meal);
 
                 var fileName = Guid.NewGuid().ToString().Replace('-', '_') + ".jpg";
-                var path = Path.Combine(Server.MapPath("~" + ConfigurationManager.AppSettings["UploadsPath"]), fileName);
-                file.SaveAs(path);
 
                 meal.ImageName = this.Url.Content("~" + ConfigurationManager.AppSettings["UploadsPath"] + "/" + fileName);
+
+                var path = Path.Combine(Server.MapPath("~" + meal.ImageName));
+                file.SaveAs(path);                
+            }
+        }
+
+        private void DeleteExistingImage(Meal meal)
+        {
+            if (!string.IsNullOrEmpty(meal.ImageName))
+            {
+                var oldImgPath = Server.MapPath("~" + meal.ImageName);
+                if (System.IO.File.Exists(oldImgPath))
+                    System.IO.File.Delete(oldImgPath);
             }
         }
     }

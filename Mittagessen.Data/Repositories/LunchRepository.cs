@@ -11,10 +11,6 @@ namespace Mittagessen.Data.Repositories
 {
     public class LunchRepository : SimpleRepository<Lunch>, ILunchRepository
     {
-        public LunchRepository(IDbContextManager contextManager)
-            : base(contextManager)
-        { }
-
         public override Lunch Get(Guid id)
         {
             return Session.Lunches.Include(x => x.CookedMeal).Include(x => x.Enrollments).SingleOrDefault(x => x.Id == id);
@@ -22,7 +18,10 @@ namespace Mittagessen.Data.Repositories
 
         public override IEnumerable<Lunch> GetAll()
         {
-            return Session.Lunches.Include(x => x.CookedMeal).Include(x => x.Enrollments).ToList();
+            return Session.Lunches
+                .AsNoTracking()
+                .Include(x => x.CookedMeal).Include(x => x.Enrollments)
+                .OrderByDescending(l => l.LunchDate).ToList();
         }
 
         public IEnumerable<Lunch> GetLunchesForThisWeek()

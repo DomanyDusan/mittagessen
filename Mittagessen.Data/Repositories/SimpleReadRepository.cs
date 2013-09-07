@@ -10,10 +10,6 @@ namespace Mittagessen.Data.Repositories
     public class SimpleReadRepository<T> : RepositoryBase, ISimpleReadRepository<T>
         where T : EntityBase
     {
-        public SimpleReadRepository(IDbContextManager dbContextManager)
-            : base(dbContextManager)
-        { }
-
         public virtual T Get(Guid id)
         {
             var result = Session.Set<T>().Find(id);
@@ -22,7 +18,7 @@ namespace Mittagessen.Data.Repositories
 
         public virtual IEnumerable<T> GetAll()
         {
-            return Session.Set<T>().ToList();
+            return Session.Set<T>().AsNoTracking().ToList();
         }
     }
 }

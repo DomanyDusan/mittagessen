@@ -21,7 +21,7 @@ namespace Mittagessen.Web.Controllers
         public IUserRepository UserRepository { get; set; }
 
         [SetterProperty]
-        public ISimpleRepository<Enrollment> EnrollmentRepository { get; set; }
+        public IEnrollmentRepository EnrollmentRepository { get; set; }
 
         public ActionResult Index()
         {
@@ -29,7 +29,7 @@ namespace Mittagessen.Web.Controllers
             var user = UserRepository.GetUserByName(User.Identity.Name);
             var model = new EnrollmentModel()
                             {
-                                UserId = user.Id,
+                                MyLunches = user.Enrollments.Select(e => e.EnrolledForLunchId).ToList(),
                                 Lunches = thisWeekLunches
                             };
 

@@ -16,7 +16,7 @@
         });
 
         $(".meal-details").click(function () {
-            $.post('@Url.Action("MealDetails", "Overview")', { mealId: $(this).attr("meal-id") }, function (data) {
+            $.get('@Url.Action("MealDetails", "Overview")', { mealId: $(this).attr("meal-id") }, function (data) {
                 $("#my-modal-body").html(data);
                 $("#myModal").modal('show');
             });
@@ -38,7 +38,7 @@
             <span>Portionen: </span><span>@lunch.NumberOfPortions</span>
         </div>
         <div>
-            <span>Angemeldete: </span><span>@lunch.Enrollments.Count</span>
+            <span>Angemeldete: </span><span>@lunch.NumberOfEnrollments</span>
         </div>
         <div style="margin-left:auto;margin-right:auto;width:7em">
         @if(Model.EnrolledByUser(lunch))

@@ -17,21 +17,32 @@
 
     <body>
         
-        <div class="container-fluid">
-            <div class="span2" style="margin-top:70px">
-                <ul class="nav nav-list">
-                    <li>
-                        @Html.ActionLink("Anmeldung", "Index", "Home", new { area="" }, null)
-                    </li>
-                    <li>
-                        @Html.ActionLink("Gerichte", "Meals", "Overview", new { area = "" }, null)
-                    </li>
-                    <li>
-                        @Html.ActionLink("Log Out", "LogOff", "Account", new { area = "" }, null)
-                    </li>
-                </ul>
+        <div class="container">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <ul class="nav">
+                            <li>
+                                @Html.ActionLink("Anmeldung", "Index", "Home", new { area="" }, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Gerichte", "Meals", "Overview", new { area = "" }, null)
+                            </li>
+                            @if (User != null && User.IsInRole("admin"))
+                            {
+                                <li>@Html.ActionLink("Obedy", "Index", "Lunch", new { area = "Sprava" }, null)</li>
+                                <li>@Html.ActionLink("Jedla", "Index", "Meal", new { area = "Sprava" }, null)</li>
+                            }
+                        </ul>
+                        <ul class="nav pull-right">
+                            <li>
+                                @Html.ActionLink("Log Out", "LogOff", "Account", new { area = "" }, null)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="span16">
+            <div >
                 @RenderBody()
             </div>
         </div>

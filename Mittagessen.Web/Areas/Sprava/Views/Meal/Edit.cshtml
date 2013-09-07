@@ -2,8 +2,12 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Areas/Sprava/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div>
+    @Html.ActionLink("Zmazat", "Delete", new { id = Model.Id }, new { @class="btn btn-danger" })
+</div>
 
 @using(Html.BeginForm("Edit", "Meal", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

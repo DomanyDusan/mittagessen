@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Sprava/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div>
@@ -12,7 +12,7 @@
 @foreach (var meal in Model)
 {
     <div class="meal">
-        <a href='@Url.Action("Details", new { id = meal.Id })'>
+        <a href='@Url.Action("Edit", new { id = meal.Id })'>
             <img alt="@meal.Name" src="@meal.ImageName" />
             <span>@meal.Name</span>
         </a>

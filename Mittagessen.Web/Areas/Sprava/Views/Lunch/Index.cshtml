@@ -2,20 +2,31 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Sprava/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
  
 @Html.Action("Create")
 
 <table class="table">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Nazov</th>
+            <th>Pocet prihlasenych</th>
+            <th>Pocet porcii</th>
+        </tr>
+    </thead>
+    <tbody>
 @foreach(var lunch in Model)
 {
     <tr>
         <td>@Html.ActionLink(lunch.LunchDate.ToString(),  "Edit", new { id=lunch.Id })</td>
         <td>@lunch.CookedMeal.Name</td>
+        <td>@lunch.NumberOfEnrollments</td>
         <td>@lunch.NumberOfPortions</td>
     </tr>
 }
+    </tbody>
 </table>
 

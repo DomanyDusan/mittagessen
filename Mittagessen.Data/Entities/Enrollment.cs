@@ -10,13 +10,14 @@ namespace Mittagessen.Data.Entities
     public class Enrollment : EntityBase
     {
         public DateTime EnrollmentDate { get; set; }
-        public User EnrolledBy { get; set; }
+        public virtual User EnrolledBy { get; set; }
         [ScaffoldColumn(false)]
         [ForeignKey("EnrolledBy")]
         public Guid EnrolledById { get; set; }
-        public Lunch EnrolledForLunch { get; set; }
+        public virtual Lunch EnrolledForLunch { get; set; }
         [ScaffoldColumn(false)]
         [ForeignKey("EnrolledForLunch")]
         public Guid EnrolledForLunchId { get; set; }
+        public string Comment { get; set; }
     }
 }

@@ -110,7 +110,6 @@ namespace Mittagessen.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         public JsonResult UserNameExists(string RegistrationName)
         {
             var userNameAvailable = UserRepository.GetUserByName(RegistrationName) == null;

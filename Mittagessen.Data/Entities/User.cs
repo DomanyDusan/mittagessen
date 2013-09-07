@@ -14,5 +14,6 @@ namespace Mittagessen.Data.Entities
         public string Roles { get; set; }
         public DateTime RegistrationDate { get; set; }
         public DateTime LastAccessDate { get; set; }
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 }
