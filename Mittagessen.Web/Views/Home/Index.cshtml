@@ -35,30 +35,40 @@
 @foreach (var lunch in Model.Lunches)
 {    
     <div class="meal">
-        <div style="margin-left:auto;margin-right:auto;width:7em">
-        @if (@lunch.NumberOfEnrollments >= lunch.NumberOfPortions)
+        <div>
+            <h5 style="float:left">@lunch.LunchDate.DayOfWeek @lunch.LunchDate.ToShortTimeString()</h5>
+        @if (Model.EnrolledByUser(lunch))
         {
-            <div class='termin-full-msg'>Voll</div>
+            <span class="label label-success" style="float:right;margin-right:10px;margin-top:10px">Angemeldet</span>
         }
-        else if (Model.EnrolledByUser(lunch))
+        </div>
+        <div class='meal-details' meal-id="@lunch.CookedMealId">
+            <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
+            <div style="min-height:40px"><h4>@lunch.CookedMeal.Name</h4></div>
+        </div>
+        <table>
+            <tr>
+                <td><span style='font-family:Verdana; font-weight:bolder'>Portionen:</span></td>
+                <td><span class="badge badge-info">@lunch.NumberOfPortions</span></td>
+            </tr>
+            <tr>
+                <td><span style='font-family:Verdana; font-weight:bolder'>Angemeldete:</span></td>
+                <td><span class="badge badge-success">@lunch.NumberOfEnrollments</span></td>
+            </tr>
+        </table>
+        <div style="margin-left:auto;margin-right:auto;margin-top:10px;width:7em">
+        @if (Model.EnrolledByUser(lunch))
         {
             <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' />
+        }
+        else if (@lunch.NumberOfEnrollments >= lunch.NumberOfPortions)
+        {
+            <div class='termin-full-msg'>Termin voll</div>
         }
         else
         {
             <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' />
         }
-        </div>
-        <div>@lunch.LunchDate</div>
-        <div class='meal-details' meal-id="@lunch.CookedMealId">
-            <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
-            <span>@lunch.CookedMeal.Name</span>
-        </div>
-        <div>
-            <span>Portionen: </span><span>@lunch.NumberOfPortions</span>
-        </div>
-        <div>
-            <span>Angemeldete: </span><span>@lunch.NumberOfEnrollments</span>
         </div>
     </div>   
 }

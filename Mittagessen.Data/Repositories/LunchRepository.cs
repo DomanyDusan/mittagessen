@@ -28,7 +28,9 @@ namespace Mittagessen.Data.Repositories
         {
             var weekStart = DateTime.Today.Subtract(TimeSpan.FromDays((double)DateTime.Today.DayOfWeek));
             var weekEnd = weekStart.AddDays(7);
-            return Session.Lunches.Include(x => x.CookedMeal).Where(l => l.LunchDate > weekStart && l.LunchDate < weekEnd);
+            return Session.Lunches.Include(x => x.CookedMeal)
+                .Where(l => l.LunchDate > weekStart && l.LunchDate < weekEnd)
+                .OrderBy(l => l.LunchDate);
         }
     }
 }

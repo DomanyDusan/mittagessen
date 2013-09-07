@@ -23,9 +23,7 @@
 }
 
 .input-validation-error {
-    border-color: #e9322d;
-    border-width: 2px;
-    border-style: solid;
+    border-color: #e9322d !important;
     clear: both;
 }
     

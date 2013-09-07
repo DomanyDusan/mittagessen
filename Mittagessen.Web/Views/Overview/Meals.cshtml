@@ -21,7 +21,7 @@
 {
     <div class="meal">
         <img alt="@meal.Name" src="@meal.ImageName" />
-        <div>@meal.Name</div>
+        <div style="min-height:40px"><h4>@meal.Name</h4></div>
         <div class="rateit" meal-id="@meal.Id" data-rateit-resetable="false" data-rateit-value="@meal.AverageRating" data-rateit-ispreset="true" data-rateit-step=1></div>
     </div>
 }
