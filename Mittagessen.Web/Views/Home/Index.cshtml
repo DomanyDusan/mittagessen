@@ -10,15 +10,21 @@
         $(".enroll-button").click(function () {
             var enrollButton = $(this);
             enrollButton.attr("disabled", "disabled");
-            $.post('@Url.Action("EnrollUser")', { lunchId: enrollButton.attr("lunch-id") }, function () {
-                enrollButton.replaceWith("<div class='enrolled-msg'>Angemeldet</div>");
+            $.post('@Url.Action("EnrollUser")', { lunchId: enrollButton.attr("lunch-id") }, function (result) {
+                if (result.success) {
+                    enrollButton.replaceWith("<div class='enrolled-msg'>Angemeldet</div>");
+                }
+                else {
+                    enrollButton.replaceWith("<div class='disenrolled-msg'>Voll</div>");
+                }
             });
         });
 
-        $(".meal-details").click(function () {
-            $.get('@Url.Action("MealDetails", "Overview")', { mealId: $(this).attr("meal-id") }, function (data) {
-                $("#my-modal-body").html(data);
-                $("#myModal").modal('show');
+        $(".disenroll-button").click(function () {
+            var disenrollButton = $(this);
+            disenrollButton.attr("disabled", "disabled");
+            $.post('@Url.Action("DisenrollUser")', { lunchId: disenrollButton.attr("lunch-id") }, function () {
+                disenrollButton.replaceWith("<div class='disenrolled-msg'>Abgemeldet</div>");
             });
         });
     });       
@@ -41,9 +47,13 @@
             <span>Angemeldete: </span><span>@lunch.NumberOfEnrollments</span>
         </div>
         <div style="margin-left:auto;margin-right:auto;width:7em">
-        @if(Model.EnrolledByUser(lunch))
+        @if (@lunch.NumberOfEnrollments >= lunch.NumberOfPortions)
         {
-            <div class='enrolled-msg'>Angemeldet</div>
+            <div class='termin-full-msg'>Voll</div>
+        }
+        else if (Model.EnrolledByUser(lunch))
+        {
+            <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' />
         }
         else
         {
@@ -52,16 +62,3 @@
         </div>
     </div>   
 }
-
-<div class="modal hide fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
-  </div>
-  <div class="modal-body" id="my-modal-body">
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div>
-</div>

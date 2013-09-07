@@ -21,5 +21,7 @@ namespace Mittagessen.Data.Entities
         [UIHint("Image")]
         [DisplayName("Obrazok")]
         public string ImageName { get; set; }
+        [HiddenInput(DisplayValue=false)]
+        public double AverageRating { get; set; }
     }
 }

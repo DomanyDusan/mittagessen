@@ -6,9 +6,8 @@ using Mittagessen.Data.Entities;
 
 namespace Mittagessen.Data.Interfaces
 {
-    public interface IEnrollmentRepository : ISimpleRepository<Enrollment>
+    public interface IMealRepository : ISimpleRepository<Meal>
     {
-        Enrollment Get(Guid userId, Guid lunchId);
-        bool TryInsert(Enrollment enrollment);
+        void RateMeal(Guid userId, Guid mealId, double value);
     }
 }

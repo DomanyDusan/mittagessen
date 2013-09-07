@@ -15,7 +15,7 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
     public class LunchController : Controller
     {
         [SetterProperty]
-        public ISimpleRepository<Meal> MealRepository { get; set; }
+        public IMealRepository MealRepository { get; set; }
 
         [SetterProperty]
         public ILunchRepository LunchRepository { get; set; }

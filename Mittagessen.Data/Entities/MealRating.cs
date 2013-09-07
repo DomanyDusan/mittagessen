@@ -9,15 +9,15 @@ namespace Mittagessen.Data.Entities
 {
     public class MealRating : EntityBase
     {
-        public virtual User RankedBy { get; set; }
+        public virtual User RatedBy { get; set; }
         [ScaffoldColumn(false)]
-        [ForeignKey("RankedBy")]
-        public Guid RankedById { get; set; }
-        public virtual Meal RankedMeal { get; set; }
+        [ForeignKey("RatedBy")]
+        public Guid RatedById { get; set; }
+        public virtual Meal RatedMeal { get; set; }
         [ScaffoldColumn(false)]
-        [ForeignKey("RankedMeal")]
-        public Guid RankedMealId { get; set; }
-        public int Ranking { get; set; }
+        [ForeignKey("RatedMeal")]
+        public Guid RatedMealId { get; set; }
+        public double Rating { get; set; }
         public string Comment { get; set; }
     }
 }

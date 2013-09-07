@@ -5,15 +5,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    $(function () {
+        $(".rateit").bind('rated', rateMeal);
+    });
+
+    function rateMeal(event, value) {
+        $.post('@Url.Action("RateMeal")', { mealId: $(this).attr('meal-id'), value: value });
+    }
+</script>
+
 <h2>Gerichte</h2>
 
 @foreach (var meal in Model)
 {
     <div class="meal">
-        <a href='@Url.Action("Details", new { id = meal.Id })'>
-            <img alt="@meal.Name" src="@meal.ImageName" />
-            <span>@meal.Name</span>
-        </a>
+        <img alt="@meal.Name" src="@meal.ImageName" />
+        <div>@meal.Name</div>
+        <div class="rateit" meal-id="@meal.Id" data-rateit-resetable="false" data-rateit-value="@meal.AverageRating" data-rateit-ispreset="true" data-rateit-step=1></div>
     </div>
 }
 

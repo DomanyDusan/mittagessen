@@ -46,9 +46,19 @@ namespace Mittagessen.Web.Controllers
                 EnrolledForLunchId = lunchId,
                 EnrollmentDate = DateTime.Now
             };
-            EnrollmentRepository.Insert(enrollment);
+            var success = EnrollmentRepository.TryInsert(enrollment);
 
-            return Json(new {});
+            return Json(new { success = success });
+        }
+
+        [HttpPost]
+        public ActionResult DisenrollUser(Guid lunchId)
+        {
+            var user = UserRepository.GetUserByName(User.Identity.Name);
+            var enrollment = EnrollmentRepository.Get(user.Id, lunchId);
+            EnrollmentRepository.Delete(enrollment);
+
+            return Json(new { success = true });
         }
     }
 }

@@ -44,3 +44,19 @@
     font-style:oblique;
     font-size:120%;
 }
+
+.disenrolled-msg {
+    margin:5px;
+    color:Red;
+    font-weight:bold;
+    font-style:oblique;
+    font-size:120%;
+}
+
+.termin-full-msg {
+    margin:5px;
+    color:Blue;
+    font-weight:bold;
+    font-style:oblique;
+    font-size:120%;
+}

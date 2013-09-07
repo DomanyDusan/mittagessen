@@ -13,7 +13,10 @@ namespace Mittagessen.Web.Controllers
     public class OverviewController : Controller
     {
         [SetterProperty]
-        public ISimpleRepository<Meal> MealRepository { get; set; }
+        public IMealRepository MealRepository { get; set; }
+
+        [SetterProperty]
+        public IUserRepository UserRepository { get; set; }
 
         public ActionResult Index()
         {
@@ -32,6 +35,13 @@ namespace Mittagessen.Web.Controllers
         {
             var meal = MealRepository.Get(mealId);
             return View(meal);
+        }
+
+        [HttpPost]
+        public void RateMeal(Guid mealId, double value)
+        {
+            var user = UserRepository.GetUserByName(User.Identity.Name);
+            MealRepository.RateMeal(user.Id, mealId, value);
         }
     }
 }
