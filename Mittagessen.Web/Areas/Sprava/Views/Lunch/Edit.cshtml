@@ -21,7 +21,7 @@
 @using(Html.BeginForm("Edit", "Lunch", FormMethod.Post))
 {
     <div>
-        @Html.TextBox("LunchDate", Model.LunchDate.ToShortDateString(), new { @class = "date" })
+        @Html.TextBox("LunchDate.Date", Model.LunchDate.ToShortDateString(), new { @class = "date" })
     </div>
     <div>
         @Html.TextBox("LunchDate.Time", Model.LunchDate.ToShortTimeString())

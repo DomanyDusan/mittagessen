@@ -12,7 +12,7 @@ namespace Mittagessen.Web.Bootstrap
         public static void Initialize()
         {
             DependencyResolver.SetResolver(new StructureMapDependencyResolver());
-            ModelBinders.Binders[typeof(DateTime)] = new DateAndTimeModelBinder() { Date = "", Time = "Time" };
+            ModelBinders.Binders[typeof(DateTime)] = new DateAndTimeModelBinder() { Date = "Date", Time = "Time" };
         }
     }
 }
