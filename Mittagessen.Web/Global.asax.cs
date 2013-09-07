@@ -38,6 +38,8 @@ namespace Mittagessen.Web
 
         protected void Application_Start()
         {
+            Logger.Info("Application starting");
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

@@ -35,17 +35,6 @@
 @foreach (var lunch in Model.Lunches)
 {    
     <div class="meal">
-        <span>@lunch.LunchDate</span>
-        <div class='meal-details' meal-id="@lunch.CookedMealId">
-            <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
-            <span>@lunch.CookedMeal.Name</span>
-        </div>
-        <div>
-            <span>Portionen: </span><span>@lunch.NumberOfPortions</span>
-        </div>
-        <div>
-            <span>Angemeldete: </span><span>@lunch.NumberOfEnrollments</span>
-        </div>
         <div style="margin-left:auto;margin-right:auto;width:7em">
         @if (@lunch.NumberOfEnrollments >= lunch.NumberOfPortions)
         {
@@ -59,6 +48,17 @@
         {
             <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' />
         }
+        </div>
+        <div>@lunch.LunchDate</div>
+        <div class='meal-details' meal-id="@lunch.CookedMealId">
+            <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
+            <span>@lunch.CookedMeal.Name</span>
+        </div>
+        <div>
+            <span>Portionen: </span><span>@lunch.NumberOfPortions</span>
+        </div>
+        <div>
+            <span>Angemeldete: </span><span>@lunch.NumberOfEnrollments</span>
         </div>
     </div>   
 }

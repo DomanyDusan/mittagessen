@@ -49,7 +49,10 @@
             </div>
         </div>
         <script type="text/javascript">
-            $('.date').datepicker({ dateFormat: 'dd.mm.yy' });
+            $(function () {
+                $('.date').datepicker({ dateFormat: 'dd.mm.yy' });
+                $('center').hide();
+            });
         </script>
     </body>
 </html>
