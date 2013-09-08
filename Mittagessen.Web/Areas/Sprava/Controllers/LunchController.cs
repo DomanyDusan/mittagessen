@@ -65,6 +65,9 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         public ActionResult Edit(Lunch lunch)
         {
             LunchRepository.Update(lunch);
+
+            UpdateLunchInfoOnClients(lunch);
+
             return RedirectToAction("Index");
         }
 
@@ -81,6 +84,13 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         {
             var meals = MealRepository.GetAll();
             return View(meals);
+        }
+
+        [NonAction]
+        private void UpdateLunchInfoOnClients(Lunch lunch)
+        {
+            var hub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<Hubs.EnrollmentHub>();
+            hub.Clients.All.lunchInfoUpdated(lunch.Id, lunch.NumberOfEnrollments, lunch.NumberOfPortions, lunch.IsFull);
         }
     }
 }

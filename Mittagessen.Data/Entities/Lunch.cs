@@ -23,5 +23,11 @@ namespace Mittagessen.Data.Entities
         public int NumberOfPortions { get; set; }
         [HiddenInput(DisplayValue=false)]
         public int NumberOfEnrollments { get; set; }
+
+        [ScaffoldColumn(false)]
+        public bool IsFull
+        {
+            get { return NumberOfEnrollments >= NumberOfPortions; }
+        }
     }
 }

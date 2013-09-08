@@ -47,6 +47,7 @@ namespace Mittagessen.Web.Controllers
                 EnrollmentDate = DateTime.Now
             };
             var success = EnrollmentRepository.TryInsert(enrollment);
+            UpdateLunchInfoOnClients(lunchId);
 
             return Json(new { success = success });
         }
@@ -57,8 +58,17 @@ namespace Mittagessen.Web.Controllers
             var user = UserRepository.GetUserByName(User.Identity.Name);
             var enrollment = EnrollmentRepository.Get(user.Id, lunchId);
             EnrollmentRepository.Delete(enrollment);
+            UpdateLunchInfoOnClients(lunchId);
 
             return Json(new { success = true });
+        }
+
+        [NonAction]
+        private void UpdateLunchInfoOnClients(Guid lunchId)
+        {
+            var lunch = LunchRepository.Get(lunchId);
+            var hub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<Hubs.EnrollmentHub>();
+            hub.Clients.All.lunchInfoUpdated(lunchId, lunch.NumberOfEnrollments, lunch.NumberOfPortions, lunch.IsFull);
         }
     }
 }

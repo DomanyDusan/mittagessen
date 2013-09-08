@@ -7,15 +7,20 @@
 
 <script type="text/javascript">
     $(function () {
+        $.connection.enrollmentHub.client.lunchInfoUpdated = updateLunchInfo;
+        $.connection.hub.start();
+
         $(".enroll-button").click(function () {
             var enrollButton = $(this);
             enrollButton.attr("disabled", "disabled");
             $.post('@Url.Action("EnrollUser")', { lunchId: enrollButton.attr("lunch-id") }, function (result) {
+                enrollButton.hide();
                 if (result.success) {
-                    enrollButton.replaceWith("<div class='enrolled-msg'>Angemeldet</div>");
+                    enrollButton.siblings(".disenroll-button").removeAttr("disabled").show();
+                    $("div.lunch-info[lunch-id=" + enrollButton.attr("lunch-id") + "] span.user-enrolled-msg").show();
                 }
                 else {
-                    enrollButton.replaceWith("<div class='disenrolled-msg'>Voll</div>");
+                    enrollButton.siblings(".termin-full-msg").show();
                 }
             });
         });
@@ -24,51 +29,51 @@
             var disenrollButton = $(this);
             disenrollButton.attr("disabled", "disabled");
             $.post('@Url.Action("DisenrollUser")', { lunchId: disenrollButton.attr("lunch-id") }, function () {
-                disenrollButton.replaceWith("<div class='disenrolled-msg'>Abgemeldet</div>");
+                disenrollButton.hide();
+                disenrollButton.siblings(".enroll-button").removeAttr("disabled").show();
+                $("div.lunch-info[lunch-id=" + disenrollButton.attr("lunch-id") + "] span.user-enrolled-msg").hide();
             });
         });
-    });       
+    });
+
+    function updateLunchInfo(lunchId, enrollments, portions, lunchFull) {
+        $("div.lunch-info[lunch-id=" + lunchId + "] span.number-of-portions-info").html(portions);
+        $("div.lunch-info[lunch-id=" + lunchId + "] span.number-of-enrollments-info").html(enrollments);
+    }
 </script>
 
 <h2>Anmeldung</h2>
 
 @foreach (var lunch in Model.Lunches)
 {    
-    <div class="meal">
+    <div class="meal lunch-info" lunch-id="@lunch.Id">
         <div>
             <h5 style="float:left">@lunch.LunchDate.DayOfWeek @lunch.LunchDate.ToShortTimeString()</h5>
-        @if (Model.EnrolledByUser(lunch))
-        {
-            <span class="label label-success" style="float:right;margin-right:10px;margin-top:10px">Angemeldet</span>
-        }
-        </div>
-        <div class='meal-details' meal-id="@lunch.CookedMealId">
+
+        <span class="label label-success user-enrolled-msg" @(Model.EnrolledByUser(lunch) ? null : "style=display:none")>Angemeldet</span>
+
             <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
             <div style="min-height:40px"><h4>@lunch.CookedMeal.Name</h4></div>
-        </div>
-        <table>
-            <tr>
-                <td><span style='font-family:Verdana; font-weight:bolder'>Portionen:</span></td>
-                <td><span class="badge badge-info">@lunch.NumberOfPortions</span></td>
-            </tr>
-            <tr>
-                <td><span style='font-family:Verdana; font-weight:bolder'>Angemeldete:</span></td>
-                <td><span class="badge badge-success">@lunch.NumberOfEnrollments</span></td>
-            </tr>
-        </table>
-        <div style="margin-left:auto;margin-right:auto;margin-top:10px;width:7em">
-        @if (Model.EnrolledByUser(lunch))
-        {
-            <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' />
-        }
-        else if (@lunch.NumberOfEnrollments >= lunch.NumberOfPortions)
-        {
-            <div class='termin-full-msg'>Termin voll</div>
-        }
-        else
-        {
-            <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' />
-        }
+
+            <table>
+                <tr>
+                    <td><span style='font-family:Verdana; font-weight:bolder'>Portionen:</span></td>
+                    <td><span class="badge badge-info number-of-portions-info">@lunch.NumberOfPortions</span></td>
+                </tr>
+                <tr>
+                    <td><span style='font-family:Verdana; font-weight:bolder'>Angemeldete:</span></td>
+                    <td><span class="badge badge-success number-of-enrollments-info">@lunch.NumberOfEnrollments</span></td>
+                </tr>
+            </table>
+            <div style="margin-left:auto;margin-right:auto;margin-top:10px;width:7em">
+
+                <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' @(Model.EnrolledByUser(lunch) ? null : "style=display:none") />
+
+                <div class='termin-full-msg' @(lunch.IsFull && !Model.EnrolledByUser(lunch) ? null : "style=display:none")>Termin voll</div>
+
+                <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' @(!Model.EnrolledByUser(lunch) && !lunch.IsFull ? null : "style=display:none") />
+
+            </div>
         </div>
     </div>   
 }

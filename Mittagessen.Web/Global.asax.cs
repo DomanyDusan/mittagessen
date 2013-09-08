@@ -40,6 +40,7 @@ namespace Mittagessen.Web
         {
             Logger.Info("Application starting");
 
+            RouteTable.Routes.MapHubs();
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

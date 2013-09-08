@@ -22,6 +22,10 @@ namespace Mittagessen.Data.Repositories
                 var lunch = Session.Lunches.Find(enrollment.EnrolledForLunchId);
                 if (lunch.NumberOfEnrollments >= lunch.NumberOfPortions)
                     return false;
+                var oldEnrollment = Session.Enrollments
+                    .SingleOrDefault(e => e.EnrolledById == enrollment.EnrolledById && e.EnrolledForLunchId == enrollment.EnrolledForLunchId);
+                if (oldEnrollment != null)
+                    return false;
                 
                 base.Insert(enrollment);                
                 lunch.NumberOfEnrollments = lunch.Enrollments.Count;                
