@@ -5,7 +5,10 @@
     Layout = "_Layout.cshtml";
 }
 
-<div style="width: 50em; margin-left:auto;margin-right:auto">
+<div class="span8" style="padding-left:30px">
+
+    <div class="header-text">Registrierung</div>
+
     @using (Html.BeginForm("Registration", "Account"))
     {
     @Html.EditorForModel()

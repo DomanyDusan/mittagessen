@@ -5,13 +5,26 @@
     Layout = "_Layout.cshtml";
 }
 
-<div style="width: 50em; margin-left:auto;margin-right:auto">
-@using(Html.BeginForm("Login","Account"))
-{
-    @Html.EditorForModel()
+<style type"text/css">
+    #RememberLogin 
+    {
+        margin-top:-5px;
+    }
+</style>
+
+<div class="span8" style="padding-left:30px">
+
+    <div class="header-text">Login</div>
+
+    @using (Html.BeginForm("Login", "Account"))
+    {
+        @Html.EditorForModel()
    
-    <input type="submit" value="Login" class="btn btn-primary" />    
-}
+        <div style="margin-top:15px">
+            <input type="submit" value="Login" class="btn btn-primary" />    
+        </div> 
+    }
+
 </div>
 
   
