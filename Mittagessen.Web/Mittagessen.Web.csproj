@@ -40,6 +40,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation.4.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.Mvc">
+      <HintPath>..\packages\FluentValidation.MVC3.4.0.0.1\lib\Net40\FluentValidation.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.1.1.3\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -98,8 +104,11 @@
     <Compile Include="Areas\Sprava\Controllers\MealController.cs" />
     <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
+    <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Hubs\EnrollmentHub.cs" />
     <Compile Include="Infrastructure\DateAndTimeModelBinder.cs" />
+    <Compile Include="Infrastructure\StructureMapControllerFactory.cs" />
+    <Compile Include="Infrastructure\StructureMapValidatorFactory.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Areas\Sprava\SpravaAreaRegistration.cs" />
     <Compile Include="Bootstrap\AppConfig.cs" />
@@ -110,10 +119,10 @@
     </Compile>
     <Compile Include="Infrastructure\DbContextManager.cs" />
     <Compile Include="Bootstrap\IocConfig.cs" />
-    <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
     <Compile Include="Models\EnrollmentModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\RegistrationModelValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.css" />
@@ -250,10 +259,6 @@
     <ProjectReference Include="..\Mittagessen.Data\Mittagessen.Data.csproj">
       <Project>{D1ABCC0E-AB0D-4F48-83C3-B213CBAD339A}</Project>
       <Name>Mittagessen.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mittagessen.Helpers\Mittagessen.Helpers.csproj">
-      <Project>{D192979E-CD32-48B1-A159-F1C4827B2B0E}</Project>
-      <Name>Mittagessen.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

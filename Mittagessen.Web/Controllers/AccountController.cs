@@ -4,13 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Mittagessen.Web.Helpers;
 using Mittagessen.Web.Models;
 using System.Configuration;
 using Mittagessen.Data.Entities;
 using Mittagessen.Data.Interfaces;
 using StructureMap.Attributes;
-using Mittagessen.Helpers;
-using System.Text;
 
 namespace Mittagessen.Web.Controllers
 {

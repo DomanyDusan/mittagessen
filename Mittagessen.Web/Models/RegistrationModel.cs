@@ -10,28 +10,14 @@ namespace Mittagessen.Web.Models
 {
     public class RegistrationModel
     {
-        public RegistrationModel()
-        {
-            CommonRegistrationPassword = ConfigurationManager.AppSettings["UserPassword"];
-        }
-
-        [Required]
         [DataType(DataType.Password)]
-        [Compare("CommonRegistrationPassword")]
         public string RegistrationPassword { get; set; }
-        [Required]
         [Remote("UserNameExists", "Account", "", ErrorMessage = "Der Benutzername wird schon benutzt")]
         public string RegistrationName { get; set; }
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required]
         [DataType(DataType.Password)]
         public string NewPassword { get; set; }
-        [Compare("NewPassword")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
-
-        [ScaffoldColumn(false)]
-        public string CommonRegistrationPassword { get; set; }
     }
 }

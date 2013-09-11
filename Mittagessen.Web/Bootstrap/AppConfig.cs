@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
+using FluentValidation;
+using FluentValidation.Mvc;
 using Mittagessen.Web.Infrastructure;
 using System.Web.Mvc;
+using StructureMap;
 
 namespace Mittagessen.Web.Bootstrap
 {
@@ -11,8 +15,10 @@ namespace Mittagessen.Web.Bootstrap
     {
         public static void Initialize()
         {
-            DependencyResolver.SetResolver(new StructureMapDependencyResolver());
+            ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
             ModelBinders.Binders[typeof(DateTime)] = new DateAndTimeModelBinder() { Date = "Date", Time = "Time" };
+
+            ModelValidatorProviders.Providers.Add(new FluentValidationModelValidatorProvider(new StructureMapValidatorFactory()));
         }
     }
 }

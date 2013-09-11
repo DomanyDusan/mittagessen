@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace Mittagessen.Helpers
+namespace Mittagessen.Web.Helpers
 {
     public static class PasswordHelper
     {

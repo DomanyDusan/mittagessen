@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mittagessen.Web", "Mittages
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mittagessen.Data", "Mittagessen.Data\Mittagessen.Data.csproj", "{D1ABCC0E-AB0D-4F48-83C3-B213CBAD339A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mittagessen.Helpers", "Mittagessen.Helpers\Mittagessen.Helpers.csproj", "{D192979E-CD32-48B1-A159-F1C4827B2B0E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,10 +19,6 @@ Global
 		{D1ABCC0E-AB0D-4F48-83C3-B213CBAD339A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1ABCC0E-AB0D-4F48-83C3-B213CBAD339A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1ABCC0E-AB0D-4F48-83C3-B213CBAD339A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D192979E-CD32-48B1-A159-F1C4827B2B0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D192979E-CD32-48B1-A159-F1C4827B2B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D192979E-CD32-48B1-A159-F1C4827B2B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D192979E-CD32-48B1-A159-F1C4827B2B0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
