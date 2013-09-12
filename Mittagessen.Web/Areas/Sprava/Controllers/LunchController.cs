@@ -64,11 +64,18 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         [HttpPost]
         public ActionResult Edit(Lunch lunch)
         {
-            LunchRepository.Update(lunch);
+            if (ModelState.IsValid)
+            {
+                LunchRepository.Update(lunch);
 
-            UpdateLunchInfoOnClients(lunch);
+                UpdateLunchInfoOnClients(lunch);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(lunch);
+            }
         }
 
         [HttpGet]
@@ -79,7 +86,6 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public ActionResult MealList()
         {
             var meals = MealRepository.GetAll();

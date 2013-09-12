@@ -9,6 +9,7 @@ using Mittagessen.Data.Entities;
 using System.IO;
 using System.Configuration;
 using Mittagessen.Web.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mittagessen.Web.Areas.Sprava.Controllers
 {
@@ -31,12 +32,19 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Meal meal, HttpPostedFileBase file)
+        public ActionResult Create(Meal meal, [Required] HttpPostedFileBase file)
         {
-            SaveMealImage(meal, file);
+            if (ModelState.IsValid)
+            {
+                SaveMealImage(meal, file);
 
-            MealRepository.Insert(meal);
-            return RedirectToAction("Index");
+                MealRepository.Insert(meal);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(meal);
+            }
         }
 
         [HttpGet]
@@ -49,9 +57,16 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         [HttpPost]
         public ActionResult Edit(Meal meal, HttpPostedFileBase file)
         {
-            SaveMealImage(meal, file);
-            MealRepository.Update(meal);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                SaveMealImage(meal, file);
+                MealRepository.Update(meal);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(meal);
+            }
         }
 
         [HttpGet]

@@ -16,6 +16,7 @@ namespace Mittagessen.Web.Models
         [DataType(DataType.Password)]
         [DisplayName("Passwort")]
         public string LoginPassword { get; set; }
+        [DisplayName("Login merken")]
         public bool RememberLogin { get; set; }
     }
 }

@@ -17,11 +17,11 @@ namespace Mittagessen.Web.Validation
         {
             UserRepository = userRepository;
 
-            RuleFor(r => r.RegistrationPassword).NotEmpty()
-                .Equal(ConfigurationManager.AppSettings["UserPassword"])
-                .WithMessage("Geben Sie bitte das Passwort ein, das Sie für die Registrierung erhalten haben");
+            string regPasswordRequired = "Geben Sie bitte das Passwort ein, das Sie für die Registrierung erhalten haben";
+            RuleFor(r => r.RegistrationPassword).NotEmpty().WithMessage(regPasswordRequired)
+                .Equal(ConfigurationManager.AppSettings["UserPassword"]).WithMessage(regPasswordRequired);
             RuleFor(r => r.RegistrationName).NotEmpty().Must(UserNameAvailable);
-            RuleFor(r => r.Email).EmailAddress();
+            RuleFor(r => r.Email).NotEmpty().EmailAddress();
             RuleFor(r => r.NewPassword).NotEmpty();
             RuleFor(r => r.ConfirmPassword).Equal(r => r.NewPassword);
         }
