@@ -10,7 +10,7 @@ namespace Mittagessen.Web.Models
     public class LoginModel
     {
         [Required]
-        [DisplayName("Benutzername oder E-Mail")]
+        [DisplayName("Benutzername")]
         public string LoginName { get; set; }
         [Required]
         [DataType(DataType.Password)]
