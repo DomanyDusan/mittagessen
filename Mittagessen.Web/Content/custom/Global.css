@@ -34,6 +34,13 @@
 .field-validation-error {
     color: #b94a48;
 }
+
+.required:after
+{
+    content:"*";
+    color:#ff0000;
+    font-size:larger;
+}
     
 .requiredIndicator {
     display: block;

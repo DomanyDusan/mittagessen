@@ -17,7 +17,7 @@ namespace Mittagessen.Web.Validation
         {
             UserRepository = userRepository;
 
-            string regPasswordRequired = "Geben Sie bitte das Passwort ein, das Sie für die Registrierung erhalten haben";
+            string regPasswordRequired = "Geben Sie bitte das Kennwort ein, das Sie für die Registrierung erhalten haben";
             RuleFor(r => r.RegistrationPassword).NotEmpty().WithMessage(regPasswordRequired)
                 .Equal(ConfigurationManager.AppSettings["UserPassword"]).WithMessage(regPasswordRequired);
             RuleFor(r => r.RegistrationName).NotEmpty().Length(1,20).Must(UserNameAvailable);

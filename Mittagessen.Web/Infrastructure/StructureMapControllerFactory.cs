@@ -13,7 +13,10 @@ namespace Mittagessen.Web.Infrastructure
         public override IController CreateController(RequestContext context, string controllerName)
         {
             Type controllerType = base.GetControllerType(context, controllerName);
-            return ObjectFactory.GetInstance(controllerType) as IController;
+            if (controllerType != null)
+                return ObjectFactory.GetInstance(controllerType) as IController;
+            else
+                return null;
         }
     }
 }

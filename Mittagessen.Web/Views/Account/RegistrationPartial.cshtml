@@ -6,7 +6,7 @@
 
 <div class="header-text">Registrierung</div>
 
-@using(Html.BeginForm("Registration", "Account"))
+@using (Html.BeginForm("Registration", "Account", FormMethod.Post, new { id = "registration-form" }))
 {
     @Html.EditorForModel()
    
