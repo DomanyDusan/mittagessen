@@ -20,20 +20,39 @@ namespace Mittagessen.Web.Validation
             string regPasswordRequired = "Geben Sie bitte das Kennwort ein, das Sie für die Registrierung erhalten haben";
             RuleFor(r => r.RegistrationPassword).NotEmpty().WithMessage(regPasswordRequired)
                 .Equal(ConfigurationManager.AppSettings["UserPassword"]).WithMessage(regPasswordRequired);
-            RuleFor(r => r.RegistrationName).NotEmpty().Length(1,20).Must(UserNameAvailable);
-            RuleFor(r => r.Email).NotEmpty().Length(1, 40).EmailAddress().Must(NotCompanyEmail).WithMessage("Firmen-E-Mail-Adressen sind nicht erlaubt");
-            RuleFor(r => r.NewPassword).NotEmpty();
+            RuleFor(r => r.RegistrationName).NotEmpty().Length(1,20).Must(UserNameAvailable).WithMessage("Der Benutzername wird schon benutzt");
+            RuleFor(r => r.Email).NotEmpty().Length(1, 40).EmailAddress()
+                .Must(EmailAvailable).WithMessage("Die E-Mail-Adresse wurde schon von einem anderen Benutzer registriert")
+                .Must(NotCompanyEmail).WithMessage("Firmen-E-Mail-Adressen sind nicht erlaubt");
+            RuleFor(r => r.NewPassword).Must(PasswordNotEmpty).WithMessage("Bitte geben Sie ein Passwort ein");
             RuleFor(r => r.ConfirmPassword).Equal(r => r.NewPassword);
+            RuleFor(r => r.UseDefaultPassword);
         }
 
         private bool UserNameAvailable(string name)
         {
-            return UserRepository.GetUserByName(name) == null;
+            return UserRepository.UserNameAvailable(name);
+        }
+
+        private bool EmailAvailable(string email)
+        {
+            return UserRepository.EmailAddressAvailable(email);
         }
 
         private bool NotCompanyEmail(string email)
         {
             return !email.EndsWith("sba-research.org") && !email.EndsWith("securityresearch.at");
+        }
+
+        private bool PasswordNotEmpty(RegistrationModel instance, string password)
+        {
+            if (instance.UseDefaultPassword)
+            {
+                instance.ConfirmPassword = instance.NewPassword = ConfigurationManager.AppSettings["UserPassword"];
+                return true;
+            }
+
+            return !string.IsNullOrEmpty(password);
         }
     }
 }

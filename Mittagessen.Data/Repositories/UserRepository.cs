@@ -15,6 +15,21 @@ namespace Mittagessen.Data.Repositories
             return Session.Users.SingleOrDefault(u => u.Name == name);
         }
 
+        public User GetUserByNameOrEmail(string nameOrEmail)
+        {
+            return Session.Users.SingleOrDefault(u => u.Name == nameOrEmail || u.Email == nameOrEmail);
+        }
+
+        public bool UserNameAvailable(string name)
+        {
+            return !Session.Users.Any(u => u.Name == name);
+        }
+
+        public bool EmailAddressAvailable(string email)
+        {
+            return !Session.Users.Any(u => u.Email == email);
+        }
+
         public override void Insert(User entity)
         {
             using (var tr = new TransactionScope())

@@ -39,9 +39,6 @@ namespace Mittagessen.Web.Controllers
         [HttpPost]
         public ActionResult Registration(RegistrationModel registration)
         {
-            if (UserRepository.GetUserByName(registration.RegistrationName) != null)
-                ModelState.AddModelError("RegistrationName", "Der Benutzername wird schon benutzt");
-
             if (ModelState.IsValid)
             {
                 var user = new User()
@@ -82,7 +79,7 @@ namespace Mittagessen.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            var user = UserRepository.GetUserByName(model.LoginName);
+            var user = UserRepository.GetUserByNameOrEmail(model.LoginName);
             if(user == null)
             {
                 ModelState.AddModelError("LoginName", "The user name provided is incorrect.");
@@ -92,7 +89,7 @@ namespace Mittagessen.Web.Controllers
 
             if(PasswordHelper.PasswordsMatch(specifiedPasswordHash, user.Password))
             {
-                FormsAuthentication.SetAuthCookie(model.LoginName, model.RememberLogin);
+                FormsAuthentication.SetAuthCookie(user.Name, model.RememberLogin);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -109,11 +106,18 @@ namespace Mittagessen.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public JsonResult UserNameExists(string RegistrationName)
+        public JsonResult UserNameAvailable(string RegistrationName)
         {
-            var userNameAvailable = UserRepository.GetUserByName(RegistrationName) == null;
+            var userNameAvailable = UserRepository.UserNameAvailable(RegistrationName);
 
             return Json(userNameAvailable, JsonRequestBehavior.AllowGet);           
+        }
+
+        public JsonResult EmailAddressAvailable(string Email)
+        {
+            var emailAvailable = UserRepository.EmailAddressAvailable(Email);
+
+            return Json(emailAvailable, JsonRequestBehavior.AllowGet);
         }
     }
 }

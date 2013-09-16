@@ -18,7 +18,9 @@ namespace Mittagessen.Web.Bootstrap
             ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
             ModelBinders.Binders[typeof(DateTime)] = new DateAndTimeModelBinder() { Date = "Date", Time = "Time" };
 
-            ModelValidatorProviders.Providers.Add(new FluentValidationModelValidatorProvider(new StructureMapValidatorFactory()));
+            var fvValidationModelProvider = new FluentValidationModelValidatorProvider(new StructureMapValidatorFactory());
+            fvValidationModelProvider.AddImplicitRequiredValidator = false;
+            ModelValidatorProviders.Providers.Add(fvValidationModelProvider);
         }
     }
 }
