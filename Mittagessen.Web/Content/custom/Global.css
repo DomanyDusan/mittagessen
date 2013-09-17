@@ -40,11 +40,8 @@
     content:"*";
     color:#ff0000;
     font-size:larger;
-}
-    
-.requiredIndicator {
-    display: block;
-}
+    margin-left:3px;
+}    
 
 .enrolled-msg {
     margin:5px;
@@ -81,4 +78,24 @@
     font-family:Georgia;
     margin-bottom:20px;
     margin-top:20px
+}
+
+.check-box-input {
+    clear: left;
+}
+    
+.check-box-input label {
+    float: left;
+    width: 250px;
+}
+
+.check-box-input input {
+    float: left;
+    margin-right: 5px;
+}
+
+.form-submit 
+{
+    clear:both;
+    margin-top: 2em;
 }

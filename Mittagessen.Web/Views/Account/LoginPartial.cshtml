@@ -4,20 +4,19 @@
     Layout = null;
 }
 
-<style type"text/css">
-    #RememberLogin 
-    {
-        margin-top:-5px;
-    }
-</style>
-
 <div class="header-text">Login</div>
 
 @using(Html.BeginForm("Login", "Account"))
 {
     @Html.EditorForModel()
+
+    <div class="check-box-input">
+        @Html.EditorFor(m => m.RememberLogin)
+        @Html.LabelFor(m => m.RememberLogin)
+        @Html.ValidationMessageFor(m => m.RememberLogin)
+    </div>
    
-    <div style="margin-top:15px">
+    <div class="form-submit">
         <input type="submit" value="Login" class="btn btn-primary" />    
     </div>
 }

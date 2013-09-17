@@ -14,7 +14,7 @@ namespace Mittagessen.Web.Models
         [DisplayName("Das geheime Kennwort für Registrierung")]
         [DataType(DataType.Password)]
         public string RegistrationPassword { get; set; }
-        [DisplayName("Benutzername oder E-Mail-Adresse")]
+        [DisplayName("Benutzername")]
         [Remote("UserNameAvailable", "Account", "", ErrorMessage = "Der Benutzername wird schon benutzt")]
         public string RegistrationName { get; set; }
         [DisplayName("E-Mail-Adresse")]
@@ -27,6 +27,7 @@ namespace Mittagessen.Web.Models
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
         [DisplayName("Das Kennwort für Registrierung als Passwort benutzen")]
+        [ScaffoldColumn(false)]
         public bool UseDefaultPassword { get; set; }
     }
 }

@@ -20,11 +20,13 @@ namespace Mittagessen.Web.Validation
             string regPasswordRequired = "Geben Sie bitte das Kennwort ein, das Sie für die Registrierung erhalten haben";
             RuleFor(r => r.RegistrationPassword).NotEmpty().WithMessage(regPasswordRequired)
                 .Equal(ConfigurationManager.AppSettings["UserPassword"]).WithMessage(regPasswordRequired);
-            RuleFor(r => r.RegistrationName).NotEmpty().Length(1,20).Must(UserNameAvailable).WithMessage("Der Benutzername wird schon benutzt");
-            RuleFor(r => r.Email).NotEmpty().Length(1, 40).EmailAddress()
+            RuleFor(r => r.RegistrationName).NotEmpty().WithMessage("Wählen Sie bitte einen Benutzernamen")
+                .Length(1,20).Must(UserNameAvailable).WithMessage("Der Benutzername wird schon benutzt");
+            RuleFor(r => r.Email).NotEmpty().WithMessage("Bitte geben Sie eine E-Mail-Adresse ein. Die Adresse kann dann zum Login benutzt werden wenn Sie den Benutzernamen vergessen")
+                .Length(1, 40).EmailAddress()
                 .Must(EmailAvailable).WithMessage("Die E-Mail-Adresse wurde schon von einem anderen Benutzer registriert")
                 .Must(NotCompanyEmail).WithMessage("Firmen-E-Mail-Adressen sind nicht erlaubt");
-            RuleFor(r => r.NewPassword).Must(PasswordNotEmpty).WithMessage("Bitte geben Sie ein Passwort ein");
+            RuleFor(r => r.NewPassword).Must(PasswordNotEmpty).WithMessage("Bitte geben Sie ein Passwort ein oder wählen Sie das Kennwort für Registrierung zu benutzen");
             RuleFor(r => r.ConfirmPassword).Equal(r => r.NewPassword);
             RuleFor(r => r.UseDefaultPassword);
         }
@@ -41,6 +43,8 @@ namespace Mittagessen.Web.Validation
 
         private bool NotCompanyEmail(string email)
         {
+            if (email == null)
+                return true;
             return !email.EndsWith("sba-research.org") && !email.EndsWith("securityresearch.at");
         }
 

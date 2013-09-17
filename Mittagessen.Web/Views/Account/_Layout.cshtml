@@ -21,7 +21,7 @@
     </div>
     <script type="text/javascript">
         $(function () {
-            $("#registration-form .editor-field").addClass("required");
+            $("#registration-form input[data-val-required]").parent(".editor-field").prev().children("label").addClass("required");
             $("#UseDefaultPassword").click(function () {
                 if(this.checked == true) {
                     $("#NewPassword,#ConfirmPassword").attr("disabled", "disabled");

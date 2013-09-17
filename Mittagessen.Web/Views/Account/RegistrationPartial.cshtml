@@ -10,6 +10,14 @@
 {
     @Html.EditorForModel()  
     
-    <input type="submit" value="Register" class="btn btn-primary"  />    
+    <div class="check-box-input">
+        @Html.EditorFor(m => m.UseDefaultPassword)
+        @Html.LabelFor(m => m.UseDefaultPassword)
+        @Html.ValidationMessageFor(m => m.UseDefaultPassword)
+    </div>
+    
+    <div class="form-submit">
+        <input type="submit" value="Register" class="btn btn-primary"  />    
+    </div>
 }
 

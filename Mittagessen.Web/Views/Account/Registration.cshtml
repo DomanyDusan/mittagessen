@@ -5,14 +5,8 @@
     Layout = "_Layout.cshtml";
 }
 
-<div class="span8" style="padding-left:30px">
+<div class="span16" style="padding-left:30px">
 
-    <div class="header-text">Registrierung</div>
+    @Html.Partial("RegistrationPartial", Model)
 
-    @using (Html.BeginForm("Registration", "Account", FormMethod.Post, new { id = "registration-form" }))
-    {
-    @Html.EditorForModel()
-   
-    <input type="submit" value="Register" class="btn btn-primary" />    
-    }
 </div>
