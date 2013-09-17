@@ -48,8 +48,11 @@ namespace Mittagessen.Web.Controllers
                     RegistrationDate = DateTime.Now,
                     LastAccessDate = DateTime.Now                    
                 };
+                var password = registration.UseDefaultPassword
+                    ? ConfigurationManager.AppSettings["UserPassword"]
+                    : registration.NewPassword;
                 user.PasswordSalt = PasswordHelper.CreateSalt();
-                user.Password = PasswordHelper.GeneratePassword(registration.NewPassword, user.PasswordSalt);
+                user.Password = PasswordHelper.GeneratePassword(password, user.PasswordSalt);
                 UserRepository.Insert(user);
                 FormsAuthentication.SetAuthCookie(user.Name, false);
 

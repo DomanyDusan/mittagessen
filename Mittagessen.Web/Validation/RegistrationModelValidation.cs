@@ -50,13 +50,7 @@ namespace Mittagessen.Web.Validation
 
         private bool PasswordNotEmpty(RegistrationModel instance, string password)
         {
-            if (instance.UseDefaultPassword)
-            {
-                instance.ConfirmPassword = instance.NewPassword = ConfigurationManager.AppSettings["UserPassword"];
-                return true;
-            }
-
-            return !string.IsNullOrEmpty(password);
+            return instance.UseDefaultPassword || !string.IsNullOrEmpty(password);
         }
     }
 }
