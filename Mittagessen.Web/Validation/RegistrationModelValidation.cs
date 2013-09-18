@@ -24,8 +24,7 @@ namespace Mittagessen.Web.Validation
                 .Length(1,20).Must(UserNameAvailable).WithMessage("Der Benutzername wird schon benutzt");
             RuleFor(r => r.Email).NotEmpty().WithMessage("Bitte geben Sie eine E-Mail-Adresse ein. Die Adresse kann dann zum Login benutzt werden wenn Sie den Benutzernamen vergessen")
                 .Length(1, 40).EmailAddress()
-                .Must(EmailAvailable).WithMessage("Die E-Mail-Adresse wurde schon von einem anderen Benutzer registriert")
-                .Must(NotCompanyEmail).WithMessage("Firmen-E-Mail-Adressen sind nicht erlaubt");
+                .Must(EmailAvailable).WithMessage("Die E-Mail-Adresse wurde schon von einem anderen Benutzer registriert");
             RuleFor(r => r.NewPassword).Must(PasswordNotEmpty).WithMessage("Bitte geben Sie ein Passwort ein oder wählen Sie das Kennwort für Registrierung zu benutzen");
             RuleFor(r => r.ConfirmPassword).Equal(r => r.NewPassword);
             RuleFor(r => r.UseDefaultPassword);
@@ -39,13 +38,6 @@ namespace Mittagessen.Web.Validation
         private bool EmailAvailable(string email)
         {
             return UserRepository.EmailAddressAvailable(email);
-        }
-
-        private bool NotCompanyEmail(string email)
-        {
-            if (email == null)
-                return true;
-            return !email.EndsWith("sba-research.org") && !email.EndsWith("securityresearch.at");
         }
 
         private bool PasswordNotEmpty(RegistrationModel instance, string password)
