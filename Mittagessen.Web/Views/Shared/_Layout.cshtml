@@ -32,6 +32,9 @@
                             <li>
                                 @Html.ActionLink("Gerichte bewerten", "Meals", "Overview", new { area = "" }, null)
                             </li>
+                            <li>
+                                @Html.ActionLink("Benutzerdaten", "Edit", "User", new { area = "" }, null)
+                            </li>
                             @if (User != null && User.IsInRole("admin"))
                             {
                                 <li>@Html.ActionLink("Obedy", "Index", "Lunch", new { area = "Sprava" }, null)</li>

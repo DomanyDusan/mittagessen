@@ -11,6 +11,8 @@ namespace Mittagessen.Data.Interfaces
         User GetUserByName(string name);
         User GetUserByNameOrEmail(string nameOrEmail);
         bool UserNameAvailable(string name);
+        bool UserNameAvailable(string name, Guid userId);
         bool EmailAddressAvailable(string email);
+        bool EmailAddressAvailable(string email, Guid userId);
     }
 }

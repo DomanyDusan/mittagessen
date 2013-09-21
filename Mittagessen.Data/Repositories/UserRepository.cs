@@ -25,9 +25,19 @@ namespace Mittagessen.Data.Repositories
             return !Session.Users.Any(u => u.Name == name);
         }
 
+        public bool UserNameAvailable(string name, Guid userId)
+        {
+            return !Session.Users.Any(u => u.Name == name && u.Id != userId);
+        }
+
         public bool EmailAddressAvailable(string email)
         {
             return !Session.Users.Any(u => u.Email == email);
+        }
+
+        public bool EmailAddressAvailable(string email, Guid userId)
+        {
+            return !Session.Users.Any(u => u.Email == email && u.Id != userId);
         }
 
         public override void Insert(User entity)
