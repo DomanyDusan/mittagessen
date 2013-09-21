@@ -6,39 +6,58 @@
 }
 
 <script type="text/javascript">
+    var EnrollmentViewModel = function (userEnrolled, numberOfPortions, numberOfEnrollments) {
+        this.userEnrolled = ko.observable(userEnrolled);
+        this.numberOfPortions = ko.observable(numberOfPortions);
+        this.numberOfEnrollments = ko.observable(numberOfEnrollments);
+        this.changingEnrollment = ko.observable(false);
+        this.showIsFull = ko.computed(function () {
+            return this.userEnrolled() == false && this.numberOfEnrollments() >= this.numberOfPortions();
+        }, this);
+        this.canEnroll = ko.computed(function () {
+            return this.showIsFull() == false && this.userEnrolled() == false;
+        }, this);
+    }
+
+    var ViewModels = new Array();
+
     $(function () {
+        $(".lunch-info").each(function () {
+            userEnrolled = $(this).find(".user-enrolled-msg").is(":visible");
+            numberOfPortions = $(this).find(".number-of-portions-info").text();
+            numberOfEnrollments = $(this).find(".number-of-enrollments-info").text();
+            var vm = new EnrollmentViewModel(userEnrolled, numberOfPortions, numberOfEnrollments);
+            ViewModels[$(this).attr("lunch-id")] = vm;
+            ko.applyBindings(vm, this);
+        });
+
         $.connection.enrollmentHub.client.lunchInfoUpdated = updateLunchInfo;
         $.connection.hub.start();
 
         $(".enroll-button").click(function () {
-            var enrollButton = $(this);
-            enrollButton.attr("disabled", "disabled");
-            $.post('@Url.Action("EnrollUser")', { lunchId: enrollButton.attr("lunch-id") }, function (result) {
-                enrollButton.hide();
+            lunchId = $(this).attr("lunch-id");
+            ViewModels[lunchId].changingEnrollment(true);
+            $.post('@Url.Action("EnrollUser")', { lunchId: lunchId }, function (result) {
                 if (result.success) {
-                    enrollButton.siblings(".disenroll-button").removeAttr("disabled").show();
-                    $("div.lunch-info[lunch-id=" + enrollButton.attr("lunch-id") + "] span.user-enrolled-msg").show();
-                }
-                else {
-                    enrollButton.siblings(".termin-full-msg").show();
-                }
+                    ViewModels[lunchId].userEnrolled(true);
+                }                    
+                ViewModels[lunchId].changingEnrollment(false);
             });
         });
 
         $(".disenroll-button").click(function () {
-            var disenrollButton = $(this);
-            disenrollButton.attr("disabled", "disabled");
-            $.post('@Url.Action("DisenrollUser")', { lunchId: disenrollButton.attr("lunch-id") }, function () {
-                disenrollButton.hide();
-                disenrollButton.siblings(".enroll-button").removeAttr("disabled").show();
-                $("div.lunch-info[lunch-id=" + disenrollButton.attr("lunch-id") + "] span.user-enrolled-msg").hide();
+            lunchId = $(this).attr("lunch-id");
+            ViewModels[lunchId].changingEnrollment(true);
+            $.post('@Url.Action("DisenrollUser")', { lunchId: lunchId }, function () {
+                ViewModels[lunchId].userEnrolled(false);
+                ViewModels[lunchId].changingEnrollment(false);
             });
         });
     });
 
-    function updateLunchInfo(lunchId, enrollments, portions, lunchFull) {
-        $("div.lunch-info[lunch-id=" + lunchId + "] span.number-of-portions-info").html(portions);
-        $("div.lunch-info[lunch-id=" + lunchId + "] span.number-of-enrollments-info").html(enrollments);
+    function updateLunchInfo(lunchId, enrollments, portions) {
+        ViewModels[lunchId].numberOfPortions(portions);
+        ViewModels[lunchId].numberOfEnrollments(enrollments);
     }
 </script>
 
@@ -50,7 +69,7 @@
         <div>
             <h5 style="float:left">@lunch.LunchDate.DayOfWeek @lunch.LunchDate.ToShortTimeString()</h5>
 
-        <span class="label label-success user-enrolled-msg" @(Model.EnrolledByUser(lunch) ? null : "style=display:none")>Angemeldet</span>
+        <span class="label label-success user-enrolled-msg" data-bind="visible: userEnrolled" @(Model.EnrolledByUser(lunch) ? null : "style=display:none")>Angemeldet</span>
 
             <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
             <div style="min-height:40px"><h4>@lunch.CookedMeal.Name</h4></div>
@@ -58,20 +77,20 @@
             <table>
                 <tr>
                     <td><span style='font-family:Verdana; font-weight:bolder'>Portionen:</span></td>
-                    <td><span class="badge badge-info number-of-portions-info">@lunch.NumberOfPortions</span></td>
+                    <td><span class="badge badge-info number-of-portions-info" data-bind="text: numberOfPortions">@lunch.NumberOfPortions</span></td>
                 </tr>
                 <tr>
                     <td><span style='font-family:Verdana; font-weight:bolder'>Angemeldete:</span></td>
-                    <td><span class="badge badge-success number-of-enrollments-info">@lunch.NumberOfEnrollments</span></td>
+                    <td><span class="badge badge-success number-of-enrollments-info" data-bind="text: numberOfEnrollments">@lunch.NumberOfEnrollments</span></td>
                 </tr>
             </table>
             <div style="margin-left:auto;margin-right:auto;margin-top:10px;width:7em">
 
-                <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' @(Model.EnrolledByUser(lunch) ? null : "style=display:none") />
+                <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' data-bind="visible: userEnrolled, disable: changingEnrollment" />
 
-                <div class='termin-full-msg' @(lunch.IsFull && !Model.EnrolledByUser(lunch) ? null : "style=display:none")>Termin voll</div>
+                <div class='termin-full-msg' data-bind="visible: showIsFull">Termin voll</div>
 
-                <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' @(!Model.EnrolledByUser(lunch) && !lunch.IsFull ? null : "style=display:none") />
+                <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' data-bind="visible: canEnroll, disable: changingEnrollment" />
 
             </div>
         </div>

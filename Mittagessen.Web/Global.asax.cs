@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Mittagessen.Web.Infrastructure;
-using Mittagessen.Web.Bootstrap;
+using Mittagessen.Web.AppStart;
 using System.Web.Security;
 using System.Configuration;
 using Mittagessen.Data;

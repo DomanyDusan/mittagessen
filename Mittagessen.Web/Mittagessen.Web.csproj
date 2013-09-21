@@ -111,14 +111,14 @@
     <Compile Include="Infrastructure\StructureMapValidatorFactory.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Areas\Sprava\SpravaAreaRegistration.cs" />
-    <Compile Include="Bootstrap\AppConfig.cs" />
+    <Compile Include="AppStart\AppConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\DbContextManager.cs" />
-    <Compile Include="Bootstrap\IocConfig.cs" />
+    <Compile Include="AppStart\IocConfig.cs" />
     <Compile Include="Models\EnrollmentModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -281,7 +281,6 @@
     <Content Include="Views\Shared\EditorTemplates\Image.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Image.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\MealList.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />

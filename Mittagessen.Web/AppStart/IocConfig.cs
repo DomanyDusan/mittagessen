@@ -11,7 +11,7 @@ using Mittagessen.Data.Repositories;
 using Mittagessen.Web.Infrastructure;
 using Mittagessen.Web.Validation;
 
-namespace Mittagessen.Web.Bootstrap
+namespace Mittagessen.Web.AppStart
 {
     public static class IocConfig
     {

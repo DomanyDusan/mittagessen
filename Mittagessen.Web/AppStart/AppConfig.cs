@@ -9,7 +9,7 @@ using Mittagessen.Web.Infrastructure;
 using System.Web.Mvc;
 using StructureMap;
 
-namespace Mittagessen.Web.Bootstrap
+namespace Mittagessen.Web.AppStart
 {
     public class AppConfig
     {

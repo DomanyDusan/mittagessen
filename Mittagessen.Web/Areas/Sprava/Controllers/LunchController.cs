@@ -96,7 +96,7 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         private void UpdateLunchInfoOnClients(Lunch lunch)
         {
             var hub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<Hubs.EnrollmentHub>();
-            hub.Clients.All.lunchInfoUpdated(lunch.Id, lunch.NumberOfEnrollments, lunch.NumberOfPortions, lunch.IsFull);
+            hub.Clients.All.lunchInfoUpdated(lunch.Id, lunch.NumberOfEnrollments, lunch.NumberOfPortions);
         }
     }
 }

@@ -8,6 +8,7 @@ using Mittagessen.Data.Interfaces;
 using Mittagessen.Web.Helpers;
 using Mittagessen.Web.Models;
 using StructureMap.Attributes;
+using System.Threading;
 
 namespace Mittagessen.Web.Controllers
 {
@@ -68,7 +69,7 @@ namespace Mittagessen.Web.Controllers
         {
             var lunch = LunchRepository.Get(lunchId);
             var hub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<Hubs.EnrollmentHub>();
-            hub.Clients.All.lunchInfoUpdated(lunchId, lunch.NumberOfEnrollments, lunch.NumberOfPortions, lunch.IsFull);
+            hub.Clients.All.lunchInfoUpdated(lunchId, lunch.NumberOfEnrollments, lunch.NumberOfPortions);
         }
     }
 }
