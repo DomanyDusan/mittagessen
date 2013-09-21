@@ -27,7 +27,6 @@ namespace Mittagessen.Web.Models
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
         [DisplayName("Das Kennwort für Registrierung als Passwort benutzen")]
-        [ScaffoldColumn(false)]
         public bool UseDefaultPassword { get; set; }
     }
 }

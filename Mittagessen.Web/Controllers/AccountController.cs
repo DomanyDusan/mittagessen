@@ -33,7 +33,7 @@ namespace Mittagessen.Web.Controllers
         [ChildActionOnly]
         public ActionResult RegistrationPartial()
         {
-            return View();
+            return View(new RegistrationModel());
         }
 
         [HttpPost]

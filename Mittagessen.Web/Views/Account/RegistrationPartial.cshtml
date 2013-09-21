@@ -4,14 +4,52 @@
     Layout = null;
 }
 
+<script type="text/javascript">
+    var RegistrationViewModel = function (useDefaultPassword) {
+        this.useDefaultPassword = ko.observable(useDefaultPassword);
+    }
+
+    $(function () {
+        ko.applyBindings(new RegistrationViewModel($("#use-default-password-input").is(':checked')));
+    });
+</script>
+
 <div class="header-text">Registrierung</div>
 
 @using (Html.BeginForm("Registration", "Account", FormMethod.Post, new { id = "registration-form" }))
 {
-    @Html.EditorForModel()  
+    <div class="required">
+        @Html.LabelFor(m => m.RegistrationPassword)
+        @Html.EditorFor(m => m.RegistrationPassword)
+        @Html.ValidationMessageFor(m => m.RegistrationPassword)
+    </div>
     
+    <div class="required">
+        @Html.LabelFor(m => m.RegistrationName)
+        @Html.EditorFor(m => m.RegistrationName)
+        @Html.ValidationMessageFor(m => m.RegistrationName)
+    </div>
+    
+    <div class="required">
+        @Html.LabelFor(m => m.Email)
+        @Html.EditorFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    
+    <div>
+        @Html.LabelFor(m => m.NewPassword)
+        @Html.PasswordFor(m => m.NewPassword, new { data_bind = "disable: useDefaultPassword" })
+        @Html.ValidationMessageFor(m => m.NewPassword)
+    </div>
+    
+    <div>
+        @Html.LabelFor(m => m.ConfirmPassword)
+        @Html.PasswordFor(m => m.ConfirmPassword, new { data_bind = "disable: useDefaultPassword" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+    </div>
+       
     <div class="check-box-input">
-        @Html.EditorFor(m => m.UseDefaultPassword)
+        @Html.CheckBoxFor(m => m.UseDefaultPassword, new { id = "use-default-password-input", data_bind = "checked: useDefaultPassword" })
         @Html.LabelFor(m => m.UseDefaultPassword)
         @Html.ValidationMessageFor(m => m.UseDefaultPassword)
     </div>
