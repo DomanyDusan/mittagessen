@@ -67,7 +67,7 @@
 {    
     <div class="meal lunch-info" lunch-id="@lunch.Id">
         <div>
-            <h5 style="float:left">@lunch.LunchDate.DayOfWeek @lunch.LunchDate.ToShortTimeString()</h5>
+            <h5 style="float:left">@lunch.LunchDate.ToShortDateString() @lunch.LunchDate.ToShortTimeString()</h5>
 
         <span class="label label-success user-enrolled-msg" data-bind="visible: userEnrolled" @(Model.EnrolledByUser(lunch) ? null : "style=display:none")>Angemeldet</span>
 

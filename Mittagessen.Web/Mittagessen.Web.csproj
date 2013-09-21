@@ -120,6 +120,7 @@
     <Compile Include="Infrastructure\DbContextManager.cs" />
     <Compile Include="AppStart\IocConfig.cs" />
     <Compile Include="Models\EnrollmentModel.cs" />
+    <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\RegistrationModelValidation.cs" />

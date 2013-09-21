@@ -30,11 +30,15 @@ namespace Mittagessen.Data.Repositories
                 Session.SaveChanges();
 
                 var meal = Get(mealId);
-                var averageRating = Session.MealRatings.Where(r => r.RatedMealId == mealId).Average(r => r.Rating);
-                meal.AverageRating = Math.Ceiling(averageRating);
+                meal.AverageRating = Session.MealRatings.Where(r => r.RatedMealId == mealId).Average(r => r.Rating);
                 Session.SaveChanges();
                 tr.Complete();
             }
+        }
+
+        public IEnumerable<MealRating> GetUserRatings(Guid userId)
+        {
+            return Session.MealRatings.AsNoTracking().Where(r => r.RatedById == userId).ToList();
         }
     }
 }

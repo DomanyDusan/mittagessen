@@ -8,7 +8,7 @@ namespace Mittagessen.Web.Models
 {
     public class EnrollmentModel
     {
-        public IList<Guid> MyLunches { get; set; }
+        public HashSet<Guid> MyLunches { get; set; }
 
         public IList<Lunch> Lunches { get; set; }
 

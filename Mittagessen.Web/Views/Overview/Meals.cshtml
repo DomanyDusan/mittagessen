@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Mittagessen.Data.Entities.Meal>
+﻿@model Mittagessen.Web.Models.RatingModel
 
 @{
     ViewBag.Title = "Meals";
@@ -6,23 +6,42 @@
 }
 
 <script type="text/javascript">
+    var RatingViewModel = function (rating) {
+        this.rating = ko.observable(rating);
+    }
+
+    var ViewModels = new Array();
+
     $(function () {
         $(".rateit").bind('rated', rateMeal);
+        $(".meal").each(function () {
+            rating = $(this).find(".rating-info").text();
+            vm = new RatingViewModel(rating);
+            ViewModels[$(this).attr("meal-id")] = vm;
+            ko.applyBindings(vm, this);
+        });
     });
 
     function rateMeal(event, value) {
-        $.post('@Url.Action("RateMeal")', { mealId: $(this).attr('meal-id'), value: value });
+        mealId = $(this).attr('meal-id');
+        $.post('@Url.Action("RateMeal")', { mealId: mealId, value: value }, function (data) {
+            ViewModels[mealId].rating(data.rating);
+        });
     }
 </script>
 
 <h2>Gerichte</h2>
 
-@foreach (var meal in Model)
+@foreach (var meal in Model.Meals)
 {
-    <div class="meal">
+    <div class="meal" meal-id="@meal.Id">
         <img alt="@meal.Name" src="@meal.ImageName" />
         <div style="min-height:40px"><h4>@meal.Name</h4></div>
-        <div class="rateit" meal-id="@meal.Id" data-rateit-resetable="false" data-rateit-value="@meal.AverageRating" data-rateit-ispreset="true" data-rateit-step=1></div>
+        <div class="rateit" meal-id="@meal.Id" 
+            data-rateit-resetable="false" data-rateit-value="@Model.UserRating(meal.Id)" data-rateit-ispreset="true" 
+            data-rateit-step=1 data-rateit-max=10></div>
+        <span style="font-family:Times New Roman; font-variant:small-caps; font-weight:bolder">Dur.:</span>
+        <span class="badge badge-info rating-info" data-bind="text: rating">@meal.AverageRatingRounded</span>
     </div>
 }
 

@@ -9,5 +9,6 @@ namespace Mittagessen.Data.Interfaces
     public interface IMealRepository : ISimpleRepository<Meal>
     {
         void RateMeal(Guid userId, Guid mealId, double value);
+        IEnumerable<MealRating> GetUserRatings(Guid userId);
     }
 }

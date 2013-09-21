@@ -7,6 +7,7 @@ using StructureMap.Attributes;
 using Mittagessen.Data.Interfaces;
 using Mittagessen.Data.Entities;
 using Mittagessen.Web.Helpers;
+using Mittagessen.Web.Models;
 
 namespace Mittagessen.Web.Controllers
 {
@@ -18,16 +19,18 @@ namespace Mittagessen.Web.Controllers
         [SetterProperty]
         public IUserRepository UserRepository { get; set; }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Meals()
         {
+            var user = UserRepository.GetUserByName(User.Identity.Name);
+            var userRatings = MealRepository.GetUserRatings(user.Id);
             var meals = MealRepository.GetAll();
-            return View(meals);
+            var ratingModel = new RatingModel()
+            {
+                Meals = meals,
+                UserRatings = userRatings.ToDictionary(m => m.RatedMealId, m => m.Rating)
+            };
+            return View(ratingModel);
         }
 
         [HttpGet]
@@ -38,10 +41,12 @@ namespace Mittagessen.Web.Controllers
         }
 
         [HttpPost]
-        public void RateMeal(Guid mealId, double value)
+        public JsonResult RateMeal(Guid mealId, double value)
         {
             var user = UserRepository.GetUserByName(User.Identity.Name);
             MealRepository.RateMeal(user.Id, mealId, value);
+            var meal = MealRepository.Get(mealId);
+            return Json(new { rating = meal.AverageRatingRounded });
         }
     }
 }

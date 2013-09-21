@@ -30,7 +30,7 @@ namespace Mittagessen.Web.Controllers
             var user = UserRepository.GetUserByName(User.Identity.Name);
             var model = new EnrollmentModel()
                             {
-                                MyLunches = user.Enrollments.Select(e => e.EnrolledForLunchId).ToList(),
+                                MyLunches = new HashSet<Guid>(user.Enrollments.Select(e => e.EnrolledForLunchId)),
                                 Lunches = thisWeekLunches
                             };
 

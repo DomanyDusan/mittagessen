@@ -23,5 +23,10 @@ namespace Mittagessen.Data.Entities
         public string ImageName { get; set; }
         [HiddenInput(DisplayValue=false)]
         public double AverageRating { get; set; }
+        [ScaffoldColumn(false)]
+        public double AverageRatingRounded
+        {
+            get { return Math.Round(AverageRating,1); }
+        }
     }
 }
