@@ -12,17 +12,16 @@
     <script src="@Url.Content("~/Scripts/knockout-2.3.0.js")" type="text/javascript""></script>
 </head>
 <body>
-    <div class="main-div">
-        <div class="container">
-            <div class="row" style="height:100px">
-                <div style="text-align:center;height:25px;background-color:#eeeeee;font-size:24px;font-family:Georgia;padding-top:5px; border-radius:10px">
-                    Am Mittwoch bieten wir auch vegetarische Gerichte an
-                </div>
+    <div class="back-div"></div>
+    <div class="container" style="min-height:100%">
+        <div class="row" style="height:100px">
+            <div style="text-align:center;height:25px;background-color:#eeeeee;font-size:24px;font-family:Georgia;padding-top:5px; border-radius:10px">
+                Am Mittwoch bieten wir auch vegetarische Gerichte an
             </div>
-            <div class="row">
-                <div class="container-fluid">
-                    @RenderBody()
-                </div>
+        </div>
+        <div class="row">
+            <div class="container-fluid">
+                @RenderBody()
             </div>
         </div>
     </div>
