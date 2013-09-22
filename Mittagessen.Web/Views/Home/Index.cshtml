@@ -12,7 +12,7 @@
         this.numberOfEnrollments = ko.observable(numberOfEnrollments);
         this.changingEnrollment = ko.observable(false);
         this.showIsFull = ko.computed(function () {
-            return this.userEnrolled() == false && this.numberOfEnrollments() >= this.numberOfPortions();
+            return this.userEnrolled() == false && parseInt(this.numberOfEnrollments()) >= parseInt(this.numberOfPortions());
         }, this);
         this.canEnroll = ko.computed(function () {
             return this.showIsFull() == false && this.userEnrolled() == false;
@@ -64,6 +64,10 @@
 </script>
 
 <h2>Anmeldung</h2>
+
+<div style="font-size:18px;font-family:Georgia;text-align:justify;margin-right:10px">
+    Die Anmeldung ist jederzeit vor dem Mittagessen möglich, solange es die Anzahl der Portionen ermöglicht. Wenn Sie sich aber frühzeitig eine Portion sichern, helfen Sie uns damit die richtige Menge an Nahrung zu kaufen und alles ruhig vorbereiten.
+</div>
 
 @foreach (var lunch in Model.Lunches)
 {    

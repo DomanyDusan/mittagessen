@@ -278,10 +278,9 @@
     <Content Include="Areas\Sprava\Views\Lunch\Index.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Create.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Edit.cshtml" />
-    <None Include="Content\images\pozadie.svg" />
+    <Content Include="Content\images\pozadie.svg" />
     <None Include="db.config" />
     <None Include="personal.config" />
-    <None Include="pozadie.svg" />
     <None Include="Properties\PublishProfiles\Somee.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Image.cshtml" />
