@@ -58,10 +58,10 @@ namespace Mittagessen.Web.Controllers
         {
             var user = UserRepository.GetUserByName(User.Identity.Name);
             var enrollment = EnrollmentRepository.Get(user.Id, lunchId);
-            EnrollmentRepository.Delete(enrollment);
+            var success = EnrollmentRepository.TryDelete(enrollment);
             UpdateLunchInfoOnClients(lunchId);
 
-            return Json(new { success = true });
+            return Json(new { success = success });
         }
 
         [NonAction]

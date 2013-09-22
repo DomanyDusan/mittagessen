@@ -20,7 +20,7 @@ namespace Mittagessen.Data.Repositories
             using (var tr = new TransactionScope())
             {
                 var lunch = Session.Lunches.Find(enrollment.EnrolledForLunchId);
-                if (lunch.NumberOfEnrollments >= lunch.NumberOfPortions)
+                if (lunch.NumberOfEnrollments >= lunch.NumberOfPortions || lunch.LunchDate < DateTime.Now)
                     return false;
                 var oldEnrollment = Session.Enrollments
                     .SingleOrDefault(e => e.EnrolledById == enrollment.EnrolledById && e.EnrolledForLunchId == enrollment.EnrolledForLunchId);
@@ -31,20 +31,25 @@ namespace Mittagessen.Data.Repositories
                 lunch.NumberOfEnrollments = lunch.Enrollments.Count;                
                 Session.SaveChanges();
                 tr.Complete();
-                return true;
             }
+
+            return true;
         }
 
-        public override void Delete(Enrollment enrollment)
+        public bool TryDelete(Enrollment enrollment)
         {
             using (var tr = new TransactionScope())
             {
                 var lunch = Session.Lunches.Find(enrollment.EnrolledForLunchId);
+                if (lunch.LunchDate < DateTime.Now)
+                    return false;
                 base.Delete(enrollment);
                 lunch.NumberOfEnrollments = lunch.Enrollments.Count;
                 Session.SaveChanges();
                 tr.Complete();
             }
+
+            return true;
         }
     }
 }

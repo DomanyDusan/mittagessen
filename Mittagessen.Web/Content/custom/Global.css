@@ -1,5 +1,32 @@
-﻿body {
-    background-color:#CCFFCC;
+﻿html 
+{
+    height:100%;
+	width:100%;
+}
+
+body {
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, left top, right top, from(#9e9621), to(#1daca0));
+
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(left, #9e9621, #1daca0);
+
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(left, #9e9621, #1daca0);
+
+	/* IE 10 */
+	background: -ms-linear-gradient(left, #9e9621, #1daca0);
+
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(left, #9e9621, #1daca0);
+	height:100%;
+	width:100%;
+}
+		
+body .main-div {	  					  
+	background-image: url(../images/pozadie.svg);
+	height:100%;
+	width:100%;
 }
 
 .meal {
@@ -61,7 +88,20 @@
 
 .termin-full-msg {
     margin:5px;
-    color:Blue;
+    font-weight:bold;
+    font-style:oblique;
+    font-size:120%;
+}
+
+.termin-past-msg {
+    margin:5px;
+    font-weight:bold;
+    font-style:oblique;
+    font-size:120%;
+}
+
+.termin--msg {
+    margin:5px;
     font-weight:bold;
     font-style:oblique;
     font-size:120%;

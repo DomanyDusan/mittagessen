@@ -7,7 +7,7 @@ using Mittagessen.Data.Entities;
 namespace Mittagessen.Web.Models
 {
     public class EnrollmentModel
-    {
+    {       
         public HashSet<Guid> MyLunches { get; set; }
 
         public IList<Lunch> Lunches { get; set; }
@@ -15,6 +15,11 @@ namespace Mittagessen.Web.Models
         public bool EnrolledByUser(Lunch lunch)
         {
             return MyLunches.Contains(lunch.Id);
+        }
+
+        public bool IsAfterDeadline(Lunch lunch)
+        {
+            return lunch.LunchDate < DateTime.Now;
         }
     }
 }

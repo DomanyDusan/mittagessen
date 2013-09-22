@@ -4,20 +4,21 @@
     Layout = null;
 }
 
-<div class="header-text">Login</div>
+<div style="background-color:#d2ec87;padding:5px; padding-left:30px; border-radius: 15px">
+    <div class="header-text">Login</div>
 
-@using(Html.BeginForm("Login", "Account"))
-{
-    @Html.EditorForModel()
+    @using(Html.BeginForm("Login", "Account"))
+    {
+        @Html.EditorForModel()
 
-    <div class="check-box-input">
-        @Html.EditorFor(m => m.RememberLogin)
-        @Html.LabelFor(m => m.RememberLogin)
-        @Html.ValidationMessageFor(m => m.RememberLogin)
-    </div>
+        <div class="check-box-input">
+            @Html.EditorFor(m => m.RememberLogin)
+            @Html.LabelFor(m => m.RememberLogin)
+            @Html.ValidationMessageFor(m => m.RememberLogin)
+        </div>
    
-    <div class="form-submit">
-        <input type="submit" value="Login" class="btn btn-primary" />    
-    </div>
-}
-
+        <div class="form-submit">
+            <input type="submit" value="Login" class="btn btn-primary" />    
+        </div>
+    }
+</div>

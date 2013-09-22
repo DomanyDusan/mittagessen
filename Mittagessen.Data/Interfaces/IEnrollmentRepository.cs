@@ -10,5 +10,6 @@ namespace Mittagessen.Data.Interfaces
     {
         Enrollment Get(Guid userId, Guid lunchId);
         bool TryInsert(Enrollment enrollment);
+        bool TryDelete(Enrollment enrollment);
     }
 }

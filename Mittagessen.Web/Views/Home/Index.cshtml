@@ -40,7 +40,7 @@
             $.post('@Url.Action("EnrollUser")', { lunchId: lunchId }, function (result) {
                 if (result.success) {
                     ViewModels[lunchId].userEnrolled(true);
-                }                    
+                }
                 ViewModels[lunchId].changingEnrollment(false);
             });
         });
@@ -48,8 +48,10 @@
         $(".disenroll-button").click(function () {
             lunchId = $(this).attr("lunch-id");
             ViewModels[lunchId].changingEnrollment(true);
-            $.post('@Url.Action("DisenrollUser")', { lunchId: lunchId }, function () {
-                ViewModels[lunchId].userEnrolled(false);
+            $.post('@Url.Action("DisenrollUser")', { lunchId: lunchId }, function (result) {
+                if (result.success) {
+                    ViewModels[lunchId].userEnrolled(false);
+                }
                 ViewModels[lunchId].changingEnrollment(false);
             });
         });
@@ -86,12 +88,18 @@
             </table>
             <div style="margin-left:auto;margin-right:auto;margin-top:10px;width:7em">
 
-                <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' data-bind="visible: userEnrolled, disable: changingEnrollment" />
+                @if (Model.IsAfterDeadline(lunch))
+                {
+                    <span class="badge badge-warning"><div class='termin-past-msg'>Termin vergangen</div></span>
+                }
+                else
+                {
+                    <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' data-bind="visible: userEnrolled, disable: changingEnrollment" />
 
-                <div class='termin-full-msg' data-bind="visible: showIsFull">Termin voll</div>
+                    <span class="badge badge-info" data-bind="visible: showIsFull"><div class='termin-full-msg'>Termin voll</div></span>
 
-                <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' data-bind="visible: canEnroll, disable: changingEnrollment" />
-
+                    <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' data-bind="visible: canEnroll, disable: changingEnrollment" />
+                }
             </div>
         </div>
     </div>   
