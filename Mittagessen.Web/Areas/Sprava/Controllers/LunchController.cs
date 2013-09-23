@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Mittagessen.Data.Entities;
+using Mittagessen.Web.Areas.Sprava.Models;
 using Mittagessen.Web.Helpers;
 using Mittagessen.Web.Infrastructure;
 using StructureMap.Attributes;
@@ -30,26 +31,36 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var lunch = new Lunch()
-                            {
-                                LunchDate = DateTime.Today.AddHours(12).AddMinutes(30),
-                                NumberOfPortions = 10
-                            };
-            return View(lunch);
+            return View();
+        }
+
+        [HttpGet]
+        [ChildActionOnly]
+        public ActionResult CreatePartial()
+        {
+            var lunchModel = new LunchModel()
+            {
+                LunchDate = DateTime.Today,
+                LunchTime = TimeSpan.FromHours(12) + TimeSpan.FromMinutes(30),
+                NumberOfPortions = 10
+            };
+            return View(lunchModel);
         }
 
         [HttpPost]
-        public ActionResult Create(Lunch lunch)
+        public ActionResult Create(LunchModel lunchModel)
         {
             if (ModelState.IsValid)
             {
+                var lunch = new Lunch();
+                Mapper.Map(lunchModel, lunch);
                 LunchRepository.Insert(lunch);
 
                 return RedirectToAction("Index");
             }
             else
             {
-                return View(lunch);
+                return View(lunchModel);
             }
         }
 
@@ -57,15 +68,18 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         public ActionResult Edit(Guid id)
         {
             var lunch = LunchRepository.Get(id);
+            var lunchModel = Mapper.Map(lunch, new LunchModel());
 
-            return View(lunch);
+            return View(lunchModel);
         }
 
         [HttpPost]
-        public ActionResult Edit(Lunch lunch)
+        public ActionResult Edit(LunchModel lunchModel)
         {
             if (ModelState.IsValid)
             {
+                var lunch = LunchRepository.Get(lunchModel.LunchId);
+                Mapper.Map(lunchModel, lunch);
                 LunchRepository.Update(lunch);
 
                 UpdateLunchInfoOnClients(lunch);
@@ -74,7 +88,7 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
             }
             else
             {
-                return View(lunch);
+                return View(lunchModel);
             }
         }
 

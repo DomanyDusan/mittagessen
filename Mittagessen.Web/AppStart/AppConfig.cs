@@ -16,7 +16,6 @@ namespace Mittagessen.Web.AppStart
         public static void Initialize()
         {
             ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
-            ModelBinders.Binders[typeof(DateTime)] = new DateAndTimeModelBinder() { Date = "Date", Time = "Time" };
 
             var fvValidationModelProvider = new FluentValidationModelValidatorProvider(new StructureMapValidatorFactory());
             fvValidationModelProvider.AddImplicitRequiredValidator = false;

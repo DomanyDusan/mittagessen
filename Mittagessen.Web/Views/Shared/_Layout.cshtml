@@ -57,6 +57,14 @@
         </div>
         <script type="text/javascript">
             $(function () {
+                $.validator.methods["date"] = function (value, element) {
+                    try {
+                        $.datepicker.parseDate("dd.mm.yy", value);
+                        return true;
+                    } catch (error) {
+                        return false;
+                    }
+                };
                 $('.date').datepicker({ dateFormat: 'dd.mm.yy' });
             });
         </script>

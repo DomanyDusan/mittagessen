@@ -15,6 +15,12 @@ namespace Mittagessen.Data.Repositories
             return Session.Enrollments.SingleOrDefault(e => e.EnrolledById == userId && e.EnrolledForLunchId == lunchId);
         }
 
+        public IEnumerable<User> GetUsersByEnrollments(IEnumerable<Enrollment> enrollments)
+        {
+            var userIds = enrollments.Select(e => e.EnrolledById).ToList();
+            return Session.Users.Where(u => userIds.Contains(u.Id));
+        }
+
         public bool TryInsert(Enrollment enrollment)
         {
             using (var tr = new TransactionScope())
