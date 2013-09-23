@@ -34,7 +34,6 @@ body .back-div {
 }
 
 .meal {
-    height:270px;
     width:270px;
     padding:10px;
     position:relative;
@@ -46,7 +45,6 @@ body .back-div {
 }
 
 .meal-small {
-    height:100px;
     width:100px;
     padding:10px;
     position:relative;
@@ -98,13 +96,6 @@ body .back-div {
 }
 
 .termin-past-msg {
-    margin:5px;
-    font-weight:bold;
-    font-style:oblique;
-    font-size:120%;
-}
-
-.termin--msg {
     margin:5px;
     font-weight:bold;
     font-style:oblique;
