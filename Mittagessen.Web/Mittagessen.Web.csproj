@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="Areas\Sprava\Controllers\LunchController.cs" />
     <Compile Include="Areas\Sprava\Controllers\MealController.cs" />
+    <Compile Include="Areas\Sprava\Controllers\UserController.cs" />
     <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
@@ -279,6 +280,7 @@
     <Content Include="Areas\Sprava\Views\Lunch\Create.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Edit.cshtml" />
     <Content Include="Content\images\pozadie.svg" />
+    <Content Include="Areas\Sprava\Views\User\Index.cshtml" />
     <None Include="db.config" />
     <None Include="personal.config" />
     <None Include="Properties\PublishProfiles\Somee.pubxml" />

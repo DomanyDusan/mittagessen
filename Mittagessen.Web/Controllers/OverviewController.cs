@@ -11,6 +11,7 @@ using Mittagessen.Web.Models;
 
 namespace Mittagessen.Web.Controllers
 {
+    [Authorize]
     public class OverviewController : Controller
     {
         [SetterProperty]

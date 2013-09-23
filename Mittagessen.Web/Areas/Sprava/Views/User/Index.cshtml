@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Mittagessen.Data.Entities.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Uzivatel</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach(var user in Model)
+{
+    <tr>
+        <td>@user.Name</td>
+        <td>@user.Email</td>
+    </tr>
+}
+    </tbody>
+</table>
+
