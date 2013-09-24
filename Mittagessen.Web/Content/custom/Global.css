@@ -33,7 +33,9 @@ body .back-div {
     position: fixed; 
 }
 
-.meal {
+.meal 
+{
+    height: 300px;
     width:270px;
     padding:10px;
     position:relative;

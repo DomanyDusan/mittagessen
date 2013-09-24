@@ -5,12 +5,17 @@
 }
 
 <script type="text/javascript">
-    var RegistrationViewModel = function (useDefaultPassword) {
+    var RegistrationViewModel = function(useDefaultPassword) {
         this.useDefaultPassword = ko.observable(useDefaultPassword);
-    }
+    };
 
     $(function () {
-        ko.applyBindings(new RegistrationViewModel($("#use-default-password-input").is(':checked')));
+        var vm = new RegistrationViewModel($("#use-default-password-input").is(':checked'));
+        ko.applyBindings(vm);
+        vm.useDefaultPassword.subscribe(function (newValue) {
+            $("#password-input").val("");
+            $("#confirm-password-input").val("");
+        });
     });
 </script>
 
@@ -40,13 +45,13 @@
     
     <div>
         @Html.LabelFor(m => m.NewPassword)
-        @Html.PasswordFor(m => m.NewPassword, new { data_bind = "disable: useDefaultPassword" })
+        @Html.PasswordFor(m => m.NewPassword, new { id = "password-input", data_bind = "disable: useDefaultPassword" })
         @Html.ValidationMessageFor(m => m.NewPassword)
     </div>
     
     <div>
         @Html.LabelFor(m => m.ConfirmPassword)
-        @Html.PasswordFor(m => m.ConfirmPassword, new { data_bind = "disable: useDefaultPassword" })
+        @Html.PasswordFor(m => m.ConfirmPassword, new { id = "confirm-password-input", data_bind = "disable: useDefaultPassword" })
         @Html.ValidationMessageFor(m => m.ConfirmPassword)
     </div>
        

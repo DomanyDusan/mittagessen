@@ -6,18 +6,18 @@
 }
 
 <script type="text/javascript">
-    var EnrollmentViewModel = function (userEnrolled, numberOfPortions, numberOfEnrollments) {
+    var EnrollmentViewModel = function(userEnrolled, numberOfPortions, numberOfEnrollments) {
         this.userEnrolled = ko.observable(userEnrolled);
         this.numberOfPortions = ko.observable(numberOfPortions);
         this.numberOfEnrollments = ko.observable(numberOfEnrollments);
         this.changingEnrollment = ko.observable(false);
-        this.showIsFull = ko.computed(function () {
+        this.showIsFull = ko.computed(function() {
             return this.userEnrolled() == false && parseInt(this.numberOfEnrollments()) >= parseInt(this.numberOfPortions());
         }, this);
-        this.canEnroll = ko.computed(function () {
+        this.canEnroll = ko.computed(function() {
             return this.showIsFull() == false && this.userEnrolled() == false;
         }, this);
-    }
+    };
 
     var ViewModels = new Array();
 
