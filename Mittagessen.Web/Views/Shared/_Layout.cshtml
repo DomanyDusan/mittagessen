@@ -44,7 +44,7 @@
                         </ul>
                         <ul class="nav pull-right">
                             <li>
-                                @Html.ActionLink("Log Out", "LogOff", "Account", new { area = "" }, null)
+                                @Html.ActionLink("Log Out", "LogOff", "Account", new { area = "" }, new { id="logout-link"})
                             </li>
                         </ul>
                     </div>
@@ -66,6 +66,9 @@
                     }
                 };
                 $('.date').datepicker({ dateFormat: 'dd.mm.yy' });
+                $('#logout-link').click(function () {
+                    $.connection.hub.stop();
+                });
             });
         </script>
     </body>

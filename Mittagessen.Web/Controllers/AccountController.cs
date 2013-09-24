@@ -104,9 +104,10 @@ namespace Mittagessen.Web.Controllers
 
         public ActionResult LogOff()
         {
+
             FormsAuthentication.SignOut();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LogOn");
         }
 
         public JsonResult UserNameAvailable(string RegistrationName)
