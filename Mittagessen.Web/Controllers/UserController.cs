@@ -34,7 +34,6 @@ namespace Mittagessen.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = UserRepository.GetUserByName(User.Identity.Name);
-                user.Name = userModel.UserName;
                 user.Email = userModel.Email;
                 UserRepository.Update(user);
                 return RedirectToAction("Index", "Home");

@@ -16,8 +16,8 @@ namespace Mittagessen.Web.Validation
         {
             UserRepository = userRepository;
 
-            RuleFor(r => r.UserName).NotEmpty().WithMessage("Wählen Sie bitte einen Benutzernamen")
-                .Length(1, 20).Must(UserNameAvailable).WithMessage("Der Benutzername wird schon benutzt");
+            //RuleFor(r => r.UserName).NotEmpty().WithMessage("Wählen Sie bitte einen Benutzernamen")
+            //    .Length(1, 20).Must(UserNameAvailable).WithMessage("Der Benutzername wird schon benutzt");
             RuleFor(r => r.Email).Length(1, 40).EmailAddress()
                 .Must(EmailAvailable).WithMessage("Die E-Mail-Adresse wurde schon von einem anderen Benutzer registriert");
         }

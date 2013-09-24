@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Mittagessen.Web.Models.UserModel
+
+@{
     ViewBag.Title = "Edit";
 }
 
@@ -6,7 +8,15 @@
 
 @using(Html.BeginForm())
 {
-    @Html.EditorForModel()
+    <div>
+        @Html.LabelFor(m => m.UserName)
+        @Html.DisplayFor(m => m.UserName)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.EditorFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
         
     <input type="submit" class="btn btn-primary" value="Speichern" />
 }
