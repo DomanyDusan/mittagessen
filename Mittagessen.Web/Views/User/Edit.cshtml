@@ -1,4 +1,4 @@
-﻿@model Mittagessen.Web.Models.UserModel
+﻿@model Mittagessen.Web.Models.UserEditModel
 
 @{
     ViewBag.Title = "Edit";
@@ -6,17 +6,33 @@
 
 <h2>Benutzerdaten</h2>
 
-@using(Html.BeginForm())
-{
-    <div>
-        @Html.LabelFor(m => m.UserName)
-        @Html.DisplayFor(m => m.UserName)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.Email)
-        @Html.EditorFor(m => m.Email)
-        @Html.ValidationMessageFor(m => m.Email)
-    </div>
+<div class="container">
+<div class="span4">
+    <h4>Datenänderung</h4>
+
+    @using(Html.BeginForm())
+    {
+        <div>
+            @Html.LabelFor(m => m.UserName)
+            @Html.DisplayFor(m => m.UserName)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Email)
+            @Html.EditorFor(m => m.Email)
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
         
-    <input type="submit" class="btn btn-primary" value="Speichern" />
-}
+        <input type="submit" class="btn btn-primary" value="Speichern" />
+    }
+</div>
+
+<div class="span4">
+    <h4>Passwortänderung</h4>    
+    @if (Request.Params["passwordChanged"] != null)
+    {
+        <div class="alert alert-success">Ihr Passwort wurde erfolgreich geändert</div>
+    }
+    @Html.ActionLink("Das Passwort ändern", "ChangePassword", null, new { @class = "btn btn-warning"})
+
+</div>
+</div>

@@ -8,11 +8,11 @@ using Mittagessen.Data.Interfaces;
 
 namespace Mittagessen.Web.Validation
 {
-    public class UserModelValidation : AbstractValidator<UserModel>
+    public class UserEditModelValidation : AbstractValidator<UserEditModel>
     {
         private IUserRepository UserRepository { get; set; }
 
-        public UserModelValidation(IUserRepository userRepository)
+        public UserEditModelValidation(IUserRepository userRepository)
         {
             UserRepository = userRepository;
 
@@ -22,12 +22,12 @@ namespace Mittagessen.Web.Validation
                 .Must(EmailAvailable).WithMessage("Die E-Mail-Adresse wurde schon von einem anderen Benutzer registriert");
         }
 
-        private bool UserNameAvailable(UserModel instance, string name)
+        private bool UserNameAvailable(UserEditModel instance, string name)
         {
             return UserRepository.UserNameAvailable(name, instance.UserId);
         }
 
-        private bool EmailAvailable(UserModel instance, string email)
+        private bool EmailAvailable(UserEditModel instance, string email)
         {
             return UserRepository.EmailAddressAvailable(email, instance.UserId);
         }

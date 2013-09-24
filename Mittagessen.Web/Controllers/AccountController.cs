@@ -85,7 +85,7 @@ namespace Mittagessen.Web.Controllers
             var user = UserRepository.GetUserByNameOrEmail(model.LoginName);
             if(user == null)
             {
-                ModelState.AddModelError("LoginName", "The user name provided is incorrect.");
+                ModelState.AddModelError("LoginName", "Der Benutzername ist falsch.");
                 return View(model);
             }
             var specifiedPasswordHash = PasswordHelper.GeneratePassword(model.LoginPassword, user.PasswordSalt);
@@ -97,7 +97,7 @@ namespace Mittagessen.Web.Controllers
             }
             else
             {
-                ModelState.AddModelError("LoginPassword", "The password provided is incorrect.");
+                ModelState.AddModelError("LoginPassword", "Das Passwort ist falsch.");
                 return View(model);
             }            
         }

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Mittagessen.Web.Models
 {
-    public class UserModel
+    public class UserEditModel
     {
         [HiddenInput(DisplayValue=false)]
         public Guid UserId { get; set; }
