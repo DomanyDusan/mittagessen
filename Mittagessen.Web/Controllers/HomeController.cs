@@ -28,6 +28,8 @@ namespace Mittagessen.Web.Controllers
         {
             var thisWeekLunches = LunchRepository.GetLunchesForThisWeek().ToList();
             var user = UserRepository.GetUserByName(User.Identity.Name);
+            if (user == null)
+                return RedirectToAction("LogOff", "Account");
             var model = new EnrollmentModel()
                             {
                                 MyLunches = new HashSet<Guid>(user.Enrollments.Select(e => e.EnrolledForLunchId)),

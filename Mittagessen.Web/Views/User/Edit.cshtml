@@ -12,6 +12,7 @@
 
     @using(Html.BeginForm())
     {
+        @Html.HiddenFor(m => m.UserId)
         <div>
             @Html.LabelFor(m => m.UserName)
             @Html.DisplayFor(m => m.UserName)
