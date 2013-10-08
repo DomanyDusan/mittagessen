@@ -35,13 +35,19 @@
 @foreach (var meal in Model.Meals)
 {
     <div class="meal" meal-id="@meal.Id">
-        <img alt="@meal.Name" src="@meal.ImageName" />
-        <div style="min-height:40px"><h4>@meal.Name</h4></div>
-        <div class="rateit" meal-id="@meal.Id" 
-            data-rateit-resetable="false" data-rateit-value="@Model.UserRating(meal.Id)" data-rateit-ispreset="true" 
-            data-rateit-step=1 data-rateit-max=10></div>
-        <span style="font-family:Times New Roman; font-variant:small-caps; font-weight:bolder">Dur.:</span>
-        <span class="badge badge-info rating-info" data-bind="text: rating">@meal.AverageRatingRounded</span>
+        <div class="meal-img">
+            <img alt="@meal.Name" src="@meal.ImageName" />
+        </div>
+        <div class="meal-name">
+            <h4>@meal.Name</h4>
+        </div>
+        <div class="meal-footer">
+            <div class="rateit" meal-id="@meal.Id" 
+                data-rateit-resetable="false" data-rateit-value="@Model.UserRating(meal.Id)" data-rateit-ispreset="true" 
+                data-rateit-step=1 data-rateit-max=10></div>
+            <span style="font-family:Times New Roman; font-variant:small-caps; font-weight:bolder">Dur.:</span>
+            <span class="badge badge-info rating-info" data-bind="text: rating">@meal.AverageRatingRounded</span>
+        </div>
     </div>
 }
 

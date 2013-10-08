@@ -14,7 +14,7 @@
         ko.applyBindings(vm);
         vm.useDefaultPassword.subscribe(function (newValue) {
             $("#password-input").val("");
-            $("#confirm-password-input").val("");
+            $("#confirm-password-input").val("").valid();
         });
     });
 </script>
@@ -43,7 +43,13 @@
         @Html.ValidationMessageFor(m => m.Email)
     </div>
     
-    <div>
+    <div class="check-box-input">
+        @Html.CheckBoxFor(m => m.UseDefaultPassword, new { id = "use-default-password-input", data_bind = "checked: useDefaultPassword" })
+        @Html.LabelFor(m => m.UseDefaultPassword)
+        @Html.ValidationMessageFor(m => m.UseDefaultPassword)
+    </div>
+       
+    <div style="clear:both">
         @Html.LabelFor(m => m.NewPassword)
         @Html.PasswordFor(m => m.NewPassword, new { id = "password-input", data_bind = "disable: useDefaultPassword" })
         @Html.ValidationMessageFor(m => m.NewPassword)
@@ -53,13 +59,7 @@
         @Html.LabelFor(m => m.ConfirmPassword)
         @Html.PasswordFor(m => m.ConfirmPassword, new { id = "confirm-password-input", data_bind = "disable: useDefaultPassword" })
         @Html.ValidationMessageFor(m => m.ConfirmPassword)
-    </div>
-       
-    <div class="check-box-input">
-        @Html.CheckBoxFor(m => m.UseDefaultPassword, new { id = "use-default-password-input", data_bind = "checked: useDefaultPassword" })
-        @Html.LabelFor(m => m.UseDefaultPassword)
-        @Html.ValidationMessageFor(m => m.UseDefaultPassword)
-    </div>
+    </div>      
     
     <div class="form-submit">
         <input type="submit" value="Register" class="btn btn-primary"  />    

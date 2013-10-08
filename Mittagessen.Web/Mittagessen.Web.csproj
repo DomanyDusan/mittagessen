@@ -284,9 +284,10 @@
     <Content Include="Areas\Sprava\Views\Lunch\Index.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Create.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\Edit.cshtml" />
-    <Content Include="Content\images\pozadie.svg" />
     <Content Include="Areas\Sprava\Views\User\Index.cshtml" />
     <Content Include="Areas\Sprava\Views\Lunch\CreatePartial.cshtml" />
+    <Content Include="Content\images\bg_login.svg" />
+    <Content Include="Content\images\bg_main.svg" />
     <None Include="db.config" />
     <None Include="personal.config" />
     <None Include="Properties\PublishProfiles\Somee.pubxml" />

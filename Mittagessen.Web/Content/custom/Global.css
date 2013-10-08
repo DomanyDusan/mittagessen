@@ -28,14 +28,11 @@ body .back-div {
     width: 100%;
     height: 100%; 
     z-index: -1;
-    top: 0; 
-    left: 0; 
     position: fixed; 
 }
 
-.meal 
-{
-    height: 300px;
+.meal {
+    height: 310px;
     width:270px;
     padding:10px;
     position:relative;
@@ -44,6 +41,10 @@ body .back-div {
     
 .meal img {
     width:250px;
+}
+
+.meal-name {
+    min-height:40px;
 }
 
 .meal-small {

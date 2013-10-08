@@ -13,8 +13,12 @@
 {
     <div class="meal">
         <a href='@Url.Action("Edit", new { id = meal.Id })'>
-            <img alt="@meal.Name" src="@meal.ImageName" />
-            <span>@meal.Name</span>
+            <div class="meal-img">
+                <img alt="@meal.Name" src="@meal.ImageName" />
+            </div>
+            <div class="meal-name">
+                <span>@meal.Name</span>
+            </div>
         </a>
     </div>
 }

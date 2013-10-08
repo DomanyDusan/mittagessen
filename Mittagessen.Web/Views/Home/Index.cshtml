@@ -73,37 +73,44 @@
 {    
     <div class="meal lunch-info" lunch-id="@lunch.Id">
         <div>
-            <h5 style="float:left">@lunch.LunchDate.ToShortDateString() @lunch.LunchDate.ToShortTimeString()</h5>
+            <div>
+                <h5 style="float:left">@lunch.LunchDate.ToShortDateString() @lunch.LunchDate.ToShortTimeString()</h5>
+                <span class="label label-success user-enrolled-msg" data-bind="visible: userEnrolled" @(Model.EnrolledByUser(lunch) ? null : "style=display:none")>Angemeldet</span>
+            </div>
 
-        <span class="label label-success user-enrolled-msg" data-bind="visible: userEnrolled" @(Model.EnrolledByUser(lunch) ? null : "style=display:none")>Angemeldet</span>
+            <div class="meal-img">
+                <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
+            </div>
+            <div class="meal-name">
+                <h4>@lunch.CookedMeal.Name</h4>
+            </div>
 
-            <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
-            <div style="min-height:40px"><h4>@lunch.CookedMeal.Name</h4></div>
+            <div class="meal-footer">
+                <table>
+                    <tr>
+                        <td><span style='font-family:Verdana; font-weight:bolder'>Portionen:</span></td>
+                        <td><span class="badge badge-info number-of-portions-info" data-bind="text: numberOfPortions">@lunch.NumberOfPortions</span></td>
+                    </tr>
+                    <tr>
+                        <td><span style='font-family:Verdana; font-weight:bolder'>Angemeldete:</span></td>
+                        <td><span class="badge badge-success number-of-enrollments-info" data-bind="text: numberOfEnrollments">@lunch.NumberOfEnrollments</span></td>
+                    </tr>
+                </table>
+                <div style="margin-left:auto;margin-right:auto;margin-top:10px;width:7em">
 
-            <table>
-                <tr>
-                    <td><span style='font-family:Verdana; font-weight:bolder'>Portionen:</span></td>
-                    <td><span class="badge badge-info number-of-portions-info" data-bind="text: numberOfPortions">@lunch.NumberOfPortions</span></td>
-                </tr>
-                <tr>
-                    <td><span style='font-family:Verdana; font-weight:bolder'>Angemeldete:</span></td>
-                    <td><span class="badge badge-success number-of-enrollments-info" data-bind="text: numberOfEnrollments">@lunch.NumberOfEnrollments</span></td>
-                </tr>
-            </table>
-            <div style="margin-left:auto;margin-right:auto;margin-top:10px;width:7em">
+                    @if (Model.IsAfterDeadline(lunch))
+                    {
+                        <span class="badge badge-warning"><div class='termin-past-msg'>Termin vergangen</div></span>
+                    }
+                    else
+                    {
+                        <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' data-bind="visible: userEnrolled, disable: changingEnrollment" />
 
-                @if (Model.IsAfterDeadline(lunch))
-                {
-                    <span class="badge badge-warning"><div class='termin-past-msg'>Termin vergangen</div></span>
-                }
-                else
-                {
-                    <input lunch-id="@lunch.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' data-bind="visible: userEnrolled, disable: changingEnrollment" />
+                        <span class="badge badge-info" data-bind="visible: showIsFull"><div class='termin-full-msg'>Termin voll</div></span>
 
-                    <span class="badge badge-info" data-bind="visible: showIsFull"><div class='termin-full-msg'>Termin voll</div></span>
-
-                    <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' data-bind="visible: canEnroll, disable: changingEnrollment" />
-                }
+                        <input lunch-id="@lunch.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' data-bind="visible: canEnroll, disable: changingEnrollment" />
+                    }
+                </div>
             </div>
         </div>
     </div>   
