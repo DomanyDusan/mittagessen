@@ -66,7 +66,7 @@
 <h2>Anmeldung</h2>
 
 <div style="font-size:18px;font-family:Georgia;text-align:justify;margin-right:10px">
-    Die Anmeldung ist jederzeit vor dem Mittagessen möglich, solange es die Anzahl der Portionen ermöglicht. Wenn Sie sich aber frühzeitig eine Portion sichern, helfen Sie uns damit die richtige Menge an Nahrungsmittel zu kaufen und alles ruhig vorbereiten.
+    Die Anmeldung ist jederzeit vor dem Mittagessen möglich, solange es die Anzahl der Portionen ermöglicht. Wenn Sie sich aber frühzeitig eine Portion sichern, helfen Sie uns damit die richtige Menge an Nahrungsmittel zu kaufen und alles ruhig vorzubereiten.
 </div>
 
 @foreach (var lunch in Model.Lunches)
@@ -88,11 +88,11 @@
             <div class="meal-footer">
                 <table>
                     <tr>
-                        <td><span style='font-family:Verdana; font-weight:bolder'>Portionen:</span></td>
+                        <td><span style='font-family:Verdana; font-weight:bolder'>Mahlzeiten:</span></td>
                         <td><span class="badge badge-info number-of-portions-info" data-bind="text: numberOfPortions">@lunch.NumberOfPortions</span></td>
                     </tr>
                     <tr>
-                        <td><span style='font-family:Verdana; font-weight:bolder'>Angemeldete:</span></td>
+                        <td><span style='font-family:Verdana; font-weight:bolder'>Angemeldet:</span></td>
                         <td><span class="badge badge-success number-of-enrollments-info" data-bind="text: numberOfEnrollments">@lunch.NumberOfEnrollments</span></td>
                     </tr>
                 </table>
