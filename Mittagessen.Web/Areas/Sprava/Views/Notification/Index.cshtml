@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Oznamovanie</h2>
+
+@Html.ActionLink("Zaslat oznamenie", "SendMailAboutLunches", null, new { @class = "btn btn-primary" })

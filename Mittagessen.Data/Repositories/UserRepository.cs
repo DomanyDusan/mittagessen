@@ -51,5 +51,10 @@ namespace Mittagessen.Data.Repositories
                 }
             }
         }
+
+        public IEnumerable<string> GetEmailAddresses()
+        {
+            return Session.Users.AsNoTracking().Select(u => u.Email).ToList();
+        }
     }
 }

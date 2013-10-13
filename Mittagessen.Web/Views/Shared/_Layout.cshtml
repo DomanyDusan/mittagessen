@@ -40,11 +40,12 @@
                                 <li>@Html.ActionLink("Obedy", "Index", "Lunch", new { area = "Sprava" }, null)</li>
                                 <li>@Html.ActionLink("Jedla", "Index", "Meal", new { area = "Sprava" }, null)</li>
                                 <li>@Html.ActionLink("Uzivatelia", "Index", "User", new { area = "Sprava" }, null)</li>
+                                <li>@Html.ActionLink("Maily", "Index", "Notification", new { area = "Sprava" }, null)</li>
                             }
                         </ul>
                         <ul class="nav pull-right">
                             <li>
-                                @Html.ActionLink("Log Out", "LogOff", "Account", new { area = "" }, new { id="logout-link"})
+                                @Html.ActionLink("Log Out", "LogOff", "Account", new { area = "" }, new { id = "logout-link" })
                             </li>
                         </ul>
                     </div>
