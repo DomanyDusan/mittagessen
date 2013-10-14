@@ -10,6 +10,7 @@ using SendGridMail;
 using SendGridMail.Transport;
 using StructureMap.Attributes;
 using System.Configuration;
+using ImageResizer;
 
 namespace Mittagessen.Web.Areas.Sprava.Controllers
 {
@@ -38,13 +39,19 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
                 var lunches = LunchRepository.GetLunchesForThisWeek().ToList();
 
                 var myMessage = SendGrid.GetInstance();
-                myMessage.AddTo("ddomany@sba-research.org");
+                foreach (var email in emails)
+                {
+                    myMessage.AddTo(email);   
+                }                
                 myMessage.From = new MailAddress("einladung@mittagessen.net", "Mittagessen Service");
                 myMessage.Subject = "Herzliche Einladung zum Mittagessen";
+                myMessage.AddAttachment(GetImageFile(lunches[0].CookedMeal.ImageName), "dienstag.jpg");
+                myMessage.AddAttachment(GetImageFile(lunches[1].CookedMeal.ImageName), "mittwoch.jpg");
+                myMessage.AddAttachment(GetImageFile(lunches[2].CookedMeal.ImageName), "donnerstag.jpg");
                 myMessage.Html = string.Format(MAIL_TEMPLATE,
-                    lunches[0].CookedMeal.Name, GetImageUrl(lunches[0].CookedMeal.ImageName),
-                    lunches[1].CookedMeal.Name, GetImageUrl(lunches[1].CookedMeal.ImageName),
-                    lunches[2].CookedMeal.Name, GetImageUrl(lunches[2].CookedMeal.ImageName));
+                    lunches[0].CookedMeal.Name, "cid:dienstag.jpg", GetImageUrl(lunches[0].CookedMeal.ImageName),
+                    lunches[1].CookedMeal.Name, "cid:mittwoch.jpg", GetImageUrl(lunches[1].CookedMeal.ImageName),
+                    lunches[2].CookedMeal.Name, "cid:donnerstag.jpg", GetImageUrl(lunches[2].CookedMeal.ImageName));
 
                 // Create credentials, specifying your user name and password.
                 var credentials = new NetworkCredential(
@@ -70,6 +77,24 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
             return new Uri(Request.Url, path).AbsoluteUri;
         }
 
+        private System.IO.Stream GetImageFile(string imageName)
+        {
+            return ResizeImage(System.IO.File.OpenRead(Server.MapPath(VirtualPathUtility.ToAbsolute(imageName))));
+        }
+
+        private System.IO.Stream ResizeImage(System.IO.Stream image)
+        {
+            var settings = new ResizeSettings
+                               {
+                                   MaxWidth = 200,
+                                   Format = "jpg"
+                               };
+            var target = new System.IO.MemoryStream();
+            ImageBuilder.Current.Build(image, target, settings);
+            target.Position = 0;
+            return target;
+        }
+
         private const string MAIL_TEMPLATE = @"
 <p>
 Hallo,
@@ -85,23 +110,44 @@ auch diese Woche möchten wir euch ganz herzlich zum Mittagessen einladen:
 </tr>
 <tr>
 <td />
-<td><img style='width:120px;height:120px' src='{1}' /></td>
+<td>
+<!--[if mso]>
+    <img width='200' src='{1}' />
+<![endif]-->   
+<!--[if !mso]><!-->
+  <img width='200' style='width:200px;height:200px' src='{2}' />
+<!--<![endif]-->    
+</td>
 </tr>
 <tr>
 <td>Mittwoch:</td>
-<td><b>{2}</b></td>
+<td><b>{3}</b></td>
 </tr>
 <tr>
 <td />
-<td><img style='width:120px;height:120px' src='{3}' /></td>
+<td>
+<!--[if mso]>
+    <img width='200' src='{4}' />
+<![endif]-->   
+<!--[if !mso]><!-->
+  <img width='200' style='width:200px;height:200px' src='{5}' />
+<!--<![endif]-->    
+</td>
 </tr>
 <tr>
 <td>Donnerstag:</td>
-<td><b>{4}</b></td>
+<td><b>{6}</b></td>
 </tr>
 <tr>
 <td />
-<td><img style='width:120px;height:120px' src='{5}' /></td>
+<td>
+<!--[if mso]>
+    <img width='200' src='{7}' />
+<![endif]-->   
+<!--[if !mso]><!-->
+  <img width='200' style='width:200px;height:200px' src='{8}' />
+<!--<![endif]-->    
+</td>
 </tr>
 </table>
 </p>
