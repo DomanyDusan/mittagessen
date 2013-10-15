@@ -39,9 +39,10 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
                 var lunches = LunchRepository.GetLunchesForThisWeek().ToList();
 
                 var myMessage = SendGrid.GetInstance();
+                myMessage.To = new [] { new MailAddress("einladung@mittagessen.net", "Undisclosed recipients") };
                 foreach (var email in emails)
                 {
-                    myMessage.AddTo(email);   
+                    myMessage.AddBcc(email);
                 }                
                 myMessage.From = new MailAddress("einladung@mittagessen.net", "Mittagessen Service");
                 myMessage.Subject = "Herzliche Einladung zum Mittagessen";
@@ -102,6 +103,7 @@ Hallo,
 <p>
 auch diese Woche möchten wir euch ganz herzlich zum Mittagessen einladen:
 </p>
+<p>https://mittagessen.azurewebsites.net</p>
 <p>
 <table>
 <tr>
