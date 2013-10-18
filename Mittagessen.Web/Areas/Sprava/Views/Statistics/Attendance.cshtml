@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Mittagessen.Data.Models.Attendance>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Uzivatel</th>
+            <th>Ucast</th>
+        </tr>
+    </thead>
+    @foreach(var attendance in Model)
+    {
+        <tr>
+            <td>@attendance.UserName</td>
+            <td>@attendance.UserAttendance</td>
+        </tr>
+    }
+</table>
+

@@ -132,9 +132,11 @@
     <Compile Include="Areas\Sprava\Controllers\LunchController.cs" />
     <Compile Include="Areas\Sprava\Controllers\MealController.cs" />
     <Compile Include="Areas\Sprava\Controllers\NotificationController.cs" />
+    <Compile Include="Areas\Sprava\Controllers\StatisticsController.cs" />
     <Compile Include="Areas\Sprava\Controllers\UserController.cs" />
     <Compile Include="Areas\Sprava\Models\LunchModel.cs" />
     <Compile Include="Areas\Sprava\Models\MealModel.cs" />
+    <Compile Include="Areas\Sprava\Models\StatisticRangeModel.cs" />
     <Compile Include="Areas\Sprava\Validation\LunchModelValidation.cs" />
     <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -319,6 +321,8 @@
     <Content Include="Content\images\bg_login.svg" />
     <Content Include="Content\images\bg_main.svg" />
     <Content Include="Areas\Sprava\Views\Notification\Index.cshtml" />
+    <Content Include="Areas\Sprava\Views\Statistics\Index.cshtml" />
+    <Content Include="Areas\Sprava\Views\Statistics\Attendance.cshtml" />
     <None Include="db.config" />
     <None Include="personal.config" />
     <None Include="Properties\PublishProfiles\Somee.pubxml" />

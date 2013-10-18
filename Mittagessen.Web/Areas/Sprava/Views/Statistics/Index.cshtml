@@ -1,0 +1,22 @@
+﻿@model Mittagessen.Web.Areas.Sprava.Models.StatisticRangeModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using(Html.BeginForm("Attendance", "Statistics"))
+{
+    <div>
+        @Html.LabelFor(m => m.FromDate)
+        @Html.TextBoxFor(m => m.FromDate, new { @class="date"} )
+    </div>
+    <div>
+        @Html.LabelFor(m => m.ToDate)
+        @Html.TextBoxFor(m => m.ToDate, new { @class="date"})
+    </div>
+    
+    <div>
+        <input type="submit" value="Zobrazit" class="btn btn-primary"/>
+    </div>
+}
