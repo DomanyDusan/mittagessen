@@ -9,6 +9,7 @@ using Mittagessen.Web.Areas.Sprava.Models;
 
 namespace Mittagessen.Web.Areas.Sprava.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class StatisticsController : Controller
     {
         [SetterProperty]
