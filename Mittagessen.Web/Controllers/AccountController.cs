@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Mittagessen.Web.Helpers;
+using Mittagessen.Web.Infrastructure;
 using Mittagessen.Web.Models;
 using System.Configuration;
 using Mittagessen.Data.Entities;
@@ -17,6 +18,9 @@ namespace Mittagessen.Web.Controllers
     {
         [SetterProperty]
         public IUserRepository UserRepository { get; set; }
+
+        [SetterProperty]
+        public IAuthentication Authentication { get; set; }
 
         public ActionResult LogOn()
         {
@@ -54,7 +58,7 @@ namespace Mittagessen.Web.Controllers
                 user.PasswordSalt = PasswordHelper.CreateSalt();
                 user.Password = PasswordHelper.GeneratePassword(password, user.PasswordSalt);
                 UserRepository.Insert(user);
-                FormsAuthentication.SetAuthCookie(user.Name, false);
+                Authentication.SaveAuthentication(user.Name, false);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -92,7 +96,7 @@ namespace Mittagessen.Web.Controllers
 
             if(PasswordHelper.PasswordsMatch(specifiedPasswordHash, user.Password))
             {
-                FormsAuthentication.SetAuthCookie(user.Name, model.RememberLogin);
+                Authentication.SaveAuthentication(user.Name, model.RememberLogin);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -105,7 +109,7 @@ namespace Mittagessen.Web.Controllers
         public ActionResult LogOff()
         {
 
-            FormsAuthentication.SignOut();
+            Authentication.RemoveAuthentication();
 
             return RedirectToAction("LogOn");
         }

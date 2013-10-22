@@ -144,6 +144,8 @@
     <Compile Include="Helpers\Mapper.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Hubs\EnrollmentHub.cs" />
+    <Compile Include="Infrastructure\Authentication.cs" />
+    <Compile Include="Infrastructure\IAuthentication.cs" />
     <Compile Include="Infrastructure\StructureMapControllerFactory.cs" />
     <Compile Include="Infrastructure\StructureMapValidatorFactory.cs" />
     <Compile Include="Models\LoginModel.cs" />
