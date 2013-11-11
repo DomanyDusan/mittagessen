@@ -33,17 +33,37 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         [HttpGet]
         public ActionResult SendMailAboutLunches()
         {
+            var emails = UserRepository.GetEmailAddresses();
+
+            var myMessage = SendGrid.GetInstance();
+            myMessage.To = new [] { new MailAddress("einladung@mittagessen.net", "Undisclosed recipients") };
+            foreach (var email in emails)
+            {
+                myMessage.AddBcc(email);
+            }
+
+            AddContentAndSend(myMessage);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult SendMailAboutLunchesTest()
+        {
+            var myMessage = SendGrid.GetInstance();
+            myMessage.AddTo("ddomany@sba-research.org");
+
+            AddContentAndSend(myMessage);
+
+            return RedirectToAction("Index");
+        }
+
+        private void AddContentAndSend(SendGrid myMessage)
+        {
             try
             {
-                var emails = UserRepository.GetEmailAddresses();
                 var lunches = LunchRepository.GetLunchesForThisWeek().ToList();
 
-                var myMessage = SendGrid.GetInstance();
-                myMessage.To = new [] { new MailAddress("einladung@mittagessen.net", "Undisclosed recipients") };
-                foreach (var email in emails)
-                {
-                    myMessage.AddBcc(email);
-                }                
                 myMessage.From = new MailAddress("einladung@mittagessen.net", "Mittagessen Service");
                 myMessage.Subject = "Herzliche Einladung zum Mittagessen";
                 myMessage.AddAttachment(GetImageFile(lunches[0].CookedMeal.ImageName), "dienstag.jpg");
@@ -68,8 +88,6 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
             {
                 Logger.FatalException("Email exception occured", e);
             }
-
-            return RedirectToAction("Index");
         }
 
         private string GetImageUrl(string imageName)
