@@ -10,7 +10,7 @@ namespace Mittagessen.Web.Infrastructure
     {
         public void SaveAuthentication(string userName, bool persist)
         {
-            FormsAuthentication.SetAuthCookie(userName, false);
+            FormsAuthentication.SetAuthCookie(userName, persist);
         }
 
         public void RemoveAuthentication()
