@@ -70,9 +70,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-    <Content Include="personal.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="settings.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mittagessen.Data\Mittagessen.Data.csproj">

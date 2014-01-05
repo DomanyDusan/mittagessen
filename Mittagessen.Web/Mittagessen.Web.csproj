@@ -326,7 +326,7 @@
     <Content Include="Areas\Sprava\Views\Statistics\Index.cshtml" />
     <Content Include="Areas\Sprava\Views\Statistics\Attendance.cshtml" />
     <None Include="db.config" />
-    <None Include="personal.config" />
+    <None Include="settings.config" />
     <None Include="Properties\PublishProfiles\Somee.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Image.cshtml" />
@@ -346,6 +346,8 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\Home\InfoPage.cshtml" />
+    <Content Include="Views\Home\EnrollButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uploads\" />

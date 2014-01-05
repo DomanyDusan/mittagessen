@@ -22,6 +22,9 @@ namespace Mittagessen.Web.Controllers
         public IUserRepository UserRepository { get; set; }
 
         [SetterProperty]
+        public IMealRepository MealRepository { get; set; }
+
+        [SetterProperty]
         public IEnrollmentRepository EnrollmentRepository { get; set; }
 
         public ActionResult Index()
@@ -39,6 +42,11 @@ namespace Mittagessen.Web.Controllers
             return View(model);
         }
 
+        public ActionResult InfoPage()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult EnrollUser(Guid lunchId)
         {
@@ -50,9 +58,10 @@ namespace Mittagessen.Web.Controllers
                 EnrollmentDate = DateTime.Now
             };
             var success = EnrollmentRepository.TryInsert(enrollment);
-            UpdateLunchInfoOnClients(lunchId);
+            var lunch = LunchRepository.Get(lunchId);
+            UpdateLunchInfoOnClients(lunch);
 
-            return Json(new { success = success });
+            return GetEnrollmentResult(lunch, success);
         }
 
         [HttpPost]
@@ -61,17 +70,28 @@ namespace Mittagessen.Web.Controllers
             var user = UserRepository.GetUserByName(User.Identity.Name);
             var enrollment = EnrollmentRepository.Get(user.Id, lunchId);
             var success = EnrollmentRepository.TryDelete(enrollment);
-            UpdateLunchInfoOnClients(lunchId);
+            var lunch = LunchRepository.Get(lunchId);
+            UpdateLunchInfoOnClients(lunch);
 
-            return Json(new { success = success });
+            return GetEnrollmentResult(lunch, !success);
         }
 
         [NonAction]
-        private void UpdateLunchInfoOnClients(Guid lunchId)
+        private JsonResult GetEnrollmentResult(Lunch lunch, bool userEnrolled)
         {
-            var lunch = LunchRepository.Get(lunchId);
+            return Json(new
+            {
+                userEnrolled = userEnrolled,
+                numberOfEnrollments = lunch.NumberOfEnrollments,
+                numberOfPortions = lunch.NumberOfPortions
+            });
+        }
+
+        [NonAction]
+        private void UpdateLunchInfoOnClients(Lunch lunch)
+        {
             var hub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<Hubs.EnrollmentHub>();
-            hub.Clients.All.lunchInfoUpdated(lunchId, lunch.NumberOfEnrollments, lunch.NumberOfPortions);
+            hub.Clients.All.lunchInfoUpdated(lunch.Id, lunch.NumberOfEnrollments, lunch.NumberOfPortions);
         }
     }
 }

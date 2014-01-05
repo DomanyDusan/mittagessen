@@ -108,6 +108,7 @@ Backup*/
 UpgradeLog*.XML
 db.config
 personal.config
+settings.config
 Web.Debug.config
 Web.Release.config
 uploads

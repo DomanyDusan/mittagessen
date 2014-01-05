@@ -1,0 +1,11 @@
+﻿@model Mittagessen.Data.Entities.Lunch
+
+@{
+    Layout = null;
+}
+
+<input lunch-id="@Model.Id" type='button' value='Abmelden' class='btn btn-danger disenroll-button' data-bind="visible: userEnrolled, disable: changingEnrollment, click: disenrollForLunch" />
+
+<span class="badge badge-info" data-bind="visible: showIsFull"><div class='termin-full-msg'>Termin voll</div></span>
+
+<input lunch-id="@Model.Id" type='button' value='Anmelden' class='btn btn-primary enroll-button' data-bind="visible: canEnroll, disable: changingEnrollment, click: enrollForLunch" />
