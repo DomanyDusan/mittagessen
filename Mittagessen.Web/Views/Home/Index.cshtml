@@ -53,7 +53,8 @@
     });
 
     function enrollUser(lunchId) {
-        $.post('@Url.Action("EnrollUser")', { lunchId: lunchId }, function (result) {
+        var variation = $("input:radio[name=meal-variation]:checked").val();
+        $.post('@Url.Action("EnrollUser")', { lunchId: lunchId, variation: variation }, function (result) {
             updateLunch(lunchId, result.userEnrolled, result.numberOfEnrollments, result.numberOfPortions);
         });
     }
@@ -82,7 +83,7 @@
 <div style="font-size:18px;font-family:Georgia;text-align:justify;margin-right:10px">
     Die Anmeldung ist jederzeit vor dem Mittagessen möglich, solange es die Anzahl der Portionen ermöglicht. 
     Wenn Sie sich aber frühzeitig eine Portion sichern, helfen Sie uns damit die richtige Menge an Nahrungsmittel zu kaufen und alles ruhig vorzubereiten.
-    Weitere Informationen finden Sie @Html.ActionLink("hier", "InfoPage").
+    @*Weitere Informationen finden Sie @Html.ActionLink("hier", "InfoPage").*@
 </div>
 
 @foreach (var lunch in Model.Lunches)
@@ -134,7 +135,30 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="myModalLabel">@lunch.CookedMeal.Name</h3>
               </div>
-              <div class="modal-body">
+              <div class="modal-body">                
+                <div style="float: right; width:250px">
+                    <h3>Variationen</h3>
+                    <div data-bind="visible: canEnroll">                        
+                        @Html.RadioButton("meal-variation", "", true)
+                        <span>Mit Allem</span>
+                        <br />
+                        @if (lunch.CookedMeal.Variations.Count == 0)
+                        {
+                            <div class="alert alert-info">
+                                Es gibt zurzeit keine Variationen für diesen Gericht
+                            </div>
+                        }
+                        @foreach (var variation in lunch.CookedMeal.Variations)
+                        {
+                            @Html.RadioButton("meal-variation", variation.Id)
+                            <span>@variation.Name</span>
+                            <br />
+                        }
+                    </div>
+                    <div data-bind="visible: userEnrolled" class="alert alert-info">
+                        Um eine andere Variation auszuwählen, melden Sie sich bitte zuerst ab
+                    </div>
+                </div>
                 <div style="width:400px">
                     <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
                 </div>
@@ -143,7 +167,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>                
                 @Html.Partial("EnrollButton", lunch)
               </div>
             </div>

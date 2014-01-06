@@ -48,20 +48,26 @@ namespace Mittagessen.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult EnrollUser(Guid lunchId)
+        public ActionResult EnrollUser(Guid lunchId, Guid? variation = null)
         {
             var user = UserRepository.GetUserByName(User.Identity.Name);
             var enrollment = new Enrollment()
             {
                 EnrolledById = user.Id,
                 EnrolledForLunchId = lunchId,
-                EnrollmentDate = DateTime.Now
+                EnrollmentDate = DateTime.Now,
+                MealVariationId = variation
             };
             var success = EnrollmentRepository.TryInsert(enrollment);
             var lunch = LunchRepository.Get(lunchId);
             UpdateLunchInfoOnClients(lunch);
 
-            return GetEnrollmentResult(lunch, success);
+            return Json(new
+            {
+                userEnrolled = success,
+                numberOfEnrollments = lunch.NumberOfEnrollments,
+                numberOfPortions = lunch.NumberOfPortions
+            });
         }
 
         [HttpPost]
@@ -73,15 +79,9 @@ namespace Mittagessen.Web.Controllers
             var lunch = LunchRepository.Get(lunchId);
             UpdateLunchInfoOnClients(lunch);
 
-            return GetEnrollmentResult(lunch, !success);
-        }
-
-        [NonAction]
-        private JsonResult GetEnrollmentResult(Lunch lunch, bool userEnrolled)
-        {
             return Json(new
             {
-                userEnrolled = userEnrolled,
+                userEnrolled = !success,
                 numberOfEnrollments = lunch.NumberOfEnrollments,
                 numberOfPortions = lunch.NumberOfPortions
             });

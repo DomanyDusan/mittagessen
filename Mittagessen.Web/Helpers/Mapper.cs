@@ -33,7 +33,11 @@ namespace Mittagessen.Web.Helpers
             model.CookedMealId = item.CookedMealId;
             model.CookedMealName = item.CookedMeal.Name;
             model.NumberOfPortions = item.NumberOfPortions;
-            model.EnrolledUsers = EnrollmentRepository.GetUsersByEnrollments(item.Enrollments).ToList();
+            model.Enrollments = item.Enrollments.Select(e => new EnrollmentModel()
+                {
+                    UserName = e.EnrolledBy.Name,
+                    VariationName = e.MealVariation != null ? e.MealVariation.Name : ""
+                }).ToList();
             return model;
         }
     }

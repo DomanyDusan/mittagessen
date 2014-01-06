@@ -134,6 +134,7 @@
     <Compile Include="Areas\Sprava\Controllers\NotificationController.cs" />
     <Compile Include="Areas\Sprava\Controllers\StatisticsController.cs" />
     <Compile Include="Areas\Sprava\Controllers\UserController.cs" />
+    <Compile Include="Areas\Sprava\Models\EnrollmentModel.cs" />
     <Compile Include="Areas\Sprava\Models\LunchModel.cs" />
     <Compile Include="Areas\Sprava\Models\MealModel.cs" />
     <Compile Include="Areas\Sprava\Models\StatisticRangeModel.cs" />

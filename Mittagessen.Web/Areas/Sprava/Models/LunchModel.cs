@@ -21,6 +21,6 @@ namespace Mittagessen.Web.Areas.Sprava.Models
         public int NumberOfPortions { get; set; }
         public Guid CookedMealId { get; set; }
         public string CookedMealName { get; set; }
-        public IList<User> EnrolledUsers { get; set; }
+        public IList<EnrollmentModel> Enrollments { get; set; }
     }
 }

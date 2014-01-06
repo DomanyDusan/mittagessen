@@ -52,12 +52,19 @@
 }
 
 <h4>Prihlaseni</h4>
-<ul>
-    @foreach (var user in Model.EnrolledUsers)
+<table>
+    <tr>
+        <th style="width:150px">Uzivatel</th>
+        <th>Variacia</th>
+    </tr>
+    @foreach (var enrollment in Model.Enrollments.OrderBy(e => e.VariationName))
     {
-        <li>@user.Name</li>
+        <tr>
+            <td>@enrollment.UserName</td>
+            <td>@enrollment.VariationName</td>
+        </tr>
     }
-</ul>
+</table>
 
 <div class="modal hide fade in" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
