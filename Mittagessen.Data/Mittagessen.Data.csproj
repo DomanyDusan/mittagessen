@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="DataContext.cs" />
     <Compile Include="Entities\MealRating.cs" />
+    <Compile Include="Entities\MealVariation.cs" />
     <Compile Include="Entities\News.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Enrollment.cs" />
@@ -69,6 +70,14 @@
     <Compile Include="Interfaces\ISimpleRepository.cs" />
     <Compile Include="Interfaces\IStatisticsRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Migrations\201309071222379_InitialCreate.cs" />
+    <Compile Include="Migrations\201309071222379_InitialCreate.Designer.cs">
+      <DependentUpon>201309071222379_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201401051311131_MealVariations.cs" />
+    <Compile Include="Migrations\201401051311131_MealVariations.Designer.cs">
+      <DependentUpon>201401051311131_MealVariations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\MigrationsContextFactory.cs" />
     <Compile Include="Models\Attendance.cs" />
@@ -81,10 +90,19 @@
     <Compile Include="Repositories\SimpleRepository.cs" />
     <Compile Include="Repositories\StatisticsRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="ValueObjects\MealVariationCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201309071222379_InitialCreate.resx">
+      <DependentUpon>201309071222379_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401051311131_MealVariations.resx">
+      <DependentUpon>201401051311131_MealVariations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

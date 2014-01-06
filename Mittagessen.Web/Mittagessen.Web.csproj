@@ -325,6 +325,7 @@
     <Content Include="Areas\Sprava\Views\Notification\Index.cshtml" />
     <Content Include="Areas\Sprava\Views\Statistics\Index.cshtml" />
     <Content Include="Areas\Sprava\Views\Statistics\Attendance.cshtml" />
+    <Content Include="Areas\Sprava\Views\Meal\AddVariation.cshtml" />
     <None Include="db.config" />
     <None Include="settings.config" />
     <None Include="Properties\PublishProfiles\Somee.pubxml" />

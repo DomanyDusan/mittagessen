@@ -78,6 +78,31 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult AddVariation(Guid mealId)
+        {
+            var variation = new MealVariation()
+            {
+                MealId = mealId
+            };
+            return View(variation);
+        }
+
+        [HttpPost]
+        public ActionResult AddVariation(MealVariation variation)
+        {
+            MealRepository.AddVariation(variation.MealId, variation.Name, variation.RequiresDeadLine);
+
+            return RedirectToAction("Edit", new { id = variation.MealId });
+        }
+
+        [HttpGet]
+        public ActionResult RemoveVariation(Guid mealId, Guid variationId)
+        {
+            MealRepository.RemoveVariation(variationId);
+            return RedirectToAction("Edit", new { id = mealId });
+        }
+
         private void SaveMealImage(Meal meal, HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)

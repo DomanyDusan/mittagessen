@@ -1,0 +1,25 @@
+﻿@model Mittagessen.Data.Entities.MealVariation
+
+@{
+    ViewBag.Title = "AddVariation";
+    Layout = null;
+}
+
+<h3>Variacie</h3>
+
+@using (Html.BeginForm("AddVariation", "Meal", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.MealId)
+    <div>
+        @Html.LabelFor(x => x.Name)
+        @Html.TextBoxFor(x => x.Name)
+    </div>
+    <div>
+        @Html.LabelFor(x => x.RequiresDeadLine)
+        @Html.CheckBoxFor(x => x.RequiresDeadLine)
+    </div>
+    
+    <input type="submit" class="btn btn-primary" value="Pridat" />
+}
+
+

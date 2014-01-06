@@ -28,5 +28,7 @@ namespace Mittagessen.Data.Entities
         {
             get { return Math.Round(AverageRating,1); }
         }
+
+        public virtual ICollection<MealVariation> Variations { get; set; }
     }
 }

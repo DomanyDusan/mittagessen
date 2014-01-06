@@ -16,6 +16,7 @@ namespace Mittagessen.Data
         public DbSet<Lunch> Lunches { get; set; }
         public DbSet<Meal> Meals { get; set; }
         public DbSet<MealRating> MealRatings { get; set; }
+        public DbSet<MealVariation> MealVariations { get; set; }
         public DbSet<News> News { get; set; }
 
         public DataContext(string nameOrConnectionString) : base(nameOrConnectionString) { }

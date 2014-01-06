@@ -19,5 +19,9 @@ namespace Mittagessen.Data.Entities
         [ForeignKey("EnrolledForLunch")]
         public Guid EnrolledForLunchId { get; set; }
         public string Comment { get; set; }
+        public virtual MealVariation MealVariation { get; set; }
+        [ScaffoldColumn(false)]
+        [ForeignKey("MealVariation")]
+        public Guid? MealVariationId { get; set; }
     }
 }

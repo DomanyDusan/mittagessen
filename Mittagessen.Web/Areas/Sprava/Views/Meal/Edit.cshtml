@@ -9,9 +9,25 @@
     @Html.ActionLink("Zmazat", "Delete", new { id = Model.Id }, new { @class="btn btn-danger" })
 </div>
 
-@using(Html.BeginForm("Edit", "Meal", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.EditorForModel()
+<div>
+    @using(Html.BeginForm("Edit", "Meal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.EditorForModel()
 
-    <input type="submit" class="btn btn-primary" value="Ulozit" />
-}
+        <input type="submit" class="btn btn-primary" value="Ulozit" />
+    }
+</div>
+
+<div>
+    @Html.Action("AddVariation", new { mealId = Model.Id })
+</div>
+
+<div>
+    <ul>
+        @foreach (var variation in Model.Variations)
+        {
+            <li>@variation.Name @Html.ActionLink("Zmazat", "RemoveVariation", new { mealId = Model.Id, variationId = variation.Id })</li>
+        }
+    </ul>
+</div>
+
