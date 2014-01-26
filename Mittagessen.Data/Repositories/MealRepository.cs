@@ -62,5 +62,12 @@ namespace Mittagessen.Data.Repositories
             Session.MealVariations.Remove(variation);
             Session.SaveChanges();
         }
+
+        public void UpdateVariation(Guid variationId, bool requiresDeadline)
+        {
+            var variation = Session.MealVariations.Find(variationId);
+            variation.RequiresDeadLine = requiresDeadline;
+            Session.SaveChanges();
+        }
     }
 }

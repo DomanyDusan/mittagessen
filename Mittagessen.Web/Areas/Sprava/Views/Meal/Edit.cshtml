@@ -5,6 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    $(function () {
+        $("#variation-list input[type='checkbox']").change(function () {
+            var variationId = $(this).parent("li").attr("variation-id");
+            $.post('@Url.Action("UpdateVariation")', { variationId: variationId, requiresDeadline : $(this).is(":checked") });
+        });
+    });
+</script>
+
 <div>
     @Html.ActionLink("Zmazat", "Delete", new { id = Model.Id }, new { @class="btn btn-danger" })
 </div>
@@ -23,10 +32,14 @@
 </div>
 
 <div>
-    <ul>
+    <ul id="variation-list">
         @foreach (var variation in Model.Variations)
         {
-            <li>@variation.Name @Html.ActionLink("Zmazat", "RemoveVariation", new { mealId = Model.Id, variationId = variation.Id })</li>
+            <li variation-id="@variation.Id">
+                @Html.CheckBoxFor(m => variation.RequiresDeadLine)
+                @variation.Name 
+                @Html.ActionLink("Zmazat", "RemoveVariation", new { mealId = Model.Id, variationId = variation.Id })
+            </li>
         }
     </ul>
 </div>

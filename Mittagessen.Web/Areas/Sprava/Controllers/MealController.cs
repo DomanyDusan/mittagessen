@@ -103,6 +103,12 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
             return RedirectToAction("Edit", new { id = mealId });
         }
 
+        [HttpPost]
+        public void UpdateVariation(Guid variationId, bool requiresDeadline)
+        {
+            MealRepository.UpdateVariation(variationId, requiresDeadline);
+        }
+
         private void SaveMealImage(Meal meal, HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)

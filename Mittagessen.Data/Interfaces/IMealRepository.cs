@@ -13,5 +13,6 @@ namespace Mittagessen.Data.Interfaces
         IEnumerable<MealRating> GetUserRatings(Guid userId);
         void AddVariation(Guid mealId, string variationName, bool requiresDeadLine, MealVariationCategory variationCategory = MealVariationCategory.Default);
         void RemoveVariation(Guid variationId);
+        void UpdateVariation(Guid variationId, bool requiresDeadline);
     }
 }
