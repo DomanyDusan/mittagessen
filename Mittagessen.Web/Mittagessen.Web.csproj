@@ -350,6 +350,7 @@
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\Home\InfoPage.cshtml" />
     <Content Include="Views\Home\EnrollButton.cshtml" />
+    <Content Include="Views\Account\Advertisement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uploads\" />

@@ -22,6 +22,9 @@ namespace Mittagessen.Web.Controllers
         [SetterProperty]
         public IAuthentication Authentication { get; set; }
 
+        [SetterProperty]
+        public ILunchRepository LunchRepository { get; set; }
+
         public ActionResult LogOn()
         {
             return View();
@@ -126,6 +129,12 @@ namespace Mittagessen.Web.Controllers
             var emailAvailable = UserRepository.EmailAddressAvailable(Email);
 
             return Json(emailAvailable, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Advertisement()
+        {
+            var thisWeekLunches = LunchRepository.GetLunchesForThisWeek();
+            return View(thisWeekLunches);
         }
     }
 }

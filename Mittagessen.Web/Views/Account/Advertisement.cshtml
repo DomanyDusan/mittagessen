@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Mittagessen.Data.Entities.Lunch>
+
+@{
+    ViewBag.Title = "Advertisement";
+    Layout = null;
+}
+
+<div class="span16" style="background-color:#d2ec87; padding:5px; padding-left:20px; border-radius: 15px">
+    <div style="margin-top:20px">
+        <span>Wenn Sie unser Angebot interessiert hat, können Sie sich bei uns einfach registrieren</span>
+        @Html.ActionLink("Registrierung", "Registration", "Account", new { @class = "btn btn-inverse", style="font-weight:bolder;font-size:16px;font-family:Verdana" })
+    </div>
+    <h4>Gerichte für diese Woche</h4>
+    @foreach (var lunch in Model)
+    {
+        <div style="height: 100px">
+            <div style="width:150px; float:left; margin-right:5px">
+                <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
+            </div>
+            <div class="meal-name" style="vertical-align:middle">
+                <span style="font-size:16px; font-weight:bolder">@lunch.CookedMeal.Name</span>
+            </div>
+        </div>
+        <br />
+    }
+
+</div>
+
