@@ -21,5 +21,11 @@ namespace Mittagessen.Web.Models
         {
             return lunch.LunchDate < DateTime.Now;
         }
+
+        public bool VariationAfterDeadline(Lunch lunch, MealVariation variation)
+        {
+            return variation.RequiresDeadLine
+                && lunch.LunchDate.AddHours(-18) < DateTime.Now;
+        }
     }
 }

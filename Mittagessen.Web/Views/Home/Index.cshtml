@@ -53,7 +53,8 @@
     });
 
     function enrollUser(lunchId) {
-        var variation = $("input:radio[name=meal-variation]:checked").val();
+        var variationRadioName = "meal-variation-" + lunchId;
+        var variation = $("input:radio[name=" + variationRadioName + "]:checked").val();
         $.post('@Url.Action("EnrollUser")', { lunchId: lunchId, variation: variation }, function (result) {
             updateLunch(lunchId, result.userEnrolled, result.numberOfEnrollments, result.numberOfPortions);
         });
@@ -139,7 +140,7 @@
                 <div style="float: right; width:250px">
                     <h3>Variationen</h3>
                     <div data-bind="visible: canEnroll">                        
-                        @Html.RadioButton("meal-variation", "", true)
+                        @Html.RadioButton("meal-variation-" + @lunch.Id, "", true)
                         <span>Mit Allem</span>
                         <br />
                         @if (lunch.CookedMeal.Variations.Count == 0)
@@ -150,8 +151,12 @@
                         }
                         @foreach (var variation in lunch.CookedMeal.Variations)
                         {
-                            @Html.RadioButton("meal-variation", variation.Id)
-                            <span>@variation.Name</span>
+                            <span title="@(variation.RequiresDeadLine ? "Diese Variation kann nur spätestens 18 Stunden vor dem Mittagessen ausgewählt werden" : "")">
+                                @Html.RadioButton("meal-variation-" + @lunch.Id, 
+                                    variation.Id, 
+                                    Model.VariationAfterDeadline(lunch, variation) ? new { disabled = "disabled" } : null)
+                                <span style="@(Model.VariationAfterDeadline(lunch, variation) ? "color:grey" : "")">@variation.Name</span>
+                            </span>
                             <br />
                         }
                     </div>
