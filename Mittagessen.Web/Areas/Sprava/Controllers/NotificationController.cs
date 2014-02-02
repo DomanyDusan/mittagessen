@@ -116,10 +116,10 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
 
         private const string MAIL_TEMPLATE = @"
 <p>
-Hallo,
+Liebe Gäste,
 </p>
 <p>
-auch diese Woche möchten wir euch ganz herzlich zum Mittagessen einladen:
+wir möchten euch auch diese Woche ganz herzlich zum Mittagessen einladen:
 </p>
 <p>https://mittagessen.azurewebsites.net</p>
 <p>

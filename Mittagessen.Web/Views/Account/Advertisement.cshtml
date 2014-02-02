@@ -11,18 +11,19 @@
         @Html.ActionLink("Registrierung", "Registration", "Account", new { @class = "btn btn-inverse", style="font-weight:bolder;font-size:16px;font-family:Verdana" })
     </div>
     <h4>Gerichte für diese Woche</h4>
+    <table>
     @foreach (var lunch in Model)
     {
-        <div style="height: 100px">
-            <div style="width:150px; float:left; margin-right:5px">
-                <img alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
-            </div>
-            <div class="meal-name" style="vertical-align:middle">
+        <tr>           
+            <td style="padding:5px">
+                <img style="width:150px" alt="@lunch.CookedMeal.Name" src="@lunch.CookedMeal.ImageName"  />
+            </td>
+            <td>
                 <span style="font-size:16px; font-weight:bolder">@lunch.CookedMeal.Name</span>
-            </div>
-        </div>
-        <br />
+            </td>
+        </tr>
     }
+    </table>
 
 </div>
 
