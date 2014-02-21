@@ -39,6 +39,15 @@ namespace Mittagessen.Web.Controllers
                                 Lunches = thisWeekLunches
                             };
 
+            var userRatings = MealRepository.GetUserRatings(user.Id);
+            var meals = MealRepository.GetAll();
+            var ratingModel = new RatingModel()
+            {
+                Meals = meals,
+                UserRatings = userRatings.ToDictionary(m => m.RatedMealId, m => m.Rating)
+            };
+            model.RatingModel = ratingModel;
+
             return View(model);
         }
 

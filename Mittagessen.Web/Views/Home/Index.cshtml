@@ -7,7 +7,7 @@
 
 <script type="text/javascript">
     //Lunch enrollment view model
-    var EnrollmentViewModel = function (lunchId, userEnrolled, numberOfPortions, numberOfEnrollments) {
+    var EnrollmentViewModel = function (lunchId, userEnrolled, numberOfPortions, numberOfEnrollments, rating) {
         this.lunchId = lunchId;
         this.userEnrolled = ko.observable(userEnrolled);
         this.numberOfPortions = ko.observable(numberOfPortions);
@@ -27,6 +27,7 @@
             this.changingEnrollment(true);
             disenrollUser(this.lunchId);
         };
+        this.mealRating = ko.observable(rating);
     };
 
     //All local view models
@@ -41,12 +42,15 @@
             userEnrolled = $(this).find(".user-enrolled-msg").is(":visible");
             numberOfPortions = $(this).find(".number-of-portions-info").text();
             numberOfEnrollments = $(this).find(".number-of-enrollments-info").text();
-
+            rating = $(this).find(".rating-info").text();
+            
             //Add the view model
-            var vm = new EnrollmentViewModel(lunchId, userEnrolled, numberOfPortions, numberOfEnrollments);
+            var vm = new EnrollmentViewModel(lunchId, userEnrolled, numberOfPortions, numberOfEnrollments, rating);
             ViewModels[lunchId] = vm;
             ko.applyBindings(vm, this);
         });
+
+        $(".rateit").bind('rated', rateMeal);
 
         $.connection.enrollmentHub.client.lunchInfoUpdated = updateLunchInfo;
         $.connection.hub.start();
@@ -76,6 +80,15 @@
     function updateLunchInfo(lunchId, enrollments, portions) {
         ViewModels[lunchId].numberOfPortions(portions);
         ViewModels[lunchId].numberOfEnrollments(enrollments);
+    }
+
+    function rateMeal(event, value) {
+        parentContainer = $(this).parents('.lunch-info').last();
+        mealId = parentContainer.attr('meal-id');
+        lunchId = parentContainer.attr('lunch-id');
+        $.post('@Url.Action("RateMeal", "Overview")', { mealId: mealId, value: value }, function (data) {
+            ViewModels[lunchId].mealRating(data.rating);
+        });
     }
 </script>
 
@@ -128,6 +141,17 @@
                         @Html.Partial("EnrollButton", lunch)
                     }
                 </div>
+                @if (Model.IsAfterDeadline(lunch))
+                {
+                    <div class="meal-rating">
+                        <div>Wie hat Ihnen die Mahlzeit geschmeckt?</div>
+                        <div class="rateit" style="float:left" meal-id="@lunch.CookedMealId" 
+                                data-rateit-resetable="false" data-rateit-value="@Model.RatingModel.UserRating(lunch.CookedMealId)" data-rateit-ispreset="true" 
+                                data-rateit-step=1 data-rateit-max=10></div>
+                        <span style="font-family:Times New Roman; font-variant:small-caps; font-weight:bolder">Dur.:</span>
+                        <span class="badge badge-info rating-info" data-bind="text: mealRating">@lunch.CookedMeal.AverageRatingRounded</span>
+                    </div>
+                }
             </div>
 
             <div class="modal hide fade in" id="modal-@lunch.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
@@ -152,8 +176,8 @@
                         @foreach (var variation in lunch.CookedMeal.Variations)
                         {
                             <span title="@(variation.RequiresDeadLine ? "Diese Variation kann nur spätestens 18 Stunden vor dem Mittagessen ausgewählt werden" : "")">
-                                @Html.RadioButton("meal-variation-" + @lunch.Id, 
-                                    variation.Id, 
+                                @Html.RadioButton("meal-variation-" + @lunch.Id,
+                                    variation.Id,
                                     Model.VariationAfterDeadline(lunch, variation) ? new { disabled = "disabled" } : null)
                                 <span style="@(Model.VariationAfterDeadline(lunch, variation) ? "color:grey" : "")">@variation.Name</span>
                             </span>

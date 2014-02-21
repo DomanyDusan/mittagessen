@@ -12,6 +12,8 @@ namespace Mittagessen.Web.Models
 
         public IList<Lunch> Lunches { get; set; }
 
+        public RatingModel RatingModel { get; set; }
+
         public bool EnrolledByUser(Lunch lunch)
         {
             return MyLunches.Contains(lunch.Id);
