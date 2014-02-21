@@ -31,6 +31,10 @@ body .back-div {
     position: fixed; 
 }
 
+.navbar .nav .active > a, .navbar .nav .active > a:hover {
+    background-color: #d8ef90;
+}
+
 .meal {
     height: 325px;
     width:270px;

@@ -163,7 +163,9 @@ namespace Mittagessen.Web.Controllers
                 myMessage.From = new MailAddress("passwordreset@mittagessen.net", "Mittagessen Service");
                 myMessage.Subject = "Mittagessen Passwort zurücksetzen";
                 var passwordResetString = PasswordResetHelper.EncryptString(user.Email);
-                myMessage.Html = string.Format(MAIL_TEMPLATE, passwordResetString);
+                myMessage.Html = string.Format(MAIL_TEMPLATE, 
+                    Url.Action("ResetPassword", "Account", null, Request.Url.Scheme), 
+                    passwordResetString);
 
                 // Create credentials, specifying your user name and password.
                 var credentials = new NetworkCredential(
@@ -221,7 +223,7 @@ für dein Benutzerkonto wurde ein Passwort-Reset angefordert.
 Falls du wünschst dein Passwort zu ändern, fahre bitte unter dem folgenden Link fort. 
 </p>
 <p>
-<a href='https://mittagessen.azurewebsites.net/Account/ResetPassword?request={0}'>https://mittagessen.azurewebsites.net/Account/ResetPassword</a>
+<a href='{0}?request={1}'>{0}</a>
 </p>
 <p>
 Liebe Grüße,

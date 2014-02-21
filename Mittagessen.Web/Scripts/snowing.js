@@ -51,12 +51,12 @@ function randommaker(range) {
 
 function initsnow() {
 	if (ie5 || opera) {
-	    marginbottom = document.body.clientHeight - snowmaxsize;
-	    marginright = document.body.clientWidth - snowmaxsize;
+	    marginbottom = document.body.clientHeight - snowmaxsize - 100;
+	    marginright = document.body.clientWidth - snowmaxsize - 100;
 	}
 	else if (ns6) {
-	    marginbottom = window.innerHeight - snowmaxsize;
-	    marginright = window.innerWidth - snowmaxsize;
+	    marginbottom = window.innerHeight - snowmaxsize - 100;
+	    marginright = window.innerWidth - snowmaxsize - 100;
 	}
     var snowsizerange = snowmaxsize - snowminsize;
 	for (var i=0;i<=snowmax;i++) {

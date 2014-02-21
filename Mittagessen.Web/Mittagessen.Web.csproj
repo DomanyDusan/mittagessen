@@ -142,6 +142,7 @@
     <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
+    <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\Mapper.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\PasswordResetHelper.cs" />

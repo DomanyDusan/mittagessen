@@ -144,7 +144,7 @@
                 @if (Model.IsAfterDeadline(lunch))
                 {
                     <div class="meal-rating">
-                        <div>Wie hat Ihnen die Mahlzeit geschmeckt?</div>
+                        <div style="font-family: Georgia">Wie hat Ihnen die Mahlzeit geschmeckt?</div>
                         <div class="rateit" style="float:left" meal-id="@lunch.CookedMealId" 
                                 data-rateit-resetable="false" data-rateit-value="@Model.RatingModel.UserRating(lunch.CookedMealId)" data-rateit-ispreset="true" 
                                 data-rateit-step=1 data-rateit-max=10></div>

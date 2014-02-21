@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Mittagessen.Web.Helpers
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -27,25 +29,19 @@
                 <div class="navbar-inner">
                     <div class="container">
                         <ul class="nav">
-                            <li>
-                                @Html.ActionLink("Anmeldung", "Index", "Home", new { area="" }, null)
-                            </li>
+                            @Html.MenuLink("Anmeldung", "Index", "Home")
                             @*                            <li>
                                 @Html.ActionLink("Infoseite", "InfoPage", "Home", new { area="" }, null)
                             </li>
-*@                            <li>
-                                  @Html.ActionLink("Gerichte bewerten", "Meals", "Overview", new { area = "" }, null)
-                              </li>
-                            <li>
-                                @Html.ActionLink("Benutzerdaten", "Edit", "User", new { area = "" }, null)
-                            </li>
+*@                          @Html.MenuLink("Gerichte bewerten", "Meals", "Overview")
+                            @Html.MenuLink("Benutzerdaten", "Edit", "User")
                             @if (User != null && User.IsInRole("admin"))
                             {
-                                <li>@Html.ActionLink("Obedy", "Index", "Lunch", new { area = "Sprava" }, null)</li>
-                                <li>@Html.ActionLink("Jedla", "Index", "Meal", new { area = "Sprava" }, null)</li>
-                                <li>@Html.ActionLink("Uzivatelia", "Index", "User", new { area = "Sprava" }, null)</li>
-                                <li>@Html.ActionLink("Maily", "Index", "Notification", new { area = "Sprava" }, null)</li>
-                                <li>@Html.ActionLink("Statistiky", "Index", "Statistics", new { area = "Sprava" }, null)</li>
+                                @Html.MenuLink("Obedy", "Index", "Lunch", "Sprava")
+                                @Html.MenuLink("Jedla", "Index", "Meal", "Sprava")
+                                @Html.MenuLink("Uzivatelia", "Index", "User", "Sprava")
+                                @Html.MenuLink("Maily", "Index", "Notification", "Sprava")
+                                @Html.MenuLink("Statistiky", "Index", "Statistics", "Sprava")
                             }
                         </ul>
                         <ul class="nav pull-right">
