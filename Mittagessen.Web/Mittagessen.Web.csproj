@@ -144,6 +144,7 @@
     <Compile Include="Helpers\ControllerExtensions.cs" />
     <Compile Include="Helpers\Mapper.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
+    <Compile Include="Helpers\PasswordResetHelper.cs" />
     <Compile Include="Hubs\EnrollmentHub.cs" />
     <Compile Include="Infrastructure\Authentication.cs" />
     <Compile Include="Infrastructure\IAuthentication.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="AppStart\IocConfig.cs" />
     <Compile Include="Models\EnrollmentModel.cs" />
     <Compile Include="Models\PasswordChangeModel.cs" />
+    <Compile Include="Models\PasswordResetModel.cs" />
     <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\UserEditModel.cs" />
@@ -261,6 +263,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="README.jQuery.vsdoc.txt" />
+    <Content Include="Scripts\snowing.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1-vsdoc.js" />
@@ -351,6 +354,10 @@
     <Content Include="Views\Home\InfoPage.cshtml" />
     <Content Include="Views\Home\EnrollButton.cshtml" />
     <Content Include="Views\Account\Advertisement.cshtml" />
+    <Content Include="Views\Account\RequestPasswordReset.cshtml" />
+    <Content Include="Views\Account\RequestPasswordResetConfirmation.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\uploads\" />

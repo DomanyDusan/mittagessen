@@ -172,10 +172,10 @@ wir möchten euch auch diese Woche ganz herzlich zum Mittagessen einladen:
 </table>
 </p>
 <p>
-LG,
+Liebe Grüße,
 </p>
 <p>
-Dusan
+Mittagessen Service
 </p>
 </p>";
     }

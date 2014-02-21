@@ -15,6 +15,11 @@ namespace Mittagessen.Data.Repositories
             return Session.Users.SingleOrDefault(u => u.Name == name);
         }
 
+        public User GetUserByEmail(string email)
+        {
+            return Session.Users.SingleOrDefault(u => u.Email == email);
+        }
+
         public User GetUserByNameOrEmail(string nameOrEmail)
         {
             return Session.Users.SingleOrDefault(u => u.Name == nameOrEmail || u.Email == nameOrEmail);

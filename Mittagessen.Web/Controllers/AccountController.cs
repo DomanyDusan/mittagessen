@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -10,6 +12,8 @@ using Mittagessen.Web.Models;
 using System.Configuration;
 using Mittagessen.Data.Entities;
 using Mittagessen.Data.Interfaces;
+using SendGridMail;
+using SendGridMail.Transport;
 using StructureMap.Attributes;
 
 namespace Mittagessen.Web.Controllers
@@ -73,7 +77,11 @@ namespace Mittagessen.Web.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            var user = new LoginModel()
+            {
+                RememberLogin = true
+            };
+            return View(user);
         }
 
         [HttpGet]
@@ -137,5 +145,90 @@ namespace Mittagessen.Web.Controllers
             var thisWeekLunches = LunchRepository.GetLunchesForThisWeek();
             return View(thisWeekLunches);
         }
+
+        [HttpGet]
+        public ActionResult RequestPasswordReset()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RequestPasswordResetConfirmation(string email)
+        {
+            var user = UserRepository.GetUserByNameOrEmail(email);
+            if (user != null)
+            {
+                var myMessage = SendGrid.GetInstance();
+                myMessage.AddTo(user.Email);
+                myMessage.From = new MailAddress("passwordreset@mittagessen.net", "Mittagessen Service");
+                myMessage.Subject = "Mittagessen Passwort zurücksetzen";
+                var passwordResetString = PasswordResetHelper.EncryptString(user.Email);
+                myMessage.Html = string.Format(MAIL_TEMPLATE, passwordResetString);
+
+                // Create credentials, specifying your user name and password.
+                var credentials = new NetworkCredential(
+                    ConfigurationManager.AppSettings["MailLogin"], ConfigurationManager.AppSettings["MailPassword"]);
+
+                // Create an SMTP transport for sending email.
+                var transportSMTP = SMTP.GetInstance(credentials);
+
+                // Send the email.
+                transportSMTP.Deliver(myMessage);
+            }
+            return View("RequestPasswordResetConfirmation", user);
+        }
+
+        [HttpGet]
+        public ActionResult ResetPassword(string request)
+        {
+            var model = new PasswordResetModel()
+            {
+                PasswordResetString = request
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ResetPasswordConfirmation(PasswordResetModel model)
+        {
+            User user = null;
+            try
+            {
+                var userEmail = PasswordResetHelper.DecryptString(model.PasswordResetString);
+                user = UserRepository.GetUserByEmail(userEmail);
+                if (user != null)
+                {
+                    user.Password = PasswordHelper.GeneratePassword(model.NewPassword, user.PasswordSalt);
+                    UserRepository.Update(user);
+                }
+            }
+            catch (Exception)
+            {
+                user = null;
+            }
+
+            return View(user);
+        }
+
+        private const string MAIL_TEMPLATE = @"
+<p>
+Lieber Gast,
+</p>
+<p>
+für dein Benutzerkonto wurde ein Passwort-Reset angefordert.
+</p>
+<p>
+Falls du wünschst dein Passwort zu ändern, fahre bitte unter dem folgenden Link fort. 
+</p>
+<p>
+<a href='https://mittagessen.azurewebsites.net/Account/ResetPassword?request={0}'>https://mittagessen.azurewebsites.net/Account/ResetPassword</a>
+</p>
+<p>
+Liebe Grüße,
+</p>
+<p>
+Mittagessen Service
+</p>
+";
     }
 }

@@ -4,7 +4,7 @@
     Layout = null;
 }
 
-<div style="background-color:#3fefc2;padding:5px; padding-left:30px; border-radius: 15px">
+<div style="background-color:#3fefc2;padding:5px; padding-left:15px; border-radius: 15px">
     <div class="header-text">Login</div>
 
     @using(Html.BeginForm("Login", "Account"))
@@ -15,6 +15,7 @@
             @Html.EditorFor(m => m.RememberLogin)
             @Html.LabelFor(m => m.RememberLogin)
             @Html.ValidationMessageFor(m => m.RememberLogin)
+            @Html.ActionLink("Vergessenes Kennwort?", "RequestPasswordReset", "Account")
         </div>
    
         <div class="form-submit">

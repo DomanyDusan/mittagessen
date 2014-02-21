@@ -9,6 +9,7 @@ namespace Mittagessen.Data.Interfaces
     public interface IUserRepository : ISimpleRepository<User>
     {
         User GetUserByName(string name);
+        User GetUserByEmail(string email);
         User GetUserByNameOrEmail(string nameOrEmail);
         bool UserNameAvailable(string name);
         bool UserNameAvailable(string name, Guid userId);
