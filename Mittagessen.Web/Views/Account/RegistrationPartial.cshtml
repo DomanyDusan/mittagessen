@@ -25,11 +25,11 @@
 
 @using (Html.BeginForm("Registration", "Account", FormMethod.Post, new { id = "registration-form" }))
 {
-@*    <div class="required">
+    <div class="required">
         @Html.LabelFor(m => m.RegistrationPassword)
         @Html.EditorFor(m => m.RegistrationPassword)
         @Html.ValidationMessageFor(m => m.RegistrationPassword)
-    </div>*@
+    </div>
     
     <div class="required">
         @Html.LabelFor(m => m.RegistrationName)
