@@ -97,7 +97,7 @@
 <div style="font-size:18px;font-family:Georgia;text-align:justify;margin-right:10px">
     Die Anmeldung ist jederzeit vor dem Mittagessen möglich, solange es die Anzahl der Portionen ermöglicht. 
     Wenn Sie sich aber frühzeitig eine Portion sichern, helfen Sie uns damit die richtige Menge an Nahrungsmittel zu kaufen und alles ruhig vorzubereiten.
-    @*Weitere Informationen finden Sie @Html.ActionLink("hier", "InfoPage").*@
+    Weitere Informationen finden Sie @Html.ActionLink("hier", "InfoPage").
 </div>
 
 @foreach (var lunch in Model.Lunches)
@@ -141,15 +141,13 @@
                         @Html.Partial("EnrollButton", lunch)
                     }
                 </div>
-                @if (Model.IsAfterDeadline(lunch))
+                @if (Model.IsAfterDeadline(lunch) && Model.EnrolledByUser(lunch))
                 {
                     <div class="meal-rating">
                         <div style="font-family: Georgia">Wie hat Ihnen die Mahlzeit geschmeckt?</div>
                         <div class="rateit" style="float:left" meal-id="@lunch.CookedMealId" 
                                 data-rateit-resetable="false" data-rateit-value="@Model.RatingModel.UserRating(lunch.CookedMealId)" data-rateit-ispreset="true" 
                                 data-rateit-step=1 data-rateit-max=10></div>
-                        <span style="font-family:Times New Roman; font-variant:small-caps; font-weight:bolder">Dur.:</span>
-                        <span class="badge badge-info rating-info" data-bind="text: mealRating">@lunch.CookedMeal.AverageRatingRounded</span>
                     </div>
                 }
             </div>
