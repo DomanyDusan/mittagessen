@@ -332,7 +332,9 @@
     <Content Include="Areas\Sprava\Views\Statistics\Attendance.cshtml" />
     <Content Include="Areas\Sprava\Views\Meal\AddVariation.cshtml" />
     <None Include="db.config" />
-    <None Include="settings.config" />
+    <None Include="settings.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\Somee.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Image.cshtml" />
