@@ -4,4 +4,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("CreatePartial", Model)
+@using (Html.BeginForm("Create", "Lunch", FormMethod.Post))
+{
+    
+    <div>
+        @Html.LabelFor(m => m.LunchDate)
+        @Html.EditorFor(m => m.LunchDate)
+        @Html.ValidationMessageFor(m => m.LunchDate)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.LunchTime)
+        @Html.EditorFor(m => m.LunchTime)
+        @Html.ValidationMessageFor(m => m.LunchTime)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.NumberOfPortions)
+        @Html.EditorFor(m => m.NumberOfPortions)
+        @Html.ValidationMessageFor(m => m.NumberOfPortions)
+    </div>
+   
+    <div>        
+        <a href="#myModal" role="button" class="btn" data-toggle="modal">Vybrat jedlo</a>
+        <span id="cooked-meal-name">@Model.CookedMealName</span>
+        @Html.HiddenFor(x => x.CookedMealId, new { id = "cooked-meal-id" })
+        @Html.ValidationMessageFor(m => m.CookedMealId)
+    </div>
+    
+    
+    <br />
+    <div>
+        <input type="submit" class="btn btn-primary" value="Pridat" />
+    </div>
+}

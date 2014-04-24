@@ -14,33 +14,50 @@
     });
 </script>
 
-<div>
-    @Html.ActionLink("Zmazat", "Delete", new { id = Model.Id }, new { @class="btn btn-danger" })
-</div>
+<div class="span8">
+    <div>
+        @Html.ActionLink("Naplanovat obed", "Create", "Lunch", new { mealId = Model.Id }, new { @class="btn btn-primary" })
+    </div>
 
-<div>
-    @using(Html.BeginForm("Edit", "Meal", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.EditorForModel()
-
-        <input type="submit" class="btn btn-primary" value="Ulozit" />
-    }
-</div>
-
-<div>
-    @Html.Action("AddVariation", new { mealId = Model.Id })
-</div>
-
-<div>
-    <ul id="variation-list">
-        @foreach (var variation in Model.Variations)
+    <div>
+        @using(Html.BeginForm("Edit", "Meal", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <li variation-id="@variation.Id">
-                @Html.CheckBoxFor(m => variation.RequiresDeadLine)
-                @variation.Name 
-                @Html.ActionLink("Zmazat", "RemoveVariation", new { mealId = Model.Id, variationId = variation.Id })
-            </li>
+            @Html.HiddenFor(m => m.Id)
+        
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { style="width:400px" })
+            @Html.ValidationMessageFor(m => m.Name)
+        
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description, new { style = "width:400px;height:200px" })
+            @Html.ValidationMessageFor(m => m.Description)
+
+            @Html.LabelFor(m => m.ImageName)
+            @Html.EditorFor(m => m.ImageName)
+            @Html.ValidationMessageFor(m => m.ImageName)
+
+            <div>
+                <input type="submit" class="btn btn-primary" style="width:150px;height:40px;margin-top:20px" value="Ulozit" />
+            </div>
         }
-    </ul>
+    </div>
 </div>
 
+<div class="span3">
+    <div>
+        @Html.Action("AddVariation", new { mealId = Model.Id })
+    </div>
+
+    <div>
+        <ul id="variation-list">
+            @foreach (var variation in Model.Variations)
+            {
+                <li variation-id="@variation.Id">
+                    @Html.CheckBoxFor(m => variation.RequiresDeadLine)
+                    @variation.Name 
+                    @Html.ActionLink("Zmazat", "RemoveVariation", new { mealId = Model.Id, variationId = variation.Id })
+                </li>
+            }
+        </ul>
+    </div>
+</div>

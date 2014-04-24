@@ -5,9 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using(Html.BeginForm("Create", "Meal", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.EditorForModel()
+    <div>
+        @using(Html.BeginForm("Create", "Meal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.Id)
+        
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { style="width:400px" })
+            @Html.ValidationMessageFor(m => m.Name)
+        
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description, new { style = "width:400px;height:200px" })
+            @Html.ValidationMessageFor(m => m.Description)
 
-    <input type="submit" class="btn btn-primary" value="Ulozit" />
-}
+            @Html.LabelFor(m => m.ImageName)
+            @Html.EditorFor(m => m.ImageName)
+            @Html.ValidationMessageFor(m => m.ImageName)
+
+            <div>
+                <input type="submit" class="btn btn-primary" style="width:150px;height:40px;margin-top:20px" value="Ulozit" />
+            </div>
+        }
+    </div>

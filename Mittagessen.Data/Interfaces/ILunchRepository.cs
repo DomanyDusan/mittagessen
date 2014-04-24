@@ -9,5 +9,6 @@ namespace Mittagessen.Data.Interfaces
     public interface ILunchRepository : ISimpleRepository<Lunch>
     {
         IEnumerable<Lunch> GetLunchesForThisWeek();
+        DateTime NextLunchDate();
     }
 }

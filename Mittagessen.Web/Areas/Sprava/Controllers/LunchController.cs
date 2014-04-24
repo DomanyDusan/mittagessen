@@ -29,9 +29,23 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
+        public ActionResult Create(Guid? mealId = null)
+        {           
+            var lunchModel = new LunchModel()
+            {
+                LunchDate = LunchRepository.NextLunchDate(),
+                LunchTime = TimeSpan.FromHours(12) + TimeSpan.FromMinutes(30),
+                NumberOfPortions = 10
+            };
+
+            if (mealId.HasValue)
+            {
+                var meal = MealRepository.Get(mealId.Value);
+                lunchModel.CookedMealId = meal.Id;
+                lunchModel.CookedMealName = meal.Name;
+            }
+
+            return View(lunchModel);
         }
 
         [HttpGet]
@@ -40,7 +54,7 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         {
             var lunchModel = new LunchModel()
             {
-                LunchDate = DateTime.Today,
+                LunchDate = LunchRepository.NextLunchDate(),
                 LunchTime = TimeSpan.FromHours(12) + TimeSpan.FromMinutes(30),
                 NumberOfPortions = 10
             };

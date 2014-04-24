@@ -28,12 +28,10 @@
                 <div class="navbar-inner">
                     <div class="container">
                         <ul class="nav">
-                            @Html.MenuLink("Anmeldung", "Index", "Home")
-                            <li>
-                                @Html.ActionLink("Infoseite", "InfoPage", "Home", new { area="" }, null)
-                            </li>
-                          @Html.MenuLink("Gerichte bewerten", "Meals", "Overview")
-                            @Html.MenuLink("Benutzerdaten", "Edit", "User")
+                            @Html.MenuLink("Anmeldung", "Index", "Home", "")
+                            @Html.MenuLink("Infoseite", "InfoPage", "Home", "")
+                            @Html.MenuLink("Gerichte bewerten", "Meals", "Overview", "")
+                            @Html.MenuLink("Benutzerdaten", "Edit", "User", "")
                             @if (User != null && User.IsInRole("admin"))
                             {
                                 @Html.MenuLink("Obedy", "Index", "Lunch", "Sprava")
