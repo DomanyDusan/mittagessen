@@ -165,7 +165,7 @@ namespace Mittagessen.Web.Controllers
                 var passwordResetString = PasswordResetHelper.EncryptString(user.Email);
                 myMessage.Html = string.Format(MAIL_TEMPLATE, 
                     Url.Action("ResetPassword", "Account", null, Request.Url.Scheme), 
-                    passwordResetString);
+                    HttpUtility.UrlEncode(passwordResetString));
 
                 // Create credentials, specifying your user name and password.
                 var credentials = new NetworkCredential(
