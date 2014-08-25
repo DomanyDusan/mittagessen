@@ -31,6 +31,34 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
         }
 
         [HttpGet]
+        public ActionResult SendMailAboutTermination()
+        {
+            var emails = UserRepository.GetEmailAddresses();
+
+            var myMessage = SendGrid.GetInstance();
+            myMessage.To = new[] { new MailAddress("einladung@mittagessen.net", "Undisclosed recipients") };
+            foreach (var email in emails)
+            {
+                myMessage.AddBcc(email);
+            }
+
+            AddContentAndSendTermination(myMessage);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult SendMailAboutTerminationTest()
+        {
+            var myMessage = SendGrid.GetInstance();
+            myMessage.AddTo("ddomany@sba-research.org");
+
+            AddContentAndSendTermination(myMessage);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult SendMailAboutLunches()
         {
             var emails = UserRepository.GetEmailAddresses();
@@ -73,6 +101,30 @@ namespace Mittagessen.Web.Areas.Sprava.Controllers
                     lunches[0].CookedMeal.Name, "cid:dienstag.jpg", GetImageUrl(lunches[0].CookedMeal.ImageName),
                     lunches[1].CookedMeal.Name, "cid:mittwoch.jpg", GetImageUrl(lunches[1].CookedMeal.ImageName),
                     lunches[2].CookedMeal.Name, "cid:donnerstag.jpg", GetImageUrl(lunches[2].CookedMeal.ImageName));
+
+                // Create credentials, specifying your user name and password.
+                var credentials = new NetworkCredential(
+                    ConfigurationManager.AppSettings["MailLogin"], ConfigurationManager.AppSettings["MailPassword"]);
+
+                // Create an SMTP transport for sending email.
+                var transportSMTP = SMTP.GetInstance(credentials);
+
+                // Send the email.
+                transportSMTP.Deliver(myMessage);
+            }
+            catch (Exception e)
+            {
+                Logger.FatalException("Email exception occured", e);
+            }
+        }
+
+        private void AddContentAndSendTermination(SendGrid myMessage)
+        {
+            try
+            {
+                myMessage.From = new MailAddress("einladung@mittagessen.net", "Mittagessen Service");
+                myMessage.Subject = "Wichtiger Hinweis!!!";
+                myMessage.Html = TERMINATION_MAIL_TEMPLATE;
 
                 // Create credentials, specifying your user name and password.
                 var credentials = new NetworkCredential(
@@ -178,5 +230,24 @@ Liebe Grüße,
 Mittagessen Service
 </p>
 </p>";
+
+        private const string TERMINATION_MAIL_TEMPLATE = @"
+<p>
+Liebe Gäste,
+</p>
+<p>
+wir möchten euch darüber informieren, dass die Mittagessen nach dem <b>4. September 2014</b> nur gelegentlich stattfinden werden.
+<p>
+Wir möchten uns bei unseren Stammgästen herzlich bedanken und wir hoffen, dass ihr unseren Service in freundlicher Erinnerungen behalten werdet.
+</p>
+</p>
+<p>
+Liebe Grüße,
+</p>
+<p>
+Mittagessen Service
+</p>
+";
+
     }
 }
